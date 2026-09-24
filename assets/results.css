@@ -1,0 +1,654 @@
+/* ============================================================
+   assets/results.css — Results page styles
+   ============================================================ */
+
+.rl-exam-tabs{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:6px;
+  box-shadow:var(--shadow-sm);
+  width:fit-content;
+  max-width:100%;
+  margin-bottom:22px;
+}
+.rl-exam-tabs button{
+  padding:9px 20px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:600;
+  color:#33405A;
+  transition:.2s var(--ease);
+  white-space:nowrap;
+}
+.rl-exam-tabs button:hover{background:var(--primary-50);color:var(--primary)}
+.rl-exam-tabs button.active{
+  background:var(--gold);
+  color:#3B2A00;
+  box-shadow:0 4px 14px rgba(244,185,66,.3);
+}
+
+.rl-search{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:26px 28px;
+  box-shadow:var(--shadow-sm);
+  margin-bottom:32px;
+}
+.rl-search h3{
+  font-size:17px;
+  margin-bottom:6px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.rl-search h3 svg{width:20px;height:20px;color:var(--primary)}
+.rl-search > p{font-size:14px;color:var(--muted);margin-bottom:20px}
+
+.rl-search-row{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:14px;
+  align-items:end;
+}
+.rl-field label{
+  display:block;
+  font-size:12.5px;
+  font-weight:700;
+  color:#33405A;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin-bottom:7px;
+}
+.rl-field input,
+.rl-field select{
+  width:100%;
+  padding:12px 15px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  font:inherit;
+  font-size:14.5px;
+  font-weight:500;
+  transition:.2s var(--ease);
+}
+.rl-field input:focus,
+.rl-field select:focus{
+  outline:none;
+  border-color:var(--primary);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(11,93,59,.1);
+}
+.rl-search-row .btn{height:46px}
+
+.rl-hint{
+  margin-top:14px;
+  font-size:12.5px;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.rl-hint svg{width:14px;height:14px;color:var(--gold-600);flex:none}
+.rl-hint strong{color:var(--primary);font-weight:700}
+
+.rl-result{display:none;max-width:900px;margin:0 auto}
+.rl-result.show{display:block}
+
+.rl-result-head{
+  background:linear-gradient(155deg,var(--primary),var(--primary-800));
+  color:#fff;
+  padding:clamp(24px,3.5vw,38px);
+  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  gap:24px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.rl-result-head::after{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  right:-140px;
+  top:-200px;
+  background:radial-gradient(circle,rgba(244,185,66,.22),transparent 68%);
+}
+.rl-result-head > *{position:relative;z-index:2}
+
+.rl-student-info{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  flex:1;
+  min-width:0;
+}
+.rl-avatar{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  flex:none;
+  background:linear-gradient(140deg,var(--gold),var(--gold-600));
+  color:#3B2A00;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  font-weight:800;
+  box-shadow:0 0 0 5px rgba(255,255,255,.18);
+  overflow:hidden;
+  position:relative;
+}
+.rl-avatar img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:2;
+  border-radius:50%;
+}
+.rl-avatar span{position:relative;z-index:1;line-height:1}
+
+.rl-student-meta{min-width:0;flex:1}
+.rl-student-meta h2{
+  font-size:clamp(18px,2.4vw,24px);
+  margin-bottom:6px;
+  line-height:1.3;
+  word-break:break-word;
+}
+.rl-student-meta .sub{
+  font-size:13.5px;
+  color:rgba(255,255,255,.82);
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+}
+.rl-student-meta .sub b{color:#fff;font-weight:700}
+
+.rl-overall{
+  text-align:center;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:var(--radius);
+  padding:14px 22px;
+  backdrop-filter:blur(6px);
+  min-width:130px;
+}
+.rl-overall small{
+  display:block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.72);
+  margin-bottom:4px;
+}
+.rl-overall strong{
+  font-size:26px;
+  font-weight:800;
+  color:var(--gold);
+  line-height:1.1;
+  display:block;
+}
+.rl-overall .divider{
+  height:1px;
+  background:rgba(255,255,255,.2);
+  margin:8px 0;
+}
+.rl-overall .grade-line{
+  font-size:13px;
+  color:rgba(255,255,255,.9);
+  font-weight:600;
+}
+
+.rl-result-body{
+  background:#fff;
+  border:1px solid var(--border);
+  border-top:0;
+  border-radius:0 0 var(--radius-lg) var(--radius-lg);
+  padding:clamp(24px,3.5vw,36px);
+  box-shadow:var(--shadow);
+}
+
+.rl-exam-meta{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:14px;
+  margin-bottom:28px;
+  padding:16px 20px;
+  background:var(--bg);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+}
+.rl-exam-meta .item label{
+  display:block;
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin-bottom:3px;
+}
+.rl-exam-meta .item p{
+  font-size:15px;
+  font-weight:700;
+  color:var(--text);
+}
+
+.rl-table-wrap{
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  overflow:hidden;
+  margin-bottom:24px;
+}
+.rl-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14.5px;
+}
+.rl-table thead th{
+  background:var(--primary);
+  color:#fff;
+  padding:12px 14px;
+  font-size:13px;
+  font-weight:700;
+  text-align:left;
+  border-right:1px solid rgba(255,255,255,.12);
+  white-space:nowrap;
+}
+.rl-table thead th:last-child{border-right:0}
+.rl-table thead th.num{text-align:right;width:90px}
+.rl-table thead th.grade{text-align:center;width:70px}
+
+.rl-table tbody tr{
+  border-bottom:1px solid var(--border);
+  transition:.15s var(--ease);
+}
+.rl-table tbody tr:last-child{border-bottom:0}
+.rl-table tbody tr:hover{background:var(--primary-50)}
+
+.rl-table td{
+  padding:12px 14px;
+  vertical-align:middle;
+  border-right:1px solid var(--border);
+}
+.rl-table td:last-child{border-right:0}
+
+.rl-table td.subject{font-weight:600;color:var(--text)}
+.rl-table td.subject .code{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  font-weight:500;
+  font-family:'Inter',monospace;
+  margin-top:2px;
+}
+.rl-table td.num{
+  text-align:right;
+  font-family:'Inter',monospace;
+  font-weight:600;
+  color:#33405A;
+}
+.rl-table td.grade{text-align:center}
+
+.rl-grade{
+  display:inline-block;
+  padding:4px 11px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+.rl-grade.a-plus,
+.rl-grade.a      { background:#DCFCE7;color:#166534 }
+.rl-grade.a-minus{ background:#D1FAE5;color:#047857 }
+.rl-grade.b-plus,
+.rl-grade.b      { background:#FEF3C7;color:#92400E }
+.rl-grade.c      { background:#FED7AA;color:#9A3412 }
+.rl-grade.d      { background:#FECACA;color:#991B1B }
+.rl-grade.f      { background:#FEE2E2;color:#7F1D1D }
+
+.rl-summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:14px;
+  padding:18px 22px;
+  background:linear-gradient(135deg,var(--primary-50),#fff);
+  border-radius:var(--radius);
+  border:1px dashed var(--primary-100);
+  margin-bottom:24px;
+}
+.rl-summary .item label{
+  display:block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--muted);
+  font-weight:700;
+  margin-bottom:3px;
+}
+.rl-summary .item p{
+  font-size:19px;
+  font-weight:800;
+  color:var(--primary-800);
+  line-height:1.2;
+  font-family:'Inter',sans-serif;
+}
+.rl-summary .item p small{
+  font-size:13px;
+  font-weight:600;
+  color:var(--muted);
+  margin-left:3px;
+  font-family:'Noto Sans Bengali',sans-serif;
+}
+
+.rl-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+}
+
+/* Signature block — hidden on screen, shown only in print */
+.rl-signature{
+  display:none;            /* change to flex in print block below */
+  justify-content:space-between;
+  gap:60px;
+  margin-top:44px;
+  padding-top:8px;
+}
+.rl-signature .sig-block{
+  width:220px;
+  text-align:left;
+}
+.rl-signature .sig-line{
+  border-top:1.5px solid #333;
+  margin-bottom:6px;
+  height:36px;
+}
+.rl-signature .sig-label{
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:#33405A;
+  margin-bottom:2px;
+}
+.rl-signature .sig-name{
+  font-size:12.5px;
+  color:#000;
+  font-weight:600;
+}
+
+.rl-error{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:56px 24px;
+  text-align:center;
+  max-width:640px;
+  margin:0 auto;
+  box-shadow:var(--shadow-sm);
+}
+.rl-error svg{
+  width:56px;
+  height:56px;
+  color:var(--muted);
+  opacity:.35;
+  margin:0 auto 16px;
+}
+.rl-error h3{font-size:18px;margin-bottom:6px}
+.rl-error p{color:var(--muted);font-size:14.5px}
+
+.rl-print-head{
+  display:none;
+  margin-bottom:20px;
+  text-align:center;
+}
+.rl-print-head h1{
+  font-size:20px;
+  color:var(--primary-800);
+  margin-bottom:6px;
+  letter-spacing:-.01em;
+}
+.rl-print-head .sub{
+  font-size:14px;
+  color:#33405A;
+  font-weight:600;
+}
+
+@media print{
+  @page{ size:A4 portrait; margin:25mm 12mm 12mm 12mm; }
+
+  /* ---------- Page background ---------- */
+  html, body{
+    background:#fff !important;
+  }
+
+  /* ---------- Hide everything that isn't the result ---------- */
+  .topbar,
+  .nav-bar,
+  .footer,
+  .to-top,
+  .skip-link,
+  .page-hero,
+  .rl-exam-tabs,
+  .class-tabs,
+  .rl-search,
+  .rl-actions,
+  .rl-hint,
+  .section-head,
+  .eyebrow,
+  .card-grid,
+  .callout{
+    display:none !important;
+  }
+
+  /* Hide the "Help" section entirely (the second <section>) */
+  section.section-alt{
+    display:none !important;
+  }
+
+  /* ---------- Reset the container so the result starts at the top ---------- */
+  .container{
+    max-width:100% !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
+  .section{
+    padding:0 !important;
+    margin:0 !important;
+  }
+
+  /* ---------- Reveal any hidden sections ---------- */
+  .reveal{
+    opacity:1 !important;
+    transform:none !important;
+  }
+
+   /* ---------- Result card ---------- */
+  .rl-result{
+    display:block !important;
+    max-width:100% !important;
+    margin:0 !important;
+    padding:25mm 0 0 0 !important;
+  }
+
+  /* Print-only header */
+  .rl-print-head{
+    display:block !important;
+    margin-bottom:12px !important;
+    text-align:center !important;
+  }
+  .rl-print-head h1{
+    font-size:16px !important;
+    color:#0B5D3B !important;
+    margin-bottom:4px !important;
+  }
+  .rl-print-head .sub{
+    font-size:12px !important;
+    color:#33405A !important;
+    font-weight:600 !important;
+  }
+
+  /* Result header */
+  .rl-result-head{
+    background:#0B5D3B !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+    border-radius:0 !important;
+    padding:14px 18px !important;
+    gap:14px !important;
+  }
+  .rl-result-head::after{ display:none !important; }
+  .rl-avatar{
+    width:60px !important;
+    height:60px !important;
+    font-size:20px !important;
+    box-shadow:0 0 0 4px rgba(255,255,255,.18) !important;
+  }
+  .rl-student-meta h2{
+    font-size:16px !important;
+    margin-bottom:4px !important;
+  }
+  .rl-student-meta .sub{ font-size:11px !important; }
+  .rl-overall{
+    padding:10px 14px !important;
+    min-width:110px !important;
+    background:#0A5334 !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+  .rl-overall small{ font-size:9.5px !important; }
+  .rl-overall strong{ font-size:20px !important; }
+  .rl-overall .grade-line{ font-size:11px !important; }
+
+  /* Result body */
+  .rl-result-body{
+    border:1px solid #333 !important;
+    border-top:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    padding:14px 18px !important;
+  }
+
+  /* Exam meta */
+  .rl-exam-meta{
+    padding:10px 12px !important;
+    background:#EFEFEF !important;
+    border:1px solid #666 !important;
+    gap:10px !important;
+    margin-bottom:16px !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+  .rl-exam-meta .item label{ font-size:9.5px !important; }
+  .rl-exam-meta .item p{ font-size:12.5px !important; }
+
+  /* Marks table */
+  .rl-table-wrap{
+    border:1px solid #333 !important;
+    border-radius:0 !important;
+    margin-bottom:16px !important;
+  }
+  .rl-table{ font-size:11.5px !important; }
+  .rl-table thead th{
+    background:#0B5D3B !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+    padding:8px 10px !important;
+    font-size:11px !important;
+  }
+  .rl-table td{
+    padding:8px 10px !important;
+    font-size:11.5px !important;
+    border-color:#999 !important;
+  }
+  .rl-table tbody tr:hover{ background:transparent !important; }
+  .rl-table td.subject .code{ font-size:9.5px !important; }
+  .rl-grade{
+    font-size:10.5px !important;
+    padding:3px 8px !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+
+  /* Summary block */
+  .rl-summary{
+    background:#EFEFEF !important;
+    border:1px solid #666 !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+    padding:10px 12px !important;
+    gap:10px !important;
+    margin-bottom:0 !important;
+  }
+  .rl-summary .item label{ font-size:9.5px !important; }
+  .rl-summary .item p{ font-size:14px !important; color:#000 !important; }
+  .rl-summary .item p small{ font-size:11px !important; }
+
+  /* Signature block — visible in print */
+    .rl-signature{
+    display:flex !important;
+    justify-content:space-between !important;
+    gap:60px !important;
+    margin-top:44px !important;
+    padding-top:8px !important;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+ .rl-signature .sig-block{
+  width:220px;
+  text-align:left;
+}
+  }
+  .rl-signature .sig-line{
+    border-top:1.5px solid #333 !important;
+    margin-bottom:6px !important;
+    height:36px !important;
+  }
+  .rl-signature .sig-label{
+    font-size:10.5px !important;
+    font-weight:700 !important;
+    text-transform:uppercase !important;
+    letter-spacing:.06em !important;
+    color:#33405A !important;
+    margin-bottom:2px !important;
+  }
+  .rl-signature .sig-name{
+    font-size:12px !important;
+    color:#000 !important;
+    font-weight:600 !important;
+  }
+
+  /* Page breaks */
+  .rl-result-head,
+  .rl-exam-meta,
+  .rl-table thead,
+  .rl-table tr{
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+}
+@media (max-width:760px){
+  .rl-search-row{grid-template-columns:1fr}
+  .rl-search-row .btn{width:100%}
+  .rl-result-head{padding:22px;flex-direction:column;align-items:stretch;text-align:center}
+  .rl-student-info{justify-content:center;flex-direction:column;text-align:center}
+  .rl-student-meta .sub{justify-content:center}
+  .rl-overall{width:100%}
+  .rl-actions .btn{width:100%}
+  .rl-table{font-size:13.5px}
+  .rl-table thead th,
+  .rl-table td{padding:10px 10px}
+}

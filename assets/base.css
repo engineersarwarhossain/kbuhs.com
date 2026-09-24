@@ -1,0 +1,671 @@
+/* ============================================================
+   KOLA BAZAR UNITED HIGH SCHOOL
+   assets/base.css
+   ------------------------------------------------------------
+   Shared across EVERY page. Contains only:
+     - Design tokens
+     - Reset / base typography
+     - Layout helpers (.container, .section)
+     - Buttons
+     - Top bar + language switch
+     - Navbar
+     - Page hero + breadcrumb
+     - Footer
+     - Back-to-top
+     - Reveal animation
+     - Responsive breakpoints shared by all pages
+   ------------------------------------------------------------
+   Do NOT put page-specific styles here. Those live in:
+     home.css, teachers.css, students.css, pages.css
+   ============================================================ */
+
+/* ============================================================
+   1. DESIGN TOKENS
+   ============================================================ */
+:root{
+  --primary:#0B5D3B;
+  --primary-600:#0A5334;
+  --primary-800:#073A25;
+  --primary-900:#052A1B;
+  --primary-50:#E9F3EE;
+  --primary-100:#D3E7DD;
+
+  --gold:#F4B942;
+  --gold-600:#D89A1C;
+  --gold-50:#FEF6E4;
+
+  --bg:#F8FAFC;
+  --white:#FFFFFF;
+  --text:#172033;
+  --muted:#5B6579;
+  --border:#E4E9F0;
+
+  --radius-sm:10px;
+  --radius:16px;
+  --radius-lg:24px;
+
+  --shadow-sm:0 1px 2px rgba(7,58,37,.06), 0 2px 8px rgba(7,58,37,.05);
+  --shadow:0 4px 14px rgba(7,58,37,.08), 0 12px 32px rgba(7,58,37,.07);
+  --shadow-lg:0 18px 50px rgba(7,58,37,.16);
+
+  --container:1200px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+
+/* ============================================================
+   2. RESET / BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  font-family:'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.75;
+  font-size:16px;
+  overflow-x:hidden;
+}
+
+body.lang-en{
+  font-family:'Inter', system-ui, -apple-system, sans-serif;
+  line-height:1.7;
+}
+
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+ul{list-style:none}
+h1,h2,h3,h4{line-height:1.3;font-weight:700;letter-spacing:-.01em}
+
+:focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:2px;
+  border-radius:4px;
+}
+
+section[id]{scroll-margin-top:96px}
+
+/* ============================================================
+   3. LAYOUT HELPERS
+   ============================================================ */
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin-inline:auto;
+  padding-inline:20px;
+}
+
+.section{
+  padding:clamp(48px,5.5vw,80px) 0;
+}
+
+.section-alt{
+  background:#fff;
+}
+
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--primary);color:#fff;
+  padding:10px 18px;border-radius:0 0 10px 0;
+}
+.skip-link:focus{left:0}
+
+/* Section heading pattern */
+.section-head{
+  max-width:720px;
+  margin:0 auto clamp(32px,4.5vw,52px);
+  text-align:center;
+}
+.section-head h2{
+  font-size:clamp(24px,3vw,36px);
+  margin-bottom:12px;
+}
+.section-head p{
+  color:var(--muted);
+  font-size:clamp(15px,1.6vw,17px);
+}
+.section-head.left{
+  margin-inline:0;
+  text-align:left;
+}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--primary);background:var(--primary-50);
+  padding:6px 14px;border-radius:999px;
+  margin-bottom:14px;
+}
+.eyebrow::before{
+  content:"";width:6px;height:6px;
+  border-radius:50%;background:var(--gold);
+}
+
+.accent{color:var(--primary)}
+.accent-gold{color:var(--gold-600)}
+
+/* ============================================================
+   4. BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:13px 26px;border-radius:999px;
+  font-weight:600;font-size:15px;
+  transition:transform .2s var(--ease),
+             box-shadow .2s var(--ease),
+             background .2s var(--ease),
+             color .2s var(--ease);
+  white-space:nowrap;
+}
+.btn svg{width:18px;height:18px;flex:none}
+
+.btn-primary{
+  background:var(--primary);color:#fff;
+  box-shadow:0 6px 18px rgba(11,93,59,.28);
+}
+.btn-primary:hover{
+  background:var(--primary-600);
+  transform:translateY(-2px);
+  box-shadow:0 10px 26px rgba(11,93,59,.34);
+}
+
+.btn-gold{
+  background:var(--gold);color:#3B2A00;
+  box-shadow:0 6px 18px rgba(244,185,66,.35);
+}
+.btn-gold:hover{
+  background:var(--gold-600);color:#fff;
+  transform:translateY(-2px);
+}
+
+.btn-outline{
+  border:1.5px solid rgba(255,255,255,.45);color:#fff;
+}
+.btn-outline:hover{
+  background:rgba(255,255,255,.14);
+  border-color:#fff;
+  transform:translateY(-2px);
+}
+
+.btn-ghost{
+  border:1.5px solid var(--border);
+  color:var(--text);background:#fff;
+}
+.btn-ghost:hover{
+  border-color:var(--primary);
+  color:var(--primary);
+}
+
+.btn-sm{padding:9px 18px;font-size:14px}
+
+/* ============================================================
+   5. TOP BAR
+   ============================================================ */
+.topbar{
+  background:var(--primary-900);
+  color:rgba(255,255,255,.82);
+  font-size:13px;
+}
+.topbar-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;min-height:42px;flex-wrap:wrap;
+}
+.topbar-info{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.topbar-info a{
+  display:inline-flex;align-items:center;gap:6px;
+  transition:color .2s;
+}
+.topbar-info a:hover{color:var(--gold)}
+.topbar-info svg{width:14px;height:14px;opacity:.75}
+.sep{width:1px;height:14px;background:rgba(255,255,255,.2)}
+
+.lang-switch{
+  display:inline-flex;
+  background:rgba(255,255,255,.1);
+  border-radius:999px;padding:3px;gap:2px;
+}
+.lang-switch button{
+  padding:4px 15px;border-radius:999px;
+  font-size:12.5px;font-weight:600;
+  color:rgba(255,255,255,.8);
+  transition:.2s var(--ease);
+}
+.lang-switch button.active{
+  background:var(--gold);color:#3B2A00;
+}
+
+/* ============================================================
+   6. NAVBAR (with dropdown menus)
+   ============================================================ */
+.nav-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .25s var(--ease);
+}
+.nav-bar.scrolled{
+  box-shadow:0 6px 24px rgba(7,58,37,.09);
+}
+
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;min-height:76px;
+}
+
+.brand{
+  display:flex;align-items:center;gap:12px;flex:none;
+}
+
+/* ROUND LOGO */
+.logo-mark{
+  width:48px;height:48px;flex:none;
+  border-radius:50%;
+  background:linear-gradient(140deg,var(--primary),var(--primary-800));
+  color:var(--gold);
+  display:grid;place-items:center;
+  box-shadow:0 6px 16px rgba(11,93,59,.28);
+  overflow:hidden;
+}
+.logo-mark svg{width:26px;height:26px}
+.logo-mark img{
+  width:100%;height:100%;
+  object-fit:cover;
+  border-radius:50%;
+  display:block;
+}
+
+.brand-text{display:flex;flex-direction:column;line-height:1.25}
+.brand-text strong{
+  font-size:16.5px;font-weight:700;
+  color:var(--primary-800);letter-spacing:-.01em;
+}
+.brand-text small{
+  font-size:11.5px;color:var(--muted);font-weight:500;
+}
+
+/* ---- NAV MENU ---- */
+.nav-menu{display:flex;align-items:center;gap:4px}
+
+.nav-item{position:relative}
+
+.nav-menu .nav-link{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:9px 14px;border-radius:10px;
+  font-size:15px;font-weight:600;color:#33405A;
+  transition:.2s var(--ease);
+  position:relative;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.nav-menu .nav-link:hover{
+  color:var(--primary);background:var(--primary-50);
+}
+.nav-menu .nav-link.active{color:var(--primary)}
+.nav-menu .nav-link.active::after{
+  content:"";position:absolute;
+  left:14px;right:14px;bottom:2px;
+  height:2.5px;border-radius:2px;
+  background:var(--gold);
+}
+
+/* Chevron for items that have children */
+.nav-link.has-children::before{
+  content:"";order:2;
+  width:8px;height:8px;
+  border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor;
+  transform:rotate(45deg) translate(-2px,-2px);
+  transition:transform .25s var(--ease);
+  opacity:.7;
+}
+.nav-item.open > .nav-link.has-children::before{
+  transform:rotate(-135deg) translate(-2px,-2px);
+}
+
+/* ---- DROPDOWN PANEL ---- */
+.dropdown{
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  min-width:230px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);
+  padding:8px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-6px);
+  transition:opacity .18s var(--ease),
+             transform .18s var(--ease),
+             visibility .18s var(--ease);
+  z-index:60;
+}
+
+/* A little invisible bridge so hover doesn't drop between button and panel */
+.dropdown::before{
+  content:"";position:absolute;
+  top:-10px;left:0;right:0;height:10px;
+}
+
+/* Open on hover (desktop) and on .open (JS/touch) */
+.nav-item:hover > .dropdown,
+.nav-item.open > .dropdown{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+
+.dropdown a{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+  padding:10px 14px;
+  border-radius:8px;
+  font-size:14.5px;font-weight:500;
+  color:#33405A;
+  transition:.15s var(--ease);
+}
+.dropdown a:hover{
+  background:var(--primary-50);
+  color:var(--primary);
+}
+.dropdown a.active{
+  color:var(--primary);font-weight:600;
+  background:var(--primary-50);
+}
+.dropdown a svg{
+  width:14px;height:14px;flex:none;
+  opacity:.45;
+}
+.dropdown a:hover svg{opacity:1}
+
+/* Right-align dropdowns that would overflow on the right edge */
+.nav-item:nth-last-child(-n+2) .dropdown{
+  left:auto;right:0;
+}
+
+/* ---- NAV ACTIONS (Apply button + hamburger) ---- */
+.nav-actions{display:flex;align-items:center;gap:10px}
+
+.menu-toggle{
+  display:none;width:44px;height:44px;
+  border-radius:12px;border:1px solid var(--border);
+  flex-direction:column;align-items:center;justify-content:center;gap:5px;
+}
+.menu-toggle span{
+  display:block;width:20px;height:2px;border-radius:2px;
+  background:var(--primary-800);
+  transition:.25s var(--ease);
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(1){
+  transform:translateY(7px) rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-toggle[aria-expanded="true"] span:nth-child(3){
+  transform:translateY(-7px) rotate(-45deg);
+}
+
+/* ---- MOBILE DROPDOWNS (inside the burger menu) ---- */
+@media (max-width:900px){
+  .nav-menu .nav-link{
+    padding:12px 14px;font-size:15.5px;
+    justify-content:space-between;
+  }
+  .nav-menu .nav-link.active::after{display:none}
+  .nav-menu .nav-link.active{background:var(--primary-50)}
+
+  .nav-link.has-children::before{margin-left:auto}
+
+  .dropdown{
+    position:static;
+    opacity:1;visibility:visible;transform:none;
+    box-shadow:none;
+    border:0;
+    border-left:3px solid var(--primary-50);
+    border-radius:0;
+    padding:4px 0 4px 12px;
+    margin:0 0 6px 8px;
+    min-width:0;
+    display:none;
+  }
+  .nav-item.open > .dropdown{display:block}
+  .dropdown::before{display:none}
+
+  .dropdown a{padding:9px 12px;font-size:14.5px}
+}
+
+/* ============================================================
+   7. PAGE HERO + BREADCRUMB  (used by every non-home page)
+   ============================================================ */
+.page-hero{
+  position:relative;overflow:hidden;color:#fff;
+  padding:clamp(44px,5.5vw,76px) 0 clamp(38px,4.5vw,60px);
+  background:
+    radial-gradient(900px 500px at 88% 8%,rgba(244,185,66,.20),transparent 62%),
+    linear-gradient(150deg,#0B5D3B 0%,#073A25 55%,#052A1B 100%);
+}
+.page-hero::after{
+  content:"";position:absolute;inset:0;
+  pointer-events:none;opacity:.35;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(circle at 70% 30%,#000 0%,transparent 72%);
+}
+.page-hero .container{position:relative;z-index:2}
+
+.breadcrumb{
+  display:flex;align-items:center;gap:9px;
+  font-size:13.5px;color:rgba(255,255,255,.7);
+  margin-bottom:18px;flex-wrap:wrap;
+}
+.breadcrumb a{transition:.2s}
+.breadcrumb a:hover{color:var(--gold)}
+.breadcrumb .slash{opacity:.45}
+.breadcrumb .current{color:#fff;font-weight:600}
+
+.page-hero h1{
+  font-size:clamp(28px,4vw,44px);
+  margin-bottom:12px;
+}
+.page-hero p.lead{
+  font-size:clamp(15px,1.6vw,17px);
+  color:rgba(255,255,255,.8);
+  max-width:680px;
+}
+
+.hero-stats{
+  display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;
+}
+.hero-stats > div{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:14px;padding:12px 20px;
+  backdrop-filter:blur(6px);min-width:130px;
+}
+.hero-stats strong{
+  display:block;font-size:26px;font-weight:800;
+  color:var(--gold);line-height:1.1;
+}
+.hero-stats span{
+  font-size:12.5px;color:rgba(255,255,255,.75);
+}
+
+/* ============================================================
+   8. FOOTER
+   ============================================================ */
+.footer{
+  background:var(--primary-900);
+  color:rgba(255,255,255,.72);
+  padding:clamp(48px,6vw,72px) 0 0;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1.2fr;
+  gap:36px;padding-bottom:44px;
+}
+.footer h4{
+  color:#fff;font-size:15.5px;
+  margin-bottom:18px;font-weight:700;
+}
+.footer p{font-size:14px;line-height:1.8}
+.footer .brand-text strong{color:#fff}
+.footer .brand-text small{color:rgba(255,255,255,.55)}
+.footer-brand{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:16px;
+}
+
+.footer-links{display:grid;gap:10px}
+.footer-links a{
+  font-size:14px;transition:.2s var(--ease);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.footer-links a:hover{
+  color:var(--gold);transform:translateX(3px);
+}
+.footer-links a::before{
+  content:"";width:5px;height:5px;
+  border-radius:50%;background:var(--gold);opacity:.5;
+}
+
+.footer-contact li{
+  display:flex;gap:10px;font-size:14px;
+  margin-bottom:12px;align-items:flex-start;
+}
+.footer-contact svg{
+  width:17px;height:17px;flex:none;
+  color:var(--gold);margin-top:4px;
+}
+
+.socials{display:flex;gap:10px;margin-top:20px}
+.socials a{
+  width:38px;height:38px;border-radius:11px;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.08);
+  transition:.25s var(--ease);
+}
+.socials a:hover{
+  background:var(--gold);color:#3B2A00;
+  transform:translateY(-3px);
+}
+.socials svg{width:18px;height:18px}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.1);
+  padding:22px 0;
+  display:flex;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;font-size:13.5px;
+}
+.footer-bottom a:hover{color:var(--gold)}
+
+/* ============================================================
+   9. BACK TO TOP
+   ============================================================ */
+.to-top{
+  position:fixed;right:22px;bottom:22px;z-index:90;
+  width:48px;height:48px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--primary);color:#fff;
+  box-shadow:var(--shadow-lg);
+  opacity:0;visibility:hidden;
+  transform:translateY(14px);
+  transition:.3s var(--ease);
+}
+.to-top.show{
+  opacity:1;visibility:visible;transform:translateY(0);
+}
+.to-top:hover{background:var(--gold);color:#3B2A00}
+.to-top svg{width:20px;height:20px}
+
+/* ============================================================
+   10. REVEAL-ON-SCROLL
+   ============================================================ */
+.reveal{
+  opacity:0;transform:translateY(24px);
+  transition:opacity .7s var(--ease),
+             transform .7s var(--ease);
+}
+.reveal.in{opacity:1;transform:none}
+
+/* ============================================================
+   11. EMPTY STATE  (shared by many list pages)
+   ============================================================ */
+.empty-state{
+  display:none;text-align:center;
+  padding:64px 24px;background:#fff;
+  border:1px dashed var(--border);
+  border-radius:var(--radius-lg);
+}
+.empty-state.show{display:block}
+.empty-state svg{
+  width:56px;height:56px;color:var(--muted);
+  opacity:.35;margin:0 auto 16px;
+}
+.empty-state h3{font-size:18px;margin-bottom:6px}
+.empty-state p{color:var(--muted);font-size:14.5px}
+
+/* ============================================================
+   12. RESPONSIVE (shared breakpoints only)
+   ============================================================ */
+@media (max-width:1080px){
+  .nav-menu a{padding:9px 10px;font-size:14.5px}
+  .brand-text strong{font-size:15px}
+}
+
+@media (max-width:980px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+
+@media (max-width:900px){
+  .nav-menu{
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:2px;
+    padding:14px 20px 22px;background:#fff;
+    border-bottom:1px solid var(--border);
+    box-shadow:0 20px 34px rgba(7,58,37,.13);
+    display:none;
+  }
+  .nav-menu.open{display:flex}
+  .nav-menu a{padding:12px 14px;font-size:15.5px}
+  .nav-menu a.active::after{display:none}
+  .nav-menu a.active{background:var(--primary-50)}
+  .menu-toggle{display:flex}
+  .nav-actions .btn{display:none}
+}
+
+@media (max-width:760px){
+  .topbar-inner{
+    justify-content:center;padding-block:8px;gap:10px;
+  }
+  .topbar-info .hide-sm{display:none}
+  .footer-grid{grid-template-columns:1fr}
+}
+
+@media (max-width:480px){
+  .hero-stats > div{min-width:0;flex:1 1 40%}
+  .brand-text small{display:none}
+}
+
+/* ============================================================
+   13. ACCESSIBILITY
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
