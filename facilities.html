@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>সুবিধাসমূহ | Facilities — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়ের সুবিধাসমূহ — গ্রন্থাগার, বিজ্ঞানাগার, কম্পিউটার ল্যাব, খেলার মাঠ ও আরও।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/pages.css">
+
+<style>
+/* ============================================================
+   FACILITIES PAGE — page-specific styles
+   ============================================================ */
+
+/* Facility detail card */
+.fa-card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(24px,3.5vw,48px);
+  align-items:center;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  margin-bottom:28px;
+  transition:.3s var(--ease);
+}
+.fa-card:hover{
+  box-shadow:var(--shadow);
+  border-color:var(--primary-100);
+}
+.fa-card:nth-child(even){
+  grid-template-columns:1fr 1fr;
+  direction:rtl;
+}
+.fa-card:nth-child(even) > *{
+  direction:ltr;
+}
+html[lang="bn"] .fa-card:nth-child(even),
+body.lang-en .fa-card:nth-child(even){
+  /* RTL swap works cleanly for both languages */
+}
+
+/* Media side */
+.fa-media{
+  position:relative;
+  aspect-ratio:4/3;
+  background:linear-gradient(140deg,var(--primary-50),#fff);
+  overflow:hidden;
+}
+.fa-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.fa-media .placeholder{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(244,185,66,.24), transparent 60%),
+    linear-gradient(140deg,var(--primary),var(--primary-800));
+}
+.fa-media .placeholder svg{
+  width:38%;
+  height:38%;
+  color:rgba(255,255,255,.85);
+  opacity:.9;
+}
+.fa-media .badge{
+  position:absolute;
+  top:18px;
+  left:18px;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(6px);
+  color:var(--primary);
+  font-size:12px;
+  font-weight:800;
+  padding:6px 14px;
+  border-radius:999px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+/* Content side */
+.fa-content{
+  padding:clamp(24px,3.5vw,40px);
+}
+.fa-content .eyebrow{margin-bottom:12px}
+.fa-content h2{
+  font-size:clamp(22px,2.8vw,32px);
+  margin-bottom:14px;
+  color:var(--text);
+  line-height:1.25;
+}
+.fa-content > p{
+  color:var(--muted);
+  font-size:15.5px;
+  margin-bottom:20px;
+  line-height:1.75;
+}
+
+/* Features list */
+.fa-features{
+  display:grid;
+  gap:10px;
+  margin-bottom:22px;
+}
+.fa-features li{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  font-size:14.5px;
+  color:#33405A;
+  line-height:1.55;
+}
+.fa-features li svg{
+  width:18px;
+  height:18px;
+  flex:none;
+  color:var(--primary);
+  margin-top:3px;
+}
+
+/* Stats row under features */
+.fa-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  padding-top:18px;
+  border-top:1px solid var(--border);
+}
+.fa-stats .item{
+  flex:1 1 100px;
+  min-width:100px;
+}
+.fa-stats .item strong{
+  display:block;
+  font-size:22px;
+  font-weight:800;
+  color:var(--primary);
+  line-height:1.1;
+  margin-bottom:2px;
+  font-family:'Inter',sans-serif;
+}
+body:not(.lang-en) .fa-stats .item strong{
+  font-family:'Noto Sans Bengali',sans-serif;
+  font-size:20px;
+}
+.fa-stats .item span{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+/* Overview tiles at top */
+.fa-overview{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;
+  margin-bottom:44px;
+}
+.fa-overview .tile{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px 18px;
+  text-align:center;
+  transition:.25s var(--ease);
+}
+.fa-overview .tile:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-sm);
+  border-color:var(--primary-100);
+}
+.fa-overview .tile .ico{
+  width:46px;
+  height:46px;
+  border-radius:13px;
+  background:var(--primary-50);
+  color:var(--primary);
+  display:grid;
+  place-items:center;
+  margin:0 auto 12px;
+}
+.fa-overview .tile .ico svg{width:22px;height:22px}
+.fa-overview .tile strong{
+  display:block;
+  font-size:22px;
+  font-weight:800;
+  color:var(--primary);
+  line-height:1.1;
+  margin-bottom:4px;
+  font-family:'Inter',sans-serif;
+}
+body:not(.lang-en) .fa-overview .tile strong{
+  font-family:'Noto Sans Bengali',sans-serif;
+}
+.fa-overview .tile span{
+  font-size:13px;
+  color:var(--muted);
+  font-weight:600;
+}
+
+/* Print header */
+.fa-print-head{
+  display:none;
+  margin-bottom:20px;
+  text-align:center;
+}
+.fa-print-head h1{
+  font-size:20px;
+  color:var(--primary-800);
+  margin-bottom:6px;
+}
+.fa-print-head .sub{
+  font-size:14px;
+  color:#33405A;
+  font-weight:600;
+}
+
+/* ---------- Print ---------- */
+@media print{
+  @page{ size:A4 portrait; margin:12mm; }
+
+  body{background:#fff !important}
+  .topbar,
+  .nav-bar,
+  .footer,
+  .to-top,
+  .skip-link,
+  .page-hero{display:none !important}
+
+  .reveal{opacity:1 !important; transform:none !important}
+  .fa-print-head{display:block !important}
+
+  .container{max-width:100%; padding:0}
+  .section{padding:0}
+  .section-alt{background:#fff !important}
+
+  .fa-card{
+    grid-template-columns:1fr !important;
+    border:1px solid #666 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    page-break-inside:avoid;
+    break-inside:avoid;
+    margin-bottom:14px;
+    direction:ltr !important;
+  }
+  .fa-card > *{direction:ltr !important}
+  .fa-media{aspect-ratio:16/9 !important; max-height:200px}
+
+  .fa-content{padding:14px 18px !important}
+  .fa-content h2{font-size:16px}
+  .fa-content > p{font-size:12px}
+  .fa-features li{font-size:12px}
+  .fa-features li svg{width:14px; height:14px}
+
+  .fa-stats{padding-top:10px; gap:8px}
+  .fa-stats .item strong{font-size:16px}
+  .fa-stats .item span{font-size:10px}
+
+  .fa-overview{
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:8px !important;
+  }
+  .fa-overview .tile{padding:10px 8px}
+  .fa-overview .tile .ico{width:34px; height:34px; margin-bottom:6px}
+  .fa-overview .tile .ico svg{width:16px; height:16px}
+  .fa-overview .tile strong{font-size:16px}
+  .fa-overview .tile span{font-size:11px}
+}
+
+@media (max-width:900px){
+  .fa-card,
+  .fa-card:nth-child(even){
+    grid-template-columns:1fr !important;
+    direction:ltr !important;
+  }
+  .fa-card > *{direction:ltr !important}
+}
+@media (max-width:760px){
+  .fa-overview{grid-template-columns:repeat(2,1fr)}
+  .fa-content{padding:22px}
+}
+@media (max-width:480px){
+  .fa-overview{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body data-page="about">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<!-- ================= PAGE HERO ================= -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <a href="about.html" data-bn="আমাদের সম্পর্কে" data-en="About">আমাদের সম্পর্কে</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="সুবিধাসমূহ" data-en="Facilities">সুবিধাসমূহ</span>
+    </nav>
+
+    <h1 data-bn="আমাদের সুবিধাসমূহ" data-en="Our Facilities">আমাদের সুবিধাসমূহ</h1>
+    <p class="lead"
+       data-bn="সমৃদ্ধ গ্রন্থাগার থেকে আধুনিক বিজ্ঞানাগার — প্রতিটি শিক্ষার্থীর পূর্ণ বিকাশে প্রয়োজনীয় সব সুবিধা এক ক্যাম্পাসে।"
+       data-en="From a rich library to modern science labs — every facility needed for a student's holistic development, on one campus.">
+      সমৃদ্ধ গ্রন্থাগার থেকে আধুনিক বিজ্ঞানাগার — প্রতিটি শিক্ষার্থীর পূর্ণ বিকাশে প্রয়োজনীয় সব সুবিধা এক ক্যাম্পাসে।
+    </p>
+
+    <div class="hero-stats">
+      <div>
+        <strong data-bn="৩" data-en="3">৩</strong>
+        <span data-bn="বিজ্ঞান ল্যাব" data-en="Science Labs">বিজ্ঞান ল্যাব</span>
+      </div>
+      <div>
+        <strong data-bn="১০,০০০+" data-en="10,000+">১০,০০০+</strong>
+        <span data-bn="বই ও জার্নাল" data-en="Books & Journals">বই ও জার্নাল</span>
+      </div>
+      <div>
+        <strong data-bn="৪০+" data-en="40+">৪০+</strong>
+        <span data-bn="কম্পিউটার" data-en="Computers">কম্পিউটার</span>
+      </div>
+      <div>
+        <strong data-bn="৫৫" data-en="55">৫৫</strong>
+        <span data-bn="শ্রেণিকক্ষ" data-en="Classrooms">শ্রেণিকক্ষ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OVERVIEW TILES ================= -->
+<section class="section">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow" data-bn="এক নজরে" data-en="At a Glance">এক নজরে</span>
+      <h2 data-bn="সংখ্যায় আমাদের সুবিধাসমূহ" data-en="Our facilities in numbers">সংখ্যায় আমাদের সুবিধাসমূহ</h2>
+      <p data-bn="আধুনিক শিক্ষা উপকরণে সুসজ্জিত ক্যাম্পাস।"
+         data-en="A campus equipped with modern educational resources.">
+        আধুনিক শিক্ষা উপকরণে সুসজ্জিত ক্যাম্পাস।
+      </p>
+    </div>
+
+    <div class="fa-overview" id="overviewTiles"></div>
+
+  </div>
+</section>
+
+<!-- ================= FACILITY DETAILS ================= -->
+<section class="section section-alt">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow" data-bn="বিস্তারিত" data-en="Detailed">বিস্তারিত</span>
+      <h2 data-bn="প্রতিটি সুবিধা সম্পর্কে জানুন" data-en="Learn about each facility">প্রতিটি সুবিধা সম্পর্কে জানুন</h2>
+      <p data-bn="প্রতিটি সুবিধার সুযোগ-সুবিধা ও সংখ্যা নিচে বিস্তারিত দেওয়া হলো।"
+         data-en="Features and numbers for each facility are detailed below.">
+        প্রতিটি সুবিধার সুযোগ-সুবিধা ও সংখ্যা নিচে বিস্তারিত দেওয়া হলো।
+      </p>
+    </div>
+
+    <!-- Print header -->
+    <div class="fa-print-head" id="faPrintHead"></div>
+
+    <div id="facilitiesList"></div>
+
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="section">
+  <div class="container">
+    <div class="callout gold reveal" style="max-width:820px;margin-inline:auto;text-align:center;justify-content:center">
+      <div>
+        <h4 data-bn="ক্যাম্পাস পরিদর্শন করতে চান?" data-en="Would you like to visit our campus?">ক্যাম্পাস পরিদর্শন করতে চান?</h4>
+        <p data-bn="আমরা সপ্তাহের রবি থেকে বৃহস্পতিবার সকাল ৯টা – বিকাল ৪টা পর্যন্ত ক্যাম্পাস পরিদর্শনের জন্য খোলা।"
+           data-en="Our campus is open for visits Sunday – Thursday, 9:00 AM – 4:00 PM.">
+          আমরা সপ্তাহের রবি থেকে বৃহস্পতিবার সকাল ৯টা – বিকাল ৪টা পর্যন্ত ক্যাম্পাস পরিদর্শনের জন্য খোলা।
+        </p>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+          <a href="contact.html" class="btn btn-primary btn-sm">
+            <span data-bn="যোগাযোগ করুন" data-en="Contact Us">যোগাযোগ করুন</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="gallery.html" class="btn btn-ghost btn-sm" data-bn="গ্যালারি দেখুন" data-en="View Gallery">গ্যালারি দেখুন</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="data/site-config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pages.js"></script>
+<script>
+/* ============================================================
+   FACILITIES PAGE — inline script
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ============================================================
+     FACILITY DATA
+     Each entry:
+       key, photo, icon (svg key), badgeLabel, title{bn,en},
+       desc{bn,en}, features[{bn,en}...],
+       stats[{ value, label{bn,en} }...]
+     ============================================================ */
+  var FACILITIES = [
+    {
+      key:"library",
+      photo:"images/facilities/library.jpg",
+      icon:"book",
+      badge:{ bn:"গ্রন্থাগার", en:"Library" },
+      title:{ bn:"সমৃদ্ধ গ্রন্থাগার", en:"Rich Library" },
+      desc:{
+        bn:"আমাদের গ্রন্থাগারে পাঠ্যবইয়ের পাশাপাশি আছে ইতিহাস, বিজ্ঞান, সাহিত্য ও তথ্যপ্রযুক্তি বিষয়ক বিশাল সংগ্রহ। শিক্ষার্থীরা নিয়মিত বই ধার নিতে পারে এবং পড়ার কক্ষে বসে পড়তে পারে।",
+        en:"Our library holds a wide collection beyond textbooks — history, science, literature and IT. Students can borrow books and read in the quiet reading room."
+      },
+      features:[
+        { bn:"১০,০০০+ বই, জার্নাল ও ম্যাগাজিন", en:"10,000+ books, journals & magazines" },
+        { bn:"শান্ত পরিবেশে পড়ার প্রশস্ত কক্ষ", en:"Spacious quiet reading room" },
+        { bn:"সাপ্তাহিক ও মাসিক পত্রিকার সংগ্রহ", en:"Weekly and monthly newspaper archive" },
+        { bn:"ডিজিটাল রিসোর্স ক্যাটালগ", en:"Digital resource catalog" }
+      ],
+      stats:[
+        { value:"১০,০০০+", valueEn:"10,000+", label:{ bn:"বই ও জার্নাল", en:"Books & Journals" } },
+        { value:"৫০", valueEn:"50", label:{ bn:"আসন", en:"Seats" } },
+        { value:"২", valueEn:"2", label:{ bn:"গ্রন্থাগারিক", en:"Librarians" } }
+      ]
+    },
+    {
+      key:"science-labs",
+      photo:"images/facilities/science-labs.jpg",
+      icon:"flask",
+      badge:{ bn:"বিজ্ঞানাগার", en:"Science Labs" },
+      title:{ bn:"আধুনিক বিজ্ঞানাগার", en:"Modern Science Labs" },
+      desc:{
+        bn:"পদার্থবিজ্ঞান, রসায়ন ও জীববিজ্ঞানের জন্য পৃথক তিনটি সুসজ্জিত ল্যাব রয়েছে। প্রতিটি ল্যাবে শিক্ষার্থীরা হাতে-কলমে পরীক্ষা-নিরীক্ষা করার সুযোগ পায়।",
+        en:"Three separate, well-equipped labs for Physics, Chemistry and Biology. Each lab allows students to conduct hands-on experiments under teacher supervision."
+      },
+      features:[
+        { bn:"পদার্থ, রসায়ন ও জীববিজ্ঞানের পৃথক ল্যাব", en:"Separate Physics, Chemistry and Biology labs" },
+        { bn:"নিরাপদ পরীক্ষার জন্য সুরক্ষা সরঞ্জাম", en:"Safety gear for conducting experiments safely" },
+        { bn:"আধুনিক মাইক্রোস্কোপ ও পরিমাপক যন্ত্র", en:"Modern microscopes and measuring instruments" },
+        { bn:"নিয়মিত ব্যবহারিক ক্লাস ও বিজ্ঞান মেলা", en:"Regular practical classes and science fair" }
+      ],
+      stats:[
+        { value:"৩", valueEn:"3", label:{ bn:"ল্যাব", en:"Labs" } },
+        { value:"৬০+", valueEn:"60+", label:{ bn:"পরীক্ষার সেট", en:"Experiment Sets" } },
+        { value:"সাপ্তাহিক", valueEn:"Weekly", label:{ bn:"ব্যবহারিক ক্লাস", en:"Practical Classes" } }
+      ]
+    },
+    {
+      key:"computer-lab",
+      photo:"images/facilities/computer-lab.jpg",
+      icon:"monitor",
+      badge:{ bn:"কম্পিউটার ল্যাব", en:"Computer Lab" },
+      title:{ bn:"কম্পিউটার ও আইসিটি ল্যাব", en:"Computer & ICT Lab" },
+      desc:{
+        bn:"৪০টিরও বেশি আধুনিক কম্পিউটার ও ব্রডব্যান্ড ইন্টারনেট সংযোগসহ কম্পিউটার ল্যাব। শিক্ষার্থীরা প্রোগ্রামিং, মাল্টিমিডিয়া ও ডিজিটাল সাক্ষরতা শিখতে পারে।",
+        en:"A modern lab with 40+ computers and broadband internet. Students learn programming, multimedia and digital literacy."
+      },
+      features:[
+        { bn:"৪০+ আধুনিক কম্পিউটার", en:"40+ modern computers" },
+        { bn:"ব্রডব্যান্ড ইন্টারনেট সংযোগ", en:"Broadband internet connection" },
+        { bn:"প্রজেক্টর ও মাল্টিমিডিয়া সুবিধা", en:"Projector & multimedia support" },
+        { bn:"দক্ষ কম্পিউটার প্রশিক্ষক", en:"Skilled computer instructors" }
+      ],
+      stats:[
+        { value:"৪০+", valueEn:"40+", label:{ bn:"কম্পিউটার", en:"Computers" } },
+        { value:"৫", valueEn:"5", label:{ bn:"ক্লাস সেশন", en:"Class Sessions" } },
+        { value:"২৪", valueEn:"24", label:{ bn:"উইক ক্লাস", en:"Classes per Week" } }
+      ]
+    },
+    {
+      key:"playground",
+      photo:"images/facilities/playground.jpg",
+      icon:"flag",
+      badge:{ bn:"খেলার মাঠ", en:"Playground" },
+      title:{ bn:"প্রশস্ত খেলার মাঠ", en:"Spacious Playground" },
+      desc:{
+        bn:"ক্রিকেট, ফুটবল, ভলিবল ও বার্ষিক ক্রীড়া প্রতিযোগিতার জন্য প্রশস্ত খেলার মাঠ। প্রতিটি শিক্ষার্থীর শারীরিক ও মানসিক বিকাশে খেলাধুলা বাধ্যতামূলক।",
+        en:"A large playground for cricket, football, volleyball and annual sports. Physical activity is mandatory for every student's development."
+      },
+      features:[
+        { bn:"ক্রিকেট, ফুটবল ও ভলিবলের মাঠ", en:"Cricket, football and volleyball ground" },
+        { bn:"আন্তঃশ্রেণি ও আন্তঃস্কুল প্রতিযোগিতা", en:"Inter-class and inter-school tournaments" },
+        { bn:"বার্ষিক ক্রীড়া প্রতিযোগিতা", en:"Annual sports competition" },
+        { bn:"দক্ষ ক্রীড়া শিক্ষক ও প্রশিক্ষণ", en:"Skilled sports teacher and coaching" }
+      ],
+      stats:[
+        { value:"১", valueEn:"1", label:{ bn:"মাঠ", en:"Ground" } },
+        { value:"৪", valueEn:"4", label:{ bn:"খেলার ধরন", en:"Sports Types" } },
+        { value:"বার্ষিক", valueEn:"Annual", label:{ bn:"ক্রীড়া উৎসব", en:"Sports Day" } }
+      ]
+    },
+    {
+      key:"transport",
+      photo:"images/facilities/transport.jpg",
+      icon:"bus",
+      badge:{ bn:"পরিবহন", en:"Transport" },
+      title:{ bn:"নিরাপদ পরিবহন সেবা", en:"Safe Transport Service" },
+      desc:{
+        bn:"কোলা বাজার এবং সংলগ্ন এলাকার শিক্ষার্থীদের জন্য নিরাপদ স্কুল বাস ও পরিবহন সেবা। অভিজ্ঞ চালক ও সহকারী দ্বারা পরিচালিত।",
+        en:"Safe school bus service for students from Kola Bazar and adjacent areas. Operated by experienced drivers and attendants."
+      },
+      features:[
+        { bn:"কোলা বাজার ও সংলগ্ন এলাকায় সেবা", en:"Service across Kola Bazar and adjacent areas" },
+        { bn:"নিয়মিত রক্ষণাবেক্ষণ ও নিরাপত্তা পরীক্ষা", en:"Regular maintenance and safety checks" },
+        { bn:"অভিজ্ঞ চালক ও সহকারী", en:"Experienced drivers and attendants" },
+        { bn:"অভিভাবকের সাথে যোগাযোগ ব্যবস্থা", en:"Guardian contact system" }
+      ],
+      stats:[
+        { value:"৩", valueEn:"3", label:{ bn:"বাস", en:"Buses" } },
+        { value:"৬", valueEn:"6", label:{ bn:"রুট", en:"Routes" } },
+        { value:"পূর্ণ", valueEn:"Full", label:{ bn:"নিরাপত্তা", en:"Safety" } }
+      ]
+    },
+    {
+      key:"classrooms",
+      photo:"images/facilities/classrooms.jpg",
+      icon:"classroom",
+      badge:{ bn:"শ্রেণিকক্ষ", en:"Classrooms" },
+      title:{ bn:"ডিজিটাল ক্লাসরুম", en:"Digital Classrooms" },
+      desc:{
+        bn:"৫৫টিরও বেশি সুসজ্জিত শ্রেণিকক্ষ। আধুনিক ক্লাসরুমে প্রজেক্টর, সাউন্ড সিস্টেম ও মাল্টিমিডিয়া সুবিধা রয়েছে।",
+        en:"Over 55 well-furnished classrooms. Modern rooms feature projectors, sound systems and multimedia support."
+      },
+      features:[
+        { bn:"প্রজেক্টর ও মাল্টিমিডিয়া সুবিধা", en:"Projectors and multimedia support" },
+        { bn:"আলো-বাতাসপূর্ণ ক্লাসরুম", en:"Airy, well-lit classrooms" },
+        { bn:"সর্বোচ্চ ৫০ জন শিক্ষার্থী প্রতি শ্রেণিতে", en:"Max 50 students per class" },
+        { bn:"নিয়মিত সিসিটিভি নজরদারি", en:"Regular CCTV monitoring" }
+      ],
+      stats:[
+        { value:"৫৫", valueEn:"55", label:{ bn:"শ্রেণিকক্ষ", en:"Classrooms" } },
+        { value:"৫০", valueEn:"50", label:{ bn:"শিক্ষার্থী প্রতি ক্লাস", en:"Students per Class" } },
+        { value:"১০", valueEn:"10", label:{ bn:"ডিজিটাল ক্লাস", en:"Digital Rooms" } }
+      ]
+    }
+  ];
+
+  /* ---------------- OVERVIEW TILES ---------------- */
+  var OVERVIEW = [
+    { value:"৩", valueEn:"3", label:{ bn:"বিজ্ঞান ল্যাব", en:"Science Labs" },   icon:"flask" },
+    { value:"১০,০০০+", valueEn:"10,000+", label:{ bn:"বই ও জার্নাল", en:"Books & Journals" }, icon:"book" },
+    { value:"৪০+", valueEn:"40+", label:{ bn:"কম্পিউটার", en:"Computers" },     icon:"monitor" },
+    { value:"৫৫", valueEn:"55", label:{ bn:"শ্রেণিকক্ষ", en:"Classrooms" },      icon:"classroom" },
+    { value:"১", valueEn:"1", label:{ bn:"খেলার মাঠ", en:"Playground" },         icon:"flag" },
+    { value:"৬", valueEn:"6", label:{ bn:"পরিবহন রুট", en:"Transport Routes" },  icon:"bus" }
+  ];
+
+  /* ---------------- DOM ---------------- */
+  var overviewBox = document.getElementById('overviewTiles');
+  var listBox     = document.getElementById('facilitiesList');
+  var printHead   = document.getElementById('faPrintHead');
+
+  /* ---------------- HELPERS ---------------- */
+  function esc(s) { return window.KBUHS.esc(s); }
+  function L()    { return window.KBUHS.getLang(); }
+
+  /* Small SVG icons per category */
+  function iconSvg(name) {
+    var stroke = 'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+    if (name === 'book')      return '<svg viewBox="0 0 24 24" fill="none" ' + stroke + '><path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-1.5Z"/><path d="M8 7h7M8 11h5"/></svg>';
+    if (name === 'flask')     return '<svg viewBox="0 0 24 24" fill="none" ' + stroke + '><path d="M9 3h6M10 3v6.5L5.2 17A2.5 2.5 0 0 0 7.4 21h9.2a2.5 2.5 0 0 0 2.2-4L14 9.5V3"/><path d="M7 15h10"/></svg>';
+    if (name === 'monitor')   return '<svg viewBox="0 0 24 24" fill="none" ' + stroke + '><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>';
+    if (name === 'flag')      return '<svg viewBox="0 0 24 24" fill="none" ' + stroke + '><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>';
+    if (name === 'bus')       return '<svg viewBox="0 0 24 24" fill="none" ' + stroke + '><path d="M8 6v6M15 6v6M2 12h19.6a1 1 0 0 1 1 1.2l-1.5 6a1 1 0 0 1-1 .8H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h.5"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>';
+    if (name === 'classroom') return '<svg viewBox="0 0 24 24" fill="none" ' + stroke + '><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6M9.5 11h5"/></svg>';
+    return '<svg viewBox="0 0 24 24" fill="none" ' + stroke + '><circle cx="12" cy="12" r="9"/></svg>';
+  }
+
+  /* ============================================================
+     OVERVIEW TILES
+     ============================================================ */
+  function renderOverview() {
+    var lang = L();
+    overviewBox.innerHTML = OVERVIEW.map(function (t) {
+      var value = lang === 'bn' ? t.value : t.valueEn;
+      return '<div class="tile reveal">'
+        +   '<span class="ico">' + iconSvg(t.icon) + '</span>'
+        +   '<strong>' + esc(value) + '</strong>'
+        +   '<span data-bn="' + esc(t.label.bn) + '" data-en="' + esc(t.label.en) + '">'
+        +     esc(lang === 'bn' ? t.label.bn : t.label.en)
+        +   '</span>'
+        + '</div>';
+    }).join('');
+  }
+
+  /* ============================================================
+     FACILITY CARDS
+     ============================================================ */
+  function renderFacilities() {
+    var lang = L();
+
+    listBox.innerHTML = FACILITIES.map(function (f, idx) {
+      var badge = lang === 'bn' ? f.badge.bn : f.badge.en;
+      var title = lang === 'bn' ? f.title.bn : f.title.en;
+      var desc  = lang === 'bn' ? f.desc.bn  : f.desc.en;
+
+      var featuresHtml = f.features.map(function (feat) {
+        return '<li>'
+          + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>'
+          + '<span data-bn="' + esc(feat.bn) + '" data-en="' + esc(feat.en) + '">'
+          +   esc(lang === 'bn' ? feat.bn : feat.en)
+          + '</span>'
+          + '</li>';
+      }).join('');
+
+      var statsHtml = f.stats.map(function (s) {
+        var value = lang === 'bn' ? s.value : s.valueEn;
+        return '<div class="item">'
+          +   '<strong>' + esc(value) + '</strong>'
+          +   '<span data-bn="' + esc(s.label.bn) + '" data-en="' + esc(s.label.en) + '">'
+          +     esc(lang === 'bn' ? s.label.bn : s.label.en)
+          +   '</span>'
+          + '</div>';
+      }).join('');
+
+      /* Media block: image with a placeholder fallback */
+      var media = '<div class="fa-media">'
+        + '<span class="badge">' + esc(badge) + '</span>'
+        + '<div class="placeholder">' + iconSvg(f.icon) + '</div>'
+        + '<img src="' + esc(f.photo) + '" alt="" onerror="this.style.display=\'none\'">'
+        + '</div>';
+
+      var content = '<div class="fa-content">'
+        + '<span class="eyebrow">' + esc(badge) + '</span>'
+        + '<h2>' + esc(title) + '</h2>'
+        + '<p>' + esc(desc) + '</p>'
+        + '<ul class="fa-features">' + featuresHtml + '</ul>'
+        + '<div class="fa-stats">' + statsHtml + '</div>'
+        + '</div>';
+
+      return '<article class="fa-card reveal" data-key="' + esc(f.key) + '">'
+        + media
+        + content
+        + '</article>';
+    }).join('');
+  }
+
+  /* ============================================================
+     PRINT HEADER
+     ============================================================ */
+  function renderPrintHead() {
+    var lang = L();
+    var S = window.SITE || {};
+    var school = lang === 'bn' ? (S.nameBn || '') : (S.nameEn || '');
+    printHead.innerHTML = ''
+      + '<h1>' + esc(school) + '</h1>'
+      + '<div class="sub">'
+      +   (lang === 'bn' ? 'সুবিধাসমূহের সংক্ষিপ্ত বিবরণ' : 'Facilities Overview')
+      + '</div>'
+      + '<div style="font-size:12px;color:var(--muted);margin-top:6px">'
+      +   (lang === 'bn' ? 'শিক্ষাবর্ষ ২০২৭' : 'Academic Year 2027')
+      + '</div>';
+  }
+
+  /* ============================================================
+     RENDER
+     ============================================================ */
+  function render() {
+    renderOverview();
+    renderFacilities();
+    renderPrintHead();
+
+    /* Re-apply reveal animation on freshly-rendered cards */
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries, o) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            o.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+      listBox.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+      overviewBox.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+  }
+
+  /* ---------------- EVENTS ---------------- */
+  window.addEventListener('kbuhs:lang', render);
+
+  /* ---------------- GO ---------------- */
+  render();
+})();
+</script>
+
+</body>
+</html>

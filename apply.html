@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>অনলাইন ভর্তি আবেদন | Apply Online — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="২০২৭ শিক্ষাবর্ষের অনলাইন ভর্তি আবেদন ফরম — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/pages.css">
+
+<style>
+/* ============================================================
+   APPLY PAGE — page-specific styles
+   ============================================================ */
+
+/* Progress indicator at top */
+.apply-progress{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  max-width:820px;
+  margin:0 auto 36px;
+}
+.apply-progress .step-pill{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:14px 12px;
+  text-align:center;
+  font-size:13px;
+  font-weight:600;
+  color:#33405A;
+  transition:.25s var(--ease);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
+.apply-progress .step-pill .n{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--primary-50);color:var(--primary);
+  display:grid;place-items:center;
+  font-weight:800;font-size:13px;
+}
+.apply-progress .step-pill.active{
+  border-color:var(--primary);
+  background:var(--primary-50);
+  color:var(--primary);
+}
+.apply-progress .step-pill.active .n{
+  background:var(--primary);color:#fff;
+}
+
+/* Field required asterisk */
+.field .req{color:#D9534F;margin-left:2px}
+
+/* Radio group as buttons */
+.radio-row{display:flex;gap:10px;flex-wrap:wrap}
+.radio-row label{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:999px;
+  border:1.5px solid var(--border);
+  background:#fff;cursor:pointer;
+  font-size:14px;font-weight:600;color:#33405A;
+  transition:.2s var(--ease);
+}
+.radio-row label:hover{border-color:var(--primary-100)}
+.radio-row input[type="radio"]{display:none}
+.radio-row input[type="radio"]:checked + span{color:#fff}
+.radio-row label:has(input:checked){
+  background:var(--primary);color:#fff;border-color:var(--primary);
+  box-shadow:0 4px 14px rgba(11,93,59,.25);
+}
+
+/* Checkbox row */
+.check-row{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:14px 16px;
+  background:var(--bg);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-size:14px;color:#33405A;line-height:1.6;
+  cursor:pointer;
+  transition:.2s var(--ease);
+}
+.check-row:hover{border-color:var(--primary-100)}
+.check-row input[type="checkbox"]{
+  width:18px;height:18px;flex:none;margin-top:2px;
+  accent-color:var(--primary);cursor:pointer;
+}
+
+/* Error state */
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea{
+  border-color:#D9534F;
+  background:#FEF2F2;
+}
+.field.has-error .err-msg{
+  display:block;
+  font-size:12.5px;color:#D9534F;
+  margin-top:6px;font-weight:600;
+}
+.err-msg{display:none}
+
+/* Success screen */
+.success-screen{
+  display:none;
+  max-width:820px;
+  margin:0 auto;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.success-screen.show{display:block}
+.success-head{
+  background:linear-gradient(155deg,var(--primary),var(--primary-800));
+  color:#fff;padding:clamp(28px,4vw,44px);
+  text-align:center;position:relative;overflow:hidden;
+}
+.success-head::after{
+  content:"";position:absolute;
+  width:420px;height:420px;border-radius:50%;
+  right:-150px;top:-200px;
+  background:radial-gradient(circle,rgba(244,185,66,.24),transparent 68%);
+}
+.success-head > *{position:relative;z-index:2}
+.success-head .tick{
+  width:76px;height:76px;border-radius:50%;
+  background:var(--gold);color:#3B2A00;
+  display:grid;place-items:center;
+  margin:0 auto 20px;
+  box-shadow:0 0 0 8px rgba(244,185,66,.24);
+}
+.success-head .tick svg{width:38px;height:38px}
+.success-head h2{
+  font-size:clamp(22px,3vw,30px);
+  margin-bottom:8px;color:#fff;
+}
+.success-head p{color:rgba(255,255,255,.85);font-size:15px}
+
+.ref-box{
+  margin:24px auto 0;
+  max-width:380px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:var(--radius);
+  padding:18px 22px;
+  text-align:center;
+  backdrop-filter:blur(6px);
+}
+.ref-box small{
+  display:block;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.72);
+  margin-bottom:6px;
+}
+.ref-box strong{
+  font-family:'Inter',monospace;
+  font-size:22px;
+  font-weight:800;
+  color:var(--gold);
+  letter-spacing:.04em;
+  word-break:break-all;
+}
+
+.success-body{padding:clamp(24px,3.5vw,40px)}
+.summary-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px 22px;
+  margin-bottom:28px;
+}
+.summary-list .item{
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+.summary-list .item label{
+  display:block;
+  font-size:11.5px;
+  font-weight:700;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin-bottom:4px;
+}
+.summary-list .item p{
+  font-size:15px;
+  font-weight:600;
+  color:var(--text);
+  word-break:break-word;
+}
+.success-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+  padding-top:22px;
+  border-top:1px solid var(--border);
+}
+
+/* Print styles — only show the completed application */
+@media print{
+  body{background:#fff}
+  .topbar, .nav-bar, .footer, .to-top,
+  .page-hero, .apply-progress, #applicationForm,
+  .success-actions, .skip-link{display:none !important}
+  .success-screen{box-shadow:none;border:1px solid #999;max-width:100%}
+  .success-head{background:#0B5D3B !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .ref-box{background:#fff;border:1px solid #999}
+  .ref-box small, .ref-box strong{color:#0B5D3B !important}
+  .ref-box strong{-webkit-print-color-adjust:exact}
+}
+
+@media (max-width:760px){
+  .apply-progress{grid-template-columns:repeat(2,1fr)}
+  .success-actions .btn{width:100%}
+}
+</style>
+</head>
+
+<body data-page="admission">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<!-- ================= PAGE HERO ================= -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <a href="admission.html" data-bn="ভর্তি" data-en="Admission">ভর্তি</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="অনলাইন আবেদন" data-en="Apply Online">অনলাইন আবেদন</span>
+    </nav>
+
+    <h1 data-bn="অনলাইন ভর্তি আবেদন" data-en="Online Admission Application">অনলাইন ভর্তি আবেদন</h1>
+    <p class="lead"
+       data-bn="২০২৭ শিক্ষাবর্ষে ভর্তির জন্য নিচের ফরমটি পূরণ করুন। আবেদনের শেষ তারিখ ২৮ ফেব্রুয়ারি, ২০২৭।"
+       data-en="Fill out the form below to apply for admission in the 2027 session. Deadline is 28 February, 2027.">
+      ২০২৭ শিক্ষাবর্ষে ভর্তির জন্য নিচের ফরমটি পূরণ করুন। আবেদনের শেষ তারিখ ২৮ ফেব্রুয়ারি, ২০২৭।
+    </p>
+  </div>
+</section>
+
+<!-- ================= APPLY ================= -->
+<section class="section">
+  <div class="container">
+
+    <!-- Progress -->
+    <div class="apply-progress" id="applyProgress">
+      <div class="step-pill active">
+        <span class="n">১</span>
+        <span data-bn="শিক্ষার্থীর তথ্য" data-en="Student Info">শিক্ষার্থীর তথ্য</span>
+      </div>
+      <div class="step-pill">
+        <span class="n">২</span>
+        <span data-bn="অভিভাবকের তথ্য" data-en="Guardian Info">অভিভাবকের তথ্য</span>
+      </div>
+      <div class="step-pill">
+        <span class="n">৩</span>
+        <span data-bn="ঠিকানা ও বিদ্যালয়" data-en="Address & School">ঠিকানা ও বিদ্যালয়</span>
+      </div>
+      <div class="step-pill">
+        <span class="n">৪</span>
+        <span data-bn="ঘোষণা ও জমা" data-en="Declaration & Submit">ঘোষণা ও জমা</span>
+      </div>
+    </div>
+
+    <!-- ================= FORM ================= -->
+    <form class="apply-form" id="applicationForm" novalidate autocomplete="on">
+
+      <!-- ---------- SECTION 1 ---------- -->
+      <section class="apply-section" data-section="1">
+        <h3>
+          <span class="num">১</span>
+          <span data-bn="শিক্ষার্থীর তথ্য" data-en="Student Information">শিক্ষার্থীর তথ্য</span>
+        </h3>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label for="studentNameBn" data-bn="শিক্ষার্থীর নাম (বাংলায়)" data-en="Student Name (Bangla)">
+              শিক্ষার্থীর নাম (বাংলায়)<span class="req">*</span>
+            </label>
+            <input type="text" id="studentNameBn" name="studentNameBn" required
+                   data-bn-ph="যেমন: রাহুল হোসেন" data-en-ph="e.g. রাহুল হোসেন" placeholder="যেমন: রাহুল হোসেন">
+            <span class="err-msg" data-bn="এই ঘরটি পূরণ করুন" data-en="This field is required">এই ঘরটি পূরণ করুন</span>
+          </div>
+
+          <div class="field">
+            <label for="studentNameEn" data-bn="শিক্ষার্থীর নাম (ইংরেজিতে)" data-en="Student Name (English)">
+              শিক্ষার্থীর নাম (ইংরেজিতে)<span class="req">*</span>
+            </label>
+            <input type="text" id="studentNameEn" name="studentNameEn" required
+                   placeholder="e.g. Rahul Hossain">
+            <span class="err-msg" data-bn="এই ঘরটি পূরণ করুন" data-en="This field is required">এই ঘরটি পূরণ করুন</span>
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="field">
+            <label for="dob" data-bn="জন্ম তারিখ" data-en="Date of Birth">
+              জন্ম তারিখ<span class="req">*</span>
+            </label>
+            <input type="date" id="dob" name="dob" required>
+            <span class="err-msg" data-bn="জন্ম তারিখ দিন" data-en="Enter date of birth">জন্ম তারিখ দিন</span>
+          </div>
+
+          <div class="field">
+            <label for="birthReg" data-bn="জন্মনিবন্ধন নম্বর" data-en="Birth Registration Number">
+              জন্মনিবন্ধন নম্বর
+            </label>
+            <input type="text" id="birthReg" name="birthReg" inputmode="numeric"
+                   data-bn-ph="১৭ ডিজিটের নম্বর" data-en-ph="17-digit number" placeholder="১৭ ডিজিটের নম্বর">
+          </div>
+
+          <div class="field">
+            <label for="bloodGroup" data-bn="রক্তের গ্রুপ" data-en="Blood Group">
+              রক্তের গ্রুপ
+            </label>
+            <select id="bloodGroup" name="bloodGroup">
+              <option value="">—</option>
+              <option value="A+">A+</option>
+              <option value="A-">A−</option>
+              <option value="B+">B+</option>
+              <option value="B-">B−</option>
+              <option value="O+">O+</option>
+              <option value="O-">O−</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB−</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="field">
+            <label data-bn="লিঙ্গ" data-en="Gender">লিঙ্গ<span class="req">*</span></label>
+            <div class="radio-row">
+              <label>
+                <input type="radio" name="gender" value="male" required>
+                <span data-bn="ছেলে" data-en="Male">ছেলে</span>
+              </label>
+              <label>
+                <input type="radio" name="gender" value="female">
+                <span data-bn="মেয়ে" data-en="Female">মেয়ে</span>
+              </label>
+              <label>
+                <input type="radio" name="gender" value="other">
+                <span data-bn="অন্যান্য" data-en="Other">অন্যান্য</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="religion" data-bn="ধর্ম" data-en="Religion">ধর্ম<span class="req">*</span></label>
+            <select id="religion" name="religion" required>
+              <option value="">—</option>
+              <option data-bn="ইসলাম" data-en="Islam">ইসলাম</option>
+              <option data-bn="হিন্দু" data-en="Hindu">হিন্দু</option>
+              <option data-bn="বৌদ্ধ" data-en="Buddhist">বৌদ্ধ</option>
+              <option data-bn="খ্রিস্টান" data-en="Christian">খ্রিস্টান</option>
+              <option data-bn="অন্যান্য" data-en="Other">অন্যান্য</option>
+            </select>
+            <span class="err-msg" data-bn="ধর্ম নির্বাচন করুন" data-en="Select religion">ধর্ম নির্বাচন করুন</span>
+          </div>
+
+          <div class="field">
+            <label for="nationality" data-bn="জাতীয়তা" data-en="Nationality">জাতীয়তা</label>
+            <input type="text" id="nationality" name="nationality" value="বাংলাদেশি" readonly
+                   data-bn-value="বাংলাদেশি" data-en-value="Bangladeshi">
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- SECTION 2 ---------- -->
+      <section class="apply-section" data-section="2">
+        <h3>
+          <span class="num">২</span>
+          <span data-bn="অভিভাবকের তথ্য" data-en="Guardian Information">অভিভাবকের তথ্য</span>
+        </h3>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label for="fatherName" data-bn="পিতার নাম" data-en="Father's Name">
+              পিতার নাম<span class="req">*</span>
+            </label>
+            <input type="text" id="fatherName" name="fatherName" required
+                   data-bn-ph="পিতার পূর্ণ নাম" data-en-ph="Father's full name" placeholder="পিতার পূর্ণ নাম">
+            <span class="err-msg" data-bn="পিতার নাম দিন" data-en="Enter father's name">পিতার নাম দিন</span>
+          </div>
+
+          <div class="field">
+            <label for="fatherOccupation" data-bn="পিতার পেশা" data-en="Father's Occupation">
+              পিতার পেশা
+            </label>
+            <input type="text" id="fatherOccupation" name="fatherOccupation"
+                   data-bn-ph="যেমন: কৃষক, ব্যবসায়ী" data-en-ph="e.g. Farmer, Business" placeholder="যেমন: কৃষক, ব্যবসায়ী">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label for="motherName" data-bn="মাতার নাম" data-en="Mother's Name">
+              মাতার নাম<span class="req">*</span>
+            </label>
+            <input type="text" id="motherName" name="motherName" required
+                   data-bn-ph="মাতার পূর্ণ নাম" data-en-ph="Mother's full name" placeholder="মাতার পূর্ণ নাম">
+            <span class="err-msg" data-bn="মাতার নাম দিন" data-en="Enter mother's name">মাতার নাম দিন</span>
+          </div>
+
+          <div class="field">
+            <label for="motherOccupation" data-bn="মাতার পেশা" data-en="Mother's Occupation">
+              মাতার পেশা
+            </label>
+            <input type="text" id="motherOccupation" name="motherOccupation"
+                   data-bn-ph="যেমন: গৃহিণী" data-en-ph="e.g. Homemaker" placeholder="যেমন: গৃহিণী">
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="field">
+            <label for="guardianPhone" data-bn="অভিভাবকের মোবাইল" data-en="Guardian's Mobile">
+              অভিভাবকের মোবাইল<span class="req">*</span>
+            </label>
+            <input type="tel" id="guardianPhone" name="guardianPhone" required
+                   inputmode="numeric" pattern="01[0-9]{9}"
+                   data-bn-ph="০১৭xxxxxxxx" data-en-ph="01xxxxxxxxx" placeholder="০১৭xxxxxxxx">
+            <span class="err-msg" data-bn="সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন" data-en="Enter a valid 11-digit mobile number">সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন</span>
+          </div>
+
+          <div class="field">
+            <label for="altPhone" data-bn="বিকল্প মোবাইল (ঐচ্ছিক)" data-en="Alternate Mobile (optional)">
+              বিকল্প মোবাইল (ঐচ্ছিক)
+            </label>
+            <input type="tel" id="altPhone" name="altPhone" inputmode="numeric"
+                   data-bn-ph="০১৭xxxxxxxx" data-en-ph="01xxxxxxxxx" placeholder="০১৭xxxxxxxx">
+          </div>
+
+          <div class="field">
+            <label for="guardianEmail" data-bn="ইমেইল (ঐচ্ছিক)" data-en="Email (optional)">
+              ইমেইল (ঐচ্ছিক)
+            </label>
+            <input type="email" id="guardianEmail" name="guardianEmail"
+                   data-bn-ph="you@example.com" data-en-ph="you@example.com" placeholder="you@example.com">
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- SECTION 3 ---------- -->
+      <section class="apply-section" data-section="3">
+        <h3>
+          <span class="num">৩</span>
+          <span data-bn="ঠিকানা ও পূর্ববর্তী বিদ্যালয়" data-en="Address & Previous School">ঠিকানা ও পূর্ববর্তী বিদ্যালয়</span>
+        </h3>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label for="presentAddress" data-bn="বর্তমান ঠিকানা" data-en="Present Address">
+              বর্তমান ঠিকানা<span class="req">*</span>
+            </label>
+            <textarea id="presentAddress" name="presentAddress" required rows="3"
+                      data-bn-ph="গ্রাম/মহল্লা, ডাকঘর, উপজেলা, জেলা"
+                      data-en-ph="Village/Area, Post Office, Upazila, District"
+                      placeholder="গ্রাম/মহল্লা, ডাকঘর, উপজেলা, জেলা"></textarea>
+            <span class="err-msg" data-bn="ঠিকানা লিখুন" data-en="Enter address">ঠিকানা লিখুন</span>
+          </div>
+
+          <div class="field">
+            <label for="permanentAddress" data-bn="স্থায়ী ঠিকানা" data-en="Permanent Address">
+              স্থায়ী ঠিকানা<span class="req">*</span>
+            </label>
+            <textarea id="permanentAddress" name="permanentAddress" required rows="3"
+                      data-bn-ph="গ্রাম/মহল্লা, ডাকঘর, উপজেলা, জেলা"
+                      data-en-ph="Village/Area, Post Office, Upazila, District"
+                      placeholder="গ্রাম/মহল্লা, ডাকঘর, উপজেলা, জেলা"></textarea>
+            <span class="err-msg" data-bn="ঠিকানা লিখুন" data-en="Enter address">ঠিকানা লিখুন</span>
+          </div>
+        </div>
+
+        <label class="check-row" style="margin-bottom:20px">
+          <input type="checkbox" id="sameAddress">
+          <span data-bn="স্থায়ী ঠিকানা ও বর্তমান ঠিকানা একই" data-en="Permanent address is the same as present address">
+            স্থায়ী ঠিকানা ও বর্তমান ঠিকানা একই
+          </span>
+        </label>
+
+        <div class="form-grid-3">
+          <div class="field">
+            <label for="applyingClass" data-bn="আবেদনের শ্রেণি" data-en="Applying for Class">
+              আবেদনের শ্রেণি<span class="req">*</span>
+            </label>
+            <select id="applyingClass" name="applyingClass" required>
+              <option value="">—</option>
+              <option value="6" data-bn="৬ষ্ঠ শ্রেণি" data-en="Class VI">৬ষ্ঠ শ্রেণি</option>
+              <option value="7" data-bn="৭ম শ্রেণি" data-en="Class VII">৭ম শ্রেণি</option>
+              <option value="8" data-bn="৮ম শ্রেণি" data-en="Class VIII">৮ম শ্রেণি</option>
+              <option value="9" data-bn="৯ম শ্রেণি" data-en="Class IX">৯ম শ্রেণি</option>
+            </select>
+            <span class="err-msg" data-bn="শ্রেণি নির্বাচন করুন" data-en="Select a class">শ্রেণি নির্বাচন করুন</span>
+          </div>
+
+          <div class="field">
+            <label for="prevSchool" data-bn="পূর্ববর্তী বিদ্যালয়ের নাম" data-en="Previous School Name">
+              পূর্ববর্তী বিদ্যালয়ের নাম<span class="req">*</span>
+            </label>
+            <input type="text" id="prevSchool" name="prevSchool" required
+                   data-bn-ph="পূর্ববর্তী বিদ্যালয়ের নাম" data-en-ph="Previous school name" placeholder="পূর্ববর্তী বিদ্যালয়ের নাম">
+            <span class="err-msg" data-bn="বিদ্যালয়ের নাম লিখুন" data-en="Enter school name">বিদ্যালয়ের নাম লিখুন</span>
+          </div>
+
+          <div class="field">
+            <label for="prevClass" data-bn="পূর্ববর্তী শ্রেণি" data-en="Previous Class">
+              পূর্ববর্তী শ্রেণি<span class="req">*</span>
+            </label>
+            <input type="text" id="prevClass" name="prevClass" required
+                   data-bn-ph="যেমন: ৫ম শ্রেণি" data-en-ph="e.g. Class V" placeholder="যেমন: ৫ম শ্রেণি">
+            <span class="err-msg" data-bn="পূর্ববর্তী শ্রেণি লিখুন" data-en="Enter previous class">পূর্ববর্তী শ্রেণি লিখুন</span>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label for="lastResult" data-bn="শেষ পরীক্ষার ফলাফল" data-en="Last Exam Result">
+              শেষ পরীক্ষার ফলাফল
+            </label>
+            <input type="text" id="lastResult" name="lastResult"
+                   data-bn-ph="যেমন: GPA 5.00" data-en-ph="e.g. GPA 5.00" placeholder="যেমন: GPA 5.00">
+          </div>
+
+          <div class="field">
+            <label for="tcNumber" data-bn="ট্রান্সফার সার্টিফিকেট নম্বর (ঐচ্ছিক)" data-en="Transfer Certificate Number (optional)">
+              ট্রান্সফার সার্টিফিকেট নম্বর (ঐচ্ছিক)
+            </label>
+            <input type="text" id="tcNumber" name="tcNumber"
+                   data-bn-ph="যদি থাকে" data-en-ph="If available" placeholder="যদি থাকে">
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- SECTION 4 ---------- -->
+      <section class="apply-section" data-section="4">
+        <h3>
+          <span class="num">৪</span>
+          <span data-bn="ঘোষণা ও জমা" data-en="Declaration & Submit">ঘোষণা ও জমা</span>
+        </h3>
+
+        <label class="check-row" style="margin-bottom:12px">
+          <input type="checkbox" id="agreeTruth" required>
+          <span data-bn="আমি ঘোষণা করছি যে, উপরিউক্ত সব তথ্য সত্য ও সঠিক। মিথ্যা তথ্য প্রমাণিত হলে ভর্তি বাতিল হতে পারে।"
+                data-en="I declare that all the information above is true and correct. If found false, admission may be cancelled.">
+            আমি ঘোষণা করছি যে, উপরিউক্ত সব তথ্য সত্য ও সঠিক। মিথ্যা তথ্য প্রমাণিত হলে ভর্তি বাতিল হতে পারে।
+          </span>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" id="agreeTerms" required>
+          <span data-bn="আমি বিদ্যালয়ের নিয়ম-কানুন ও শৃঙ্খলা মেনে চলতে সম্মত।"
+                data-en="I agree to abide by the school's rules and discipline.">
+            আমি বিদ্যালয়ের নিয়ম-কানুন ও শৃঙ্খলা মেনে চলতে সম্মত।
+          </span>
+        </label>
+      </section>
+
+      <!-- ---------- SUBMIT ---------- -->
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;padding-top:8px">
+        <button type="reset" class="btn btn-ghost btn-sm" data-bn="রিসেট" data-en="Reset">রিসেট</button>
+        <button type="submit" class="btn btn-primary">
+          <span data-bn="আবেদন জমা দিন" data-en="Submit Application">আবেদন জমা দিন</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <!-- ================= SUCCESS SCREEN ================= -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-head">
+        <div class="tick">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+        </div>
+        <h2 data-bn="আবেদন সফলভাবে জমা হয়েছে!" data-en="Application submitted successfully!">
+          আবেদন সফলভাবে জমা হয়েছে!
+        </h2>
+        <p data-bn="আপনার আবেদন গ্রহণ করা হয়েছে। নিচের রেফারেন্স নম্বরটি সংরক্ষণ করুন।"
+           data-en="Your application has been received. Please save the reference number below.">
+          আপনার আবেদন গ্রহণ করা হয়েছে। নিচের রেফারেন্স নম্বরটি সংরক্ষণ করুন।
+        </p>
+
+        <div class="ref-box">
+          <small data-bn="রেফারেন্স নম্বর" data-en="Reference Number">রেফারেন্স নম্বর</small>
+          <strong id="refNumber">—</strong>
+        </div>
+      </div>
+
+      <div class="success-body">
+        <h3 style="font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:8px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:var(--gold)">
+            <circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/>
+          </svg>
+          <span data-bn="আবেদনের সারসংক্ষেপ" data-en="Application Summary">আবেদনের সারসংক্ষেপ</span>
+        </h3>
+
+        <div class="summary-list" id="summaryList"></div>
+
+        <div class="callout" style="margin:0 0 24px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+          </svg>
+          <div>
+            <h4 data-bn="পরবর্তী ধাপ" data-en="Next Steps">পরবর্তী ধাপ</h4>
+            <p data-bn="আবেদনের রেফারেন্স নম্বরটি সংরক্ষণ করুন। ১০ মার্চ, ২০২৭ থেকে প্রবেশপত্র ডাউনলোড করা যাবে। ভর্তি পরীক্ষা ১৫ মার্চ।"
+               data-en="Save your reference number. Admit cards can be downloaded from 10 March, 2027. Admission test on 15 March.">
+              আবেদনের রেফারেন্স নম্বরটি সংরক্ষণ করুন। ১০ মার্চ, ২০২৭ থেকে প্রবেশপত্র ডাউনলোড করা যাবে। ভর্তি পরীক্ষা ১৫ মার্চ।
+            </p>
+          </div>
+        </div>
+
+        <div class="success-actions">
+          <button type="button" class="btn btn-primary" id="printApp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+              <rect x="6" y="14" width="12" height="8"/>
+            </svg>
+            <span data-bn="আবেদন প্রিন্ট করুন" data-en="Print Application">আবেদন প্রিন্ট করুন</span>
+          </button>
+          <a href="admission.html" class="btn btn-ghost">
+            <span data-bn="ভর্তির তথ্যে ফিরুন" data-en="Back to Admission Info">ভর্তির তথ্যে ফিরুন</span>
+          </a>
+          <button type="button" class="btn btn-ghost" id="newApplication">
+            <span data-bn="নতুন আবেদন শুরু করুন" data-en="Start New Application">নতুন আবেদন শুরু করুন</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ */
+<script src="data/site-config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pages.js"></script>
+<script>
+/* ============================================================
+   APPLY PAGE — inline script
+   - Bilingual summary
+   - Form validation
+   - Reference number generation
+   - Print
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var form       = document.getElementById('applicationForm');
+  var success    = document.getElementById('successScreen');
+  var refEl      = document.getElementById('refNumber');
+  var summaryEl  = document.getElementById('summaryList');
+  var progress   = document.getElementById('applyProgress');
+  if (!form) return;
+
+  /* ---------- Same-address convenience ---------- */
+  var sameAddr  = document.getElementById('sameAddress');
+  var present   = document.getElementById('presentAddress');
+  var permanent = document.getElementById('permanentAddress');
+  if (sameAddr) {
+    sameAddr.addEventListener('change', function () {
+      if (sameAddr.checked) {
+        permanent.value = present.value;
+        permanent.readOnly = true;
+      } else {
+        permanent.readOnly = false;
+      }
+    });
+    present.addEventListener('input', function () {
+      if (sameAddr.checked) permanent.value = present.value;
+    });
+  }
+
+  /* ---------- Reference number ---------- */
+  function makeRef() {
+    var yr = new Date().getFullYear();
+    var rand = Math.floor(10000 + Math.random() * 90000);
+    return 'KBUHS-' + yr + '-' + rand;
+  }
+
+  /* ---------- Helpers ---------- */
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? (el.value || '').trim() : '';
+  }
+  function labelFor(id) {
+    var el = document.getElementById(id);
+    if (!el) return '';
+    if (el.type === 'radio') {
+      var checked = document.querySelector('input[name="' + el.name + '"]:checked');
+      return checked ? checked.value : '';
+    }
+    if (el.tagName === 'SELECT') {
+      var opt = el.options[el.selectedIndex];
+      return opt ? opt.textContent.trim() : '';
+    }
+    return el.value || '';
+  }
+
+  /* ---------- Validation ---------- */
+  var requiredIds = [
+    'studentNameBn','studentNameEn','dob',
+    'fatherName','motherName','guardianPhone',
+    'presentAddress','permanentAddress',
+    'applyingClass','prevSchool','prevClass'
+  ];
+
+  function setError(field, on) {
+    if (!field) return;
+    var wrap = field.closest('.field');
+    if (!wrap) return;
+    wrap.classList.toggle('has-error', !!on);
+  }
+
+  function validate() {
+    var ok = true;
+
+    requiredIds.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var empty = !String(el.value || '').trim();
+      setError(el, empty);
+      if (empty) ok = false;
+    });
+
+    /* Gender radio */
+    var genderChecked = document.querySelector('input[name="gender"]:checked');
+    if (!genderChecked) {
+      ok = false;
+      var genderWrap = document.querySelector('input[name="gender"]').closest('.field');
+      if (genderWrap) genderWrap.classList.add('has-error');
+    } else {
+      var gw = document.querySelector('input[name="gender"]').closest('.field');
+      if (gw) gw.classList.remove('has-error');
+    }
+
+    /* Mobile number pattern */
+    var phone = document.getElementById('guardianPhone');
+    if (phone && phone.value.trim() && !/^01[0-9]{9}$/.test(phone.value.trim())) {
+      setError(phone, true);
+      ok = false;
+    }
+
+    /* Declaration checkboxes */
+    var agreeTruth = document.getElementById('agreeTruth');
+    var agreeTerms = document.getElementById('agreeTerms');
+    if (agreeTruth && !agreeTruth.checked) ok = false;
+    if (agreeTerms && !agreeTerms.checked) ok = false;
+
+    return ok;
+  }
+
+  /* ---------- Clear error on input ---------- */
+  form.querySelectorAll('input, select, textarea').forEach(function (el) {
+    el.addEventListener('input', function () {
+      var wrap = el.closest('.field');
+      if (wrap) wrap.classList.remove('has-error');
+    });
+    el.addEventListener('change', function () {
+      var wrap = el.closest('.field');
+      if (wrap) wrap.classList.remove('has-error');
+    });
+  });
+
+  /* ---------- Build summary ---------- */
+  function buildSummary() {
+    var L = window.KBUHS.getLang();
+    var rows = [
+      { bn:'শিক্ষার্থীর নাম', en:'Student Name',
+        value: val('studentNameBn') || val('studentNameEn') },
+      { bn:'জন্ম তারিখ', en:'Date of Birth', value: val('dob') },
+      { bn:'লিঙ্গ', en:'Gender', value: labelFor('gender') },
+      { bn:'ধর্ম', en:'Religion', value: labelFor('religion') },
+      { bn:'আবেদনের শ্রেণি', en:'Applying for Class', value: labelFor('applyingClass') },
+      { bn:'পিতার নাম', en:"Father's Name", value: val('fatherName') },
+      { bn:'মাতার নাম', en:"Mother's Name", value: val('motherName') },
+      { bn:'মোবাইল', en:'Mobile', value: val('guardianPhone') },
+      { bn:'বর্তমান ঠিকানা', en:'Present Address', value: val('presentAddress') },
+      { bn:'পূর্ববর্তী বিদ্যালয়', en:'Previous School', value: val('prevSchool') }
+    ];
+
+    summaryEl.innerHTML = rows.map(function (r) {
+      var label = L === 'bn' ? r.bn : r.en;
+      var value = r.value || (L === 'bn' ? '—' : '—');
+      return '<div class="item">'
+        +   '<label data-bn="' + r.bn + '" data-en="' + r.en + '">' + label + '</label>'
+        +   '<p>' + window.KBUHS.esc(value) + '</p>'
+        + '</div>';
+    }).join('');
+  }
+
+  /* ---------- Submit ---------- */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    /* Scroll to first error if any */
+    if (!validate()) {
+      var first = form.querySelector('.has-error');
+      if (first) {
+        var y = first.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        var focusable = first.querySelector('input, select, textarea');
+        if (focusable) focusable.focus();
+      }
+      return;
+    }
+
+    /* Generate ref + show success */
+    var ref = makeRef();
+    refEl.textContent = ref;
+    buildSummary();
+
+    form.style.display = 'none';
+    progress.style.display = 'none';
+    success.classList.add('show');
+
+    var y = success.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+
+  /* ---------- Print ---------- */
+  var printBtn = document.getElementById('printApp');
+  if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
+
+  /* ---------- Start new ---------- */
+  var newBtn = document.getElementById('newApplication');
+  if (newBtn) newBtn.addEventListener('click', function () {
+    form.reset();
+    form.style.display = '';
+    progress.style.display = '';
+    success.classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ---------- Re-render summary on language change ---------- */
+  window.addEventListener('kbuhs:lang', function () {
+    if (success.classList.contains('show')) buildSummary();
+  });
+
+  /* ---------- Reset form clears errors ---------- */
+  form.addEventListener('reset', function () {
+    form.querySelectorAll('.has-error').forEach(function (el) {
+      el.classList.remove('has-error');
+    });
+    if (sameAddr) sameAddr.checked = false;
+    if (permanent) permanent.readOnly = false;
+  });
+})();
+</script>
+
+</body>
+</html>

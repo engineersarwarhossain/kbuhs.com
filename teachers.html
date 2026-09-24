@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<style>
+/* ============================================================
+   HOTFIX for teachers.html
+   These rules were missing from the CSS files this page loads.
+   Safe to keep permanently — they only set what was missing.
+   ============================================================ */
+
+/* --- Toolbar (was only in students.css) --- */
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:center;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:18px 20px;
+  box-shadow:var(--shadow-sm);
+  margin-bottom:28px;
+}
+.toolbar .search{
+  position:relative;
+  flex:1 1 280px;
+  min-width:0;
+}
+.toolbar .search input{
+  width:100%;
+  padding:12px 15px 12px 42px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  font:inherit;
+  font-size:14.5px;
+  transition:.2s var(--ease);
+}
+.toolbar .search input:focus{
+  outline:none;
+  border-color:var(--primary);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(11,93,59,.1);
+}
+/* THE CRITICAL RULE — clamps the magnifying glass to 18px */
+.toolbar .search svg{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:18px;
+  height:18px;
+  color:var(--muted);
+  pointer-events:none;
+}
+.toolbar select{
+  padding:12px 40px 12px 15px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);
+  background-color:var(--bg);
+  color:var(--text);
+  font:inherit;
+  font-size:14px;
+  font-weight:500;
+  appearance:none;
+  cursor:pointer;
+  transition:.2s var(--ease);
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235B6579' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  background-size:16px;
+}
+.toolbar select:focus{
+  outline:none;
+  border-color:var(--primary);
+  background-color:#fff;
+  box-shadow:0 0 0 4px rgba(11,93,59,.1);
+}
+.toolbar .count{
+  font-size:14px;
+  color:var(--muted);
+  font-weight:600;
+  margin-left:auto;
+  white-space:nowrap;
+  padding-inline:6px;
+}
+
+/* --- Empty state (was only in the newer base.css) --- */
+.empty-state{
+  display:none;
+  text-align:center;
+  padding:64px 24px;
+  background:#fff;
+  border:1px dashed var(--border);
+  border-radius:var(--radius-lg);
+}
+.empty-state.show{display:block}
+/* THE CRITICAL RULE — clamps the empty-state icon to 56px */
+.empty-state svg{
+  width:56px;
+  height:56px;
+  color:var(--muted);
+  opacity:.35;
+  margin:0 auto 16px;
+}
+.empty-state h3{font-size:18px;margin-bottom:6px}
+.empty-state p{color:var(--muted);font-size:14.5px}
+
+/* --- Mobile --- */
+@media (max-width:760px){
+  .toolbar .count{
+    margin-left:0;
+    width:100%;
+    text-align:right;
+  }
+}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>শিক্ষকবৃন্দ | Teachers — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়ের অভিজ্ঞ শিক্ষকমণ্ডলী ও কর্মচারীদের তালিকা — পদবি, বিষয় ও যোগাযোগ তথ্যসহ।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/teachers.css">
+</head>
+
+<body data-page="teachers">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<!-- ================= PAGE HERO ================= -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="শিক্ষকবৃন্দ" data-en="Teachers">শিক্ষকবৃন্দ</span>
+    </nav>
+
+    <h1 data-bn="শিক্ষক ও কর্মচারী" data-en="Teachers & Staff">শিক্ষক ও কর্মচারী</h1>
+    <p class="lead"
+       data-bn="আমাদের অভিজ্ঞ শিক্ষকমণ্ডলী ও কর্মচারীদের সম্পূর্ণ তালিকা — পদবি, বিষয় ও যোগাযোগ তথ্যসহ।"
+       data-en="Complete directory of our experienced faculty and staff — with designation, subject and contact details.">
+      আমাদের অভিজ্ঞ শিক্ষকমণ্ডলী ও কর্মচারীদের সম্পূর্ণ তালিকা — পদবি, বিষয় ও যোগাযোগ তথ্যসহ।
+    </p>
+
+    <div class="hero-stats">
+      <div>
+        <strong id="statTotal">০</strong>
+        <span data-bn="শিক্ষক ও কর্মচারী" data-en="Teachers & Staff">শিক্ষক ও কর্মচারী</span>
+      </div>
+      <div>
+        <strong id="statDesig">০</strong>
+        <span data-bn="পদবি" data-en="Designations">পদবি</span>
+      </div>
+      <div>
+        <strong id="statSubj">০</strong>
+        <span data-bn="বিষয়" data-en="Subjects">বিষয়</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DIRECTORY ================= -->
+<section class="directory">
+  <div class="container">
+
+    <div class="toolbar reveal" role="search">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <input type="search" id="searchInput"
+               data-bn-ph="নাম, আইডি বা বিষয় দিয়ে খুঁজুন..."
+               data-en-ph="Search by name, ID or subject..."
+               placeholder="নাম, আইডি বা বিষয় দিয়ে খুঁজুন..."
+               aria-label="Search teachers">
+      </div>
+
+      <select id="desigSelect" aria-label="Filter by designation"></select>
+      <select id="subjectSelect" aria-label="Filter by subject"></select>
+
+      <span class="count" id="resultCount"></span>
+    </div>
+
+    <div class="t-grid" id="teacherGrid"></div>
+
+    <div class="empty-state" id="emptyState">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+      </svg>
+      <h3 data-bn="কোনো ফলাফল পাওয়া যায়নি" data-en="No results found">কোনো ফলাফল পাওয়া যায়নি</h3>
+      <p data-bn="অনুসন্ধানের শব্দ বা ফিল্টার পরিবর্তন করে আবার চেষ্টা করুন।"
+         data-en="Try changing your search term or filters.">
+        অনুসন্ধানের শব্দ বা ফিল্টার পরিবর্তন করে আবার চেষ্টা করুন।
+      </p>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<!-- ============================================================
+     SCRIPTS — order matters
+     ============================================================ -->
+<script src="data/site-config.js"></script>
+<script src="data/teachers-data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/teachers.js"></script>
+
+</body>
+</html>

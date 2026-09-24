@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>প্রবেশপত্র | Admit Card — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="পরীক্ষার প্রবেশপত্র দেখুন ও ডাউনলোড করুন — শ্রেণি ও রোল নম্বর দিয়ে।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/pages.css">
+<link rel="stylesheet" href="assets/admit-card.css">
+</head>
+
+<body data-page="academics">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <a href="academics.html" data-bn="একাডেমিক" data-en="Academics">একাডেমিক</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="প্রবেশপত্র" data-en="Admit Card">প্রবেশপত্র</span>
+    </nav>
+
+    <h1 data-bn="পরীক্ষার প্রবেশপত্র" data-en="Exam Admit Card">পরীক্ষার প্রবেশপত্র</h1>
+    <p class="lead"
+       data-bn="শ্রেণি, পরীক্ষা ও রোল নম্বর দিয়ে শিক্ষার্থীর প্রবেশপত্র দেখুন ও ডাউনলোড করুন।"
+       data-en="View and download a student's admit card by class, exam and roll number.">
+      শ্রেণি, পরীক্ষা ও রোল নম্বর দিয়ে শিক্ষার্থীর প্রবেশপত্র দেখুন ও ডাউনলোড করুন।
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="rl-search ac-search">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <span data-bn="প্রবেশপত্র খুঁজুন" data-en="Find Admit Card">প্রবেশপত্র খুঁজুন</span>
+      </h3>
+      <p data-bn="শ্রেণি, পরীক্ষা ও রোল নম্বর দিন।"
+         data-en="Select class and exam, then enter the roll number.">
+        শ্রেণি, পরীক্ষা ও রোল নম্বর দিন।
+      </p>
+
+      <div class="ac-search-row">
+        <div class="rl-field">
+          <label data-bn="শ্রেণি" data-en="Class">শ্রেণি</label>
+          <select id="searchClass"></select>
+        </div>
+        <div class="rl-field">
+          <label data-bn="পরীক্ষা" data-en="Exam">পরীক্ষা</label>
+          <select id="searchExam"></select>
+        </div>
+        <div class="rl-field">
+          <label data-bn="রোল নম্বর" data-en="Roll Number">রোল নম্বর</label>
+          <input type="text" id="searchRoll" inputmode="numeric"
+                 data-bn-ph="যেমন: 1, 2, 15" data-en-ph="e.g. 1, 2, 15"
+                 placeholder="যেমন: 1, 2, 15">
+        </div>
+        <button type="button" class="btn btn-primary" id="searchBtn">
+          <span data-bn="প্রবেশপত্র দেখুন" data-en="View Admit Card">প্রবেশপত্র দেখুন</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="rl-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+        </svg>
+        <span data-bn="ডেমো ডেটা: ৬ষ্ঠ শ্রেণির রোল " data-en="Demo data: Class VI roll ">
+          ডেমো ডেটা: ৬ষ্ঠ শ্রেণির রোল
+        </span>
+        <strong>1–55</strong>
+        <span data-bn=" এর প্রবেশপত্র দেখতে পাবেন।" data-en=" admit cards are available."> এর প্রবেশপত্র দেখতে পাবেন।</span>
+      </p>
+    </div>
+
+    <div id="admitCardArea"></div>
+
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-bn="সহায়তা" data-en="Help">সহায়তা</span>
+      <h2 data-bn="প্রবেশপত্র সংক্রান্ত তথ্য" data-en="Admit card information">প্রবেশপত্র সংক্রান্ত তথ্য</h2>
+    </div>
+
+    <div class="card-grid">
+      <article class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/>
+            <path d="M14 2v6h6M9 15h6M9 11h2"/>
+          </svg>
+        </span>
+        <h3 data-bn="প্রবেশপত্র কীভাবে ডাউনলোড করব?" data-en="How to download the admit card?">প্রবেশপত্র কীভাবে ডাউনলোড করব?</h3>
+        <p data-bn="প্রবেশপত্র দেখানোর পর 'প্রিন্ট / PDF' বাটনে ক্লিক করুন। প্রিন্ট উইন্ডোতে 'Save as PDF' বেছে নিলেই PDF ডাউনলোড হবে।"
+           data-en="After viewing the admit card, click 'Print / PDF' and choose 'Save as PDF' in the print dialog.">
+          প্রবেশপত্র দেখানোর পর 'প্রিন্ট / PDF' বাটনে ক্লিক করুন। প্রিন্ট উইন্ডোতে 'Save as PDF' বেছে নিলেই PDF ডাউনলোড হবে।
+        </p>
+      </article>
+
+      <article class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </span>
+        <h3 data-bn="প্রবেশপত্র ছাড়া পরীক্ষায় বসা যাবে?" data-en="Can I sit for the exam without an admit card?">প্রবেশপত্র ছাড়া পরীক্ষায় বসা যাবে?</h3>
+        <p data-bn="না। প্রবেশপত্র ছাড়া কোনো শিক্ষার্থী পরীক্ষা কেন্দ্রে প্রবেশ করতে পারবে না। পরীক্ষার আগেই প্রিন্ট করে সংগ্রহে রাখুন।"
+           data-en="No. Students cannot enter the exam hall without an admit card. Print it well before the exam.">
+          না। প্রবেশপত্র ছাড়া কোনো শিক্ষার্থী পরীক্ষা কেন্দ্রে প্রবেশ করতে পারবে না। পরীক্ষার আগেই প্রিন্ট করে সংগ্রহে রাখুন।
+        </p>
+      </article>
+
+      <article class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/>
+          </svg>
+        </span>
+        <h3 data-bn="প্রবেশপত্রে ভুল থাকলে?" data-en="Wrong information on the admit card?">প্রবেশপত্রে ভুল থাকলে?</h3>
+        <p data-bn="নাম, রোল বা বিষয়ে কোনো ভুল থাকলে দ্রুত অফিসে যোগাযোগ করুন। সংশোধনের জন্য শিক্ষার্থীর জন্মনিবন্ধন ও পূর্ববর্তী প্রশংসাপত্র সাথে আনুন।"
+           data-en="Contact the office immediately if there is any error in name, roll or subjects. Bring the birth certificate and previous certificate for correction.">
+          নাম, রোল বা বিষয়ে কোনো ভুল থাকলে দ্রুত অফিসে যোগাযোগ করুন। সংশোধনের জন্য শিক্ষার্থীর জন্মনিবন্ধন ও পূর্ববর্তী প্রশংসাপত্র সাথে আনুন।
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data/site-config.js"></script>
+<script src="data/students-data.js"></script>
+<script src="data/teachers-data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pages.js"></script>
+<script src="assets/admit-card.js"></script>
+
+</body>
+</html>

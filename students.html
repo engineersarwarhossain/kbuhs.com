@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>শিক্ষার্থীবৃন্দ | Students — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="শ্রেণি অনুযায়ী শিক্ষার্থীদের তালিকা — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/students.css">
+</head>
+
+<body data-page="students">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<!-- ================= PAGE HERO ================= -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="শিক্ষার্থীবৃন্দ" data-en="Students">শিক্ষার্থীবৃন্দ</span>
+    </nav>
+
+    <h1 data-bn="আমাদের শিক্ষার্থীবৃন্দ" data-en="Our Students">আমাদের শিক্ষার্থীবৃন্দ</h1>
+    <p class="lead"
+       data-bn="শ্রেণি অনুযায়ী শিক্ষার্থীদের তালিকা দেখুন। প্রতিটি কার্ডে ক্লিক করলে শিক্ষার্থীর সম্পূর্ণ প্রোফাইল দেখা যাবে।"
+       data-en="Browse students by class. Click any card to view the student's full profile.">
+      শ্রেণি অনুযায়ী শিক্ষার্থীদের তালিকা দেখুন। প্রতিটি কার্ডে ক্লিক করলে শিক্ষার্থীর সম্পূর্ণ প্রোফাইল দেখা যাবে।
+    </p>
+
+    <div class="hero-stats">
+      <div>
+        <strong id="statTotal">০</strong>
+        <span data-bn="মোট শিক্ষার্থী" data-en="Total Students">মোট শিক্ষার্থী</span>
+      </div>
+      <div>
+        <strong id="statClasses">০</strong>
+        <span data-bn="শ্রেণি" data-en="Classes">শ্রেণি</span>
+      </div>
+      <div>
+        <strong id="statSections">০</strong>
+        <span data-bn="শাখা" data-en="Sections">শাখা</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLASS GRID ================= -->
+<section class="section">
+  <div class="container">
+    <div class="section-head left reveal">
+      <span class="eyebrow" data-bn="শ্রেণি নির্বাচন করুন" data-en="Select a Class">শ্রেণি নির্বাচন করুন</span>
+      <h2 data-bn="কোন শ্রেণির শিক্ষার্থী দেখতে চান?" data-en="Which class would you like to browse?">কোন শ্রেণির শিক্ষার্থী দেখতে চান?</h2>
+      <p data-bn="নিচের যেকোনো শ্রেণিতে ক্লিক করলে সেই শ্রেণির শিক্ষার্থীদের তালিকা, অনুসন্ধান ও ডাউনলোড সুবিধা পাবেন।"
+         data-en="Click any class below to see its student list with search and download options.">
+        নিচের যেকোনো শ্রেণিতে ক্লিক করলে সেই শ্রেণির শিক্ষার্থীদের তালিকা, অনুসন্ধান ও ডাউনলোড সুবিধা পাবেন।
+      </p>
+    </div>
+
+    <div class="class-grid" id="classGrid"></div>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="data/site-config.js"></script>
+<script src="data/students-data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/students.js"></script>
+<script>
+(function () {
+  'use strict';
+  function updateStats() {
+    var total = 0;
+    var classesWithData = 0;
+    var sections = [];
+    var classes = ['6', '7', '8', '9', '10'];
+    classes.forEach(function (c) {
+      var n = window.countClass(c);
+      total += n;
+      if (n > 0) classesWithData++;
+      var secs = Object.keys(window.STUDENTS_DATA[c] || {});
+      secs.forEach(function (s) {
+        var key = c + '-' + s;
+        if (sections.indexOf(key) === -1) sections.push(key);
+      });
+    });
+    var lang = window.KBUHS.getLang();
+    var f = function (v) { return lang === 'bn' ? window.KBUHS.bnNum(v) : String(v); };
+    var t = document.getElementById('statTotal');
+    var c = document.getElementById('statClasses');
+    var s = document.getElementById('statSections');
+    if (t) t.textContent = f(total);
+    if (c) c.textContent = f(classesWithData);
+    if (s) s.textContent = f(sections.length);
+  }
+  updateStats();
+  window.addEventListener('kbuhs:lang', updateStats);
+})();
+</script>
+</body>
+</html>

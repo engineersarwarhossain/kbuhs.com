@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>পরীক্ষার ফলাফল | Exam Results — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="৬ষ্ঠ থেকে ১০ম শ্রেণির পরীক্ষার ফলাফল — রোল বা আইডি দিয়ে খুঁজুন।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/pages.css">
+<link rel="stylesheet" href="assets/results.css">
+<link rel="stylesheet" href="assets/print-card.css">
+</head>
+
+<body data-page="academics">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <a href="academics.html" data-bn="একাডেমিক" data-en="Academics">একাডেমিক</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="পরীক্ষার ফলাফল" data-en="Exam Results">পরীক্ষার ফলাফল</span>
+    </nav>
+
+    <h1 data-bn="পরীক্ষার ফলাফল" data-en="Exam Results">পরীক্ষার ফলাফল</h1>
+    <p class="lead"
+       data-bn="শ্রেণি, পরীক্ষা ও রোল নম্বর দিয়ে শিক্ষার্থীর ফলাফল দেখুন। অথবা সরাসরি স্টুডেন্ট আইডি দিয়ে খুঁজুন।"
+       data-en="View a student's result by class, exam and roll number. Or search directly by Student ID.">
+      শ্রেণি, পরীক্ষা ও রোল নম্বর দিয়ে শিক্ষার্থীর ফলাফল দেখুন। অথবা সরাসরি স্টুডেন্ট আইডি দিয়ে খুঁজুন।
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="rl-exam-tabs" id="examTabs" role="tablist" aria-label="Exam type"></div>
+    <div class="class-tabs" id="classTabs" role="tablist" aria-label="Class" style="margin-bottom:26px"></div>
+
+    <div class="rl-search reveal">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <span data-bn="ফলাফল খুঁজুন" data-en="Find Result">ফলাফল খুঁজুন</span>
+      </h3>
+      <p data-bn="স্টুডেন্ট আইডি দিলে অন্য কিছু লাগবে না। অথবা শ্রেণি ও রোল নম্বর দিয়ে খুঁজুন।"
+         data-en="Enter the Student ID alone, or select class and enter the roll number.">
+        স্টুডেন্ট আইডি দিলে অন্য কিছু লাগবে না। অথবা শ্রেণি ও রোল নম্বর দিয়ে খুঁজুন।
+      </p>
+
+      <div class="rl-search-row rl-search-row-wide">
+        <div class="rl-field">
+          <label data-bn="স্টুডেন্ট আইডি (ঐচ্ছিক)" data-en="Student ID (optional)">স্টুডেন্ট আইডি (ঐচ্ছিক)</label>
+          <input type="text" id="searchStudentId" autocomplete="off"
+                 data-bn-ph="যেমন: 6A-01"
+                 data-en-ph="e.g. 6A-01"
+                 placeholder="যেমন: 6A-01">
+        </div>
+
+        <div class="rl-field">
+          <label data-bn="শ্রেণি" data-en="Class">শ্রেণি</label>
+          <select id="searchClass"></select>
+        </div>
+
+        <div class="rl-field" id="groupField" style="display:none">
+          <label data-bn="বিভাগ" data-en="Group">বিভাগ</label>
+          <select id="searchGroup"></select>
+        </div>
+
+        <div class="rl-field">
+          <label data-bn="রোল নম্বর" data-en="Roll Number">রোল নম্বর</label>
+          <input type="text" id="searchRoll" inputmode="numeric" autocomplete="off"
+                 data-bn-ph="যেমন: 1, 2, 15"
+                 data-en-ph="e.g. 1, 2, 15"
+                 placeholder="যেমন: 1, 2, 15">
+        </div>
+
+        <button type="button" class="btn btn-primary" id="searchBtn">
+          <span data-bn="ফলাফল দেখুন" data-en="View Result">ফলাফল দেখুন</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="rl-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+        </svg>
+        <span data-bn="৬ষ্ঠ শ্রেণির ডেমো রোল: 1–55 (Section A) | আইডি উদাহরণ: 6A-01"
+              data-en="Class VI demo rolls: 1–55 (Section A) | ID example: 6A-01">
+          ৬ষ্ঠ শ্রেণির ডেমো রোল: 1–55 (Section A) | আইডি উদাহরণ: 6A-01
+        </span>
+      </p>
+    </div>
+
+    <div id="resultArea"></div>
+
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-bn="সহায়তা" data-en="Help">সহায়তা</span>
+      <h2 data-bn="ফলাফল সংক্রান্ত তথ্য" data-en="Result-related information">ফলাফল সংক্রান্ত তথ্য</h2>
+    </div>
+
+    <div class="card-grid">
+      <article class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/>
+          </svg>
+        </span>
+        <h3 data-bn="ফলাফল কীভাবে দেখব?" data-en="How to view results?">ফলাফল কীভাবে দেখব?</h3>
+        <p data-bn="স্টুডেন্ট আইডি লিখে 'ফলাফল দেখুন' চাপুন। অথবা শ্রেণি ও রোল নম্বর লিখে দেখুন।"
+           data-en="Enter the Student ID and click View Result. Or select class and enter roll number.">
+          স্টুডেন্ট আইডি লিখে 'ফলাফল দেখুন' চাপুন। অথবা শ্রেণি ও রোল নম্বর লিখে দেখুন।
+        </p>
+      </article>
+
+      <article class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </span>
+        <h3 data-bn="নবম-দশম শ্রেণির বিভাগ" data-en="Class IX–X groups">নবম-দশম শ্রেণির বিভাগ</h3>
+        <p data-bn="৯ম ও ১০ম শ্রেণির জন্য বিজ্ঞান, মানবিক বা ব্যবসায় শিক্ষা বিভাগ বেছে নিন।"
+           data-en="For Classes IX and X, pick Science, Humanities or Business Studies.">
+          ৯ম ও ১০ম শ্রেণির জন্য বিজ্ঞান, মানবিক বা ব্যবসায় শিক্ষা বিভাগ বেছে নিন।
+        </p>
+      </article>
+
+      <article class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+        </span>
+        <h3 data-bn="মার্কশিট ডাউনলোড" data-en="Download mark sheet">মার্কশিট ডাউনলোড</h3>
+        <p data-bn="ফলাফলের নিচে 'প্রিন্ট / PDF' বাটনে ক্লিক করে প্রিন্ট করুন বা PDF হিসেবে সংরক্ষণ করুন।"
+           data-en="Use the Print / PDF button below the result to print or save as PDF.">
+          ফলাফলের নিচে 'প্রিন্ট / PDF' বাটনে ক্লিক করে প্রিন্ট করুন বা PDF হিসেবে সংরক্ষণ করুন।
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data/site-config.js"></script>
+<script src="data/students-data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pages.js"></script>
+<script src="assets/results.js"></script>
+
+</body>
+</html>

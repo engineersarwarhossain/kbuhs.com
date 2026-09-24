@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>পরীক্ষার রুটিন | Exam Routine — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="৬ষ্ঠ থেকে ১০ম শ্রেণির পরীক্ষার রুটিন — ৯ম-১০ম শ্রেণিতে বিভাগভিত্তিক।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/pages.css">
+
+<style>
+.er-toolbar{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  justify-content:space-between;margin-bottom:20px;
+}
+.er-exam-tabs{
+  display:flex;gap:6px;flex-wrap:wrap;
+  background:#fff;border:1px solid var(--border);
+  border-radius:999px;padding:6px;
+  box-shadow:var(--shadow-sm);
+  width:fit-content;max-width:100%;
+}
+.er-exam-tabs button{
+  padding:9px 20px;border-radius:999px;
+  font-size:14px;font-weight:600;color:#33405A;
+  transition:.2s var(--ease);white-space:nowrap;
+}
+.er-exam-tabs button:hover{background:var(--primary-50);color:var(--primary)}
+.er-exam-tabs button.active{
+  background:var(--gold);color:#3B2A00;
+  box-shadow:0 4px 14px rgba(244,185,66,.3);
+}
+.er-info{
+  background:#fff;border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:22px 24px;
+  margin-bottom:26px;box-shadow:var(--shadow-sm);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:20px;
+}
+.er-info .item{display:flex;gap:12px;align-items:flex-start}
+.er-info .item .ico{
+  width:40px;height:40px;flex:none;border-radius:12px;
+  display:grid;place-items:center;
+  background:var(--primary-50);color:var(--primary);
+}
+.er-info .item .ico svg{width:20px;height:20px}
+.er-info .item label{
+  display:block;font-size:11.5px;font-weight:700;
+  color:var(--muted);text-transform:uppercase;
+  letter-spacing:.05em;margin-bottom:3px;
+}
+.er-info .item p{
+  font-size:14.5px;font-weight:600;
+  color:var(--text);line-height:1.4;
+}
+.er-table-wrap{
+  background:#fff;border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-sm);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+.er-table{
+  width:100%;border-collapse:collapse;min-width:640px;
+}
+.er-table thead th{
+  background:linear-gradient(135deg,var(--primary),var(--primary-800));
+  color:#fff;padding:14px 16px;
+  font-size:13.5px;font-weight:700;text-align:left;
+  border-right:1px solid rgba(255,255,255,.12);
+  white-space:nowrap;
+}
+.er-table thead th:last-child{border-right:0}
+.er-table thead th.col-date{width:150px}
+.er-table thead th.col-day{width:110px}
+.er-table thead th.col-time{width:160px}
+.er-table thead th.group-head{text-align:center;color:var(--gold)}
+.er-table tbody tr{
+  border-bottom:1px solid var(--border);
+  transition:background .15s var(--ease);
+}
+.er-table tbody tr:last-child{border-bottom:0}
+.er-table tbody tr:hover{background:var(--primary-50)}
+.er-table td{
+  padding:14px 16px;font-size:14.5px;
+  vertical-align:middle;
+  border-right:1px solid var(--border);
+}
+.er-table td:last-child{border-right:0}
+.er-table td.center{text-align:center}
+.er-date{
+  display:inline-flex;align-items:center;gap:10px;
+  font-weight:600;
+}
+.er-date .box{
+  width:44px;height:44px;flex:none;
+  border-radius:11px;
+  background:var(--primary);color:#fff;
+  display:grid;place-items:center;
+  text-align:center;line-height:1.05;
+}
+.er-date .box .d{font-size:15px;font-weight:800;display:block}
+.er-date .box .m{
+  font-size:9.5px;text-transform:uppercase;
+  letter-spacing:.04em;opacity:.85;display:block;
+}
+.er-date .full{
+  display:flex;flex-direction:column;
+  font-size:13.5px;font-weight:600;color:var(--text);
+}
+.er-date .full small{
+  font-size:11.5px;color:var(--muted);
+  font-weight:500;margin-top:1px;
+}
+.er-day{
+  font-weight:600;color:#33405A;font-size:14px;
+}
+.er-subject{
+  display:flex;align-items:center;gap:10px;
+}
+.er-subject .dot{
+  width:8px;height:8px;border-radius:50%;flex:none;
+}
+.er-subject .name{
+  font-weight:600;color:var(--text);
+  font-size:13.5px;line-height:1.3;
+}
+.er-subject .code{
+  font-size:10.5px;
+  font-family:'Inter',monospace;
+  color:var(--muted);
+  margin-left:auto;
+  padding-left:8px;
+}
+.er-subject[data-cat="lang"]  .dot{background:var(--primary)}
+.er-subject[data-cat="sci"]   .dot{background:#2E86DE}
+.er-subject[data-cat="rel"]   .dot{background:var(--gold-600)}
+.er-subject[data-cat="hum"]   .dot{background:#9333EA}
+.er-subject[data-cat="bus"]   .dot{background:#DB2777}
+.er-subject[data-cat="other"] .dot{background:#C24D4D}
+.er-group-col{
+  border-left:1px dashed var(--border) !important;
+}
+.er-time{
+  font-family:'Inter',monospace;
+  font-size:13.5px;color:#33405A;font-weight:600;
+  text-align:center;
+}
+.er-legend{
+  display:flex;flex-wrap:wrap;gap:14px;
+  margin-top:18px;padding:14px 20px;
+  background:#fff;border:1px solid var(--border);
+  border-radius:var(--radius);
+  font-size:12.5px;color:var(--muted);
+}
+.er-legend .item{display:inline-flex;align-items:center;gap:7px}
+.er-legend .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.er-legend .dot.lang{background:var(--primary)}
+.er-legend .dot.sci{background:#2E86DE}
+.er-legend .dot.rel{background:var(--gold-600)}
+.er-legend .dot.hum{background:#9333EA}
+.er-legend .dot.bus{background:#DB2777}
+.er-legend .dot.other{background:#C24D4D}
+.er-print-head{
+  display:none;margin-bottom:22px;text-align:center;
+}
+.er-print-head h1{
+  font-size:20px;color:var(--primary-800);
+  margin-bottom:6px;letter-spacing:-.01em;
+}
+.er-print-head .sub{
+  font-size:14px;color:#33405A;
+  font-weight:600;margin-bottom:4px;
+}
+.er-print-head .note{
+  font-size:12px;color:var(--muted);margin-top:6px;
+}
+@media print{
+  @page{ size:A4 landscape; margin:12mm; }
+  body{background:#fff !important}
+  .topbar,.nav-bar,.footer,.to-top,.skip-link,.page-hero,
+  .er-toolbar,.er-actions,.class-tabs{display:none !important}
+  .reveal{opacity:1 !important;transform:none !important}
+  .er-print-head{display:block !important}
+  .container{max-width:100%;padding:0}
+  .section{padding:0}
+  .er-info{
+    box-shadow:none !important;border:1px solid #333 !important;
+    border-radius:0 !important;padding:12px !important;
+    margin-bottom:12px !important;gap:12px !important;
+  }
+  .er-info .item .ico{
+    background:#EFEFEF !important;color:#0B5D3B !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .er-table-wrap{
+    box-shadow:none !important;border:1px solid #333 !important;
+    border-radius:0 !important;overflow:visible !important;
+  }
+  .er-table{min-width:0}
+  .er-table thead th{
+    background:#0B5D3B !important;color:#fff !important;
+    padding:8px 10px;font-size:11.5px;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .er-table thead th.group-head{color:var(--gold) !important}
+  .er-table td{
+    padding:8px 10px;font-size:11.5px;
+    color:#000;border-color:#666 !important;
+  }
+  .er-date .box{
+    background:#0B5D3B !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    width:36px;height:36px;
+  }
+  .er-subject .name{font-size:11px}
+  .er-subject .code{font-size:9px}
+  .er-legend{page-break-inside:avoid}
+}
+@media (max-width:760px){
+  .er-toolbar{flex-direction:column;align-items:stretch}
+  .er-toolbar .btn{width:100%}
+  .er-exam-tabs{width:100%;justify-content:center}
+  .er-actions .btn{width:100%}
+}
+</style>
+</head>
+
+<body data-page="academics">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <a href="academics.html" data-bn="একাডেমিক" data-en="Academics">একাডেমিক</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="পরীক্ষার রুটিন" data-en="Exam Routine">পরীক্ষার রুটিন</span>
+    </nav>
+
+    <h1 data-bn="পরীক্ষার রুটিন" data-en="Exam Routine">পরীক্ষার রুটিন</h1>
+    <p class="lead"
+       data-bn="৬ষ্ঠ থেকে ১০ম শ্রেণির পরীক্ষার সময়সূচি। ৯ম ও ১০ম শ্রেণিতে প্রতিদিন তিন বিভাগের (বিজ্ঞান, মানবিক, ব্যবসায় শিক্ষা) পরীক্ষা একসাথে অনুষ্ঠিত হয়।"
+       data-en="Exam schedules for Classes VI – X. In Classes IX and X, three groups (Science, Humanities, Business) sit for different subjects on the same day.">
+      ৬ষ্ঠ থেকে ১০ম শ্রেণির পরীক্ষার সময়সূচি। ৯ম ও ১০ম শ্রেণিতে প্রতিদিন তিন বিভাগের (বিজ্ঞান, মানবিক, ব্যবসায় শিক্ষা) পরীক্ষা একসাথে অনুষ্ঠিত হয়।
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="er-toolbar">
+      <div class="er-exam-tabs" id="examTabs" role="tablist" aria-label="Exam type"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button type="button" class="btn btn-primary btn-sm" id="printBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px">
+            <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          <span data-bn="প্রিন্ট করুন" data-en="Print Routine">প্রিন্ট করুন</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="class-tabs" id="classTabs" role="tablist" aria-label="Class" style="margin-bottom:22px"></div>
+
+    <div class="er-info reveal" id="examInfo"></div>
+
+    <div class="er-print-head" id="erPrintHead"></div>
+
+    <div class="er-table-wrap reveal">
+      <table class="er-table" id="routineTable" aria-label="Exam routine"></table>
+    </div>
+
+    <div class="er-legend reveal" id="legend"></div>
+
+    <div class="er-actions reveal" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px">
+      <a href="downloads.html" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px">
+          <path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>
+        </svg>
+        <span data-bn="সিলেবাস ডাউনলোড" data-en="Download Syllabus">সিলেবাস ডাউনলোড</span>
+      </a>
+      <a href="results.html" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px">
+          <path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/>
+        </svg>
+        <span data-bn="পূর্বের ফলাফল" data-en="Previous Results">পূর্বের ফলাফল</span>
+      </a>
+      <a href="admit-card.html" class="btn btn-gold">
+        <span data-bn="প্রবেশপত্র" data-en="Admit Card">প্রবেশপত্র</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px">
+          <path d="M5 12h14M13 6l6 6-6 6"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data/site-config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pages.js"></script>
+<script>
+/* ============================================================
+   EXAM ROUTINE PAGE
+   - Classes 6-8: single subject per date
+   - Classes 9-10: three groups (Science / Humanities / Business)
+     sit for different subjects on the same date
+   - Randomised on every page load + "Shuffle Again" button
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var EXAMS = [
+    { key: 'pretest', bn: 'এসএসসি প্রি-টেস্ট', en: 'SSC Pre Test' },
+    { key: 'half',    bn: 'অর্ধ-বার্ষিক',       en: 'Half-Yearly' },
+    { key: 'annual',  bn: 'বার্ষিক',             en: 'Annual' },
+    { key: 'test',    bn: 'টেস্ট পরীক্ষা',       en: 'Test Exam' }
+  ];
+
+  var CLASSES = ['6', '7', '8', '9', '10'];
+  var GROUP_CLASSES = ['9', '10'];
+
+  /* ------------------------------------------------------------
+     Subject pools (with code + category for the colored dot)
+     ------------------------------------------------------------ */
+  var COMMON_910 = [
+    { code:'101', bn:'বাংলা ১ম পত্র',           en:'Bangla 1st Paper',       cat:'lang' },
+    { code:'102', bn:'বাংলা ২য় পত্র',           en:'Bangla 2nd Paper',       cat:'lang' },
+    { code:'107', bn:'ইংরেজি ১ম পত্র',          en:'English 1st Paper',      cat:'lang' },
+    { code:'108', bn:'ইংরেজি ২য় পত্র',          en:'English 2nd Paper',      cat:'lang' },
+    { code:'109', bn:'গণিত',                    en:'Mathematics',            cat:'lang' },
+    { code:'111', bn:'ইসলাম ও নৈতিক শিক্ষা',    en:'Islam & Moral',          cat:'rel'  },
+    { code:'112', bn:'হিন্দুধর্ম ও নৈতিক শিক্ষা', en:'Hindu Religion',         cat:'rel'  },
+    { code:'131', bn:'তথ্য ও যোগাযোগ প্রযুক্তি', en:'ICT',                    cat:'sci'  },
+    { code:'150', bn:'বাংলাদেশ ও বিশ্বপরিচয়',   en:'BGS',                    cat:'lang' }
+  ];
+
+  var SCIENCE_POOL = [
+    { code:'136', bn:'পদার্থবিজ্ঞান',           en:'Physics',                cat:'sci' },
+    { code:'137', bn:'রসায়ন',                  en:'Chemistry',              cat:'sci' },
+    { code:'138', bn:'জীববিজ্ঞান',               en:'Biology',                cat:'sci' },
+    { code:'126', bn:'উচ্চতর গণিত',             en:'Higher Mathematics',     cat:'sci' }
+  ];
+
+  var HUMANITIES_POOL = [
+    { code:'153', bn:'ইতিহাস',                  en:'History',                cat:'hum' },
+    { code:'141', bn:'ভূগোল',                   en:'Geography',              cat:'hum' },
+    { code:'145', bn:'পৌরনীতি ও নাগরিকতা',       en:'Civics',                 cat:'hum' },
+    { code:'156', bn:'অর্থনীতি',                 en:'Economics',              cat:'hum' }
+  ];
+
+  var BUSINESS_POOL = [
+    { code:'146', bn:'হিসাববিজ্ঞান',             en:'Accounting',             cat:'bus' },
+    { code:'143', bn:'ব্যবসায় উদ্যোগ',            en:'Business Entrepreneurship', cat:'bus' },
+    { code:'152', bn:'ফিন্যান্স ও ব্যাংকিং',      en:'Finance & Banking',      cat:'bus' },
+    { code:'158', bn:'ব্যবসায় গণিত',             en:'Business Mathematics',   cat:'bus' }
+  ];
+
+  /* ------------------------------------------------------------
+     Subject pools for Classes 6-8 (single subject)
+     ------------------------------------------------------------ */
+  var JUNIOR_POOL = {
+    '6': [
+      { code:'101', bn:'বাংলা',                    en:'Bangla',              cat:'lang' },
+      { code:'107', bn:'ইংরেজি',                   en:'English',             cat:'lang' },
+      { code:'109', bn:'গণিত',                     en:'Mathematics',         cat:'lang' },
+      { code:'127', bn:'বিজ্ঞান',                   en:'Science',             cat:'sci'  },
+      { code:'110', bn:'বাংলাদেশ ও বিশ্বপরিচয়',   en:'BGS',                 cat:'lang' },
+      { code:'111', bn:'ইসলাম ও নৈতিক শিক্ষা',    en:'Islam & Moral',       cat:'rel'  },
+      { code:'112', bn:'হিন্দুধর্ম ও নৈতিক শিক্ষা', en:'Hindu Religion',      cat:'rel'  },
+      { code:'131', bn:'তথ্য ও যোগাযোগ প্রযুক্তি', en:'ICT',                 cat:'sci'  },
+      { code:'134', bn:'কৃষিশিক্ষা',                en:'Agriculture',         cat:'sci'  }
+    ],
+    '7': [
+      { code:'101', bn:'বাংলা',                    en:'Bangla',              cat:'lang' },
+      { code:'107', bn:'ইংরেজি',                   en:'English',             cat:'lang' },
+      { code:'109', bn:'গণিত',                     en:'Mathematics',         cat:'lang' },
+      { code:'127', bn:'বিজ্ঞান',                   en:'Science',             cat:'sci'  },
+      { code:'110', bn:'বাংলাদেশ ও বিশ্বপরিচয়',   en:'BGS',                 cat:'lang' },
+      { code:'111', bn:'ইসলাম ও নৈতিক শিক্ষা',    en:'Islam & Moral',       cat:'rel'  },
+      { code:'112', bn:'হিন্দুধর্ম ও নৈতিক শিক্ষা', en:'Hindu Religion',      cat:'rel'  },
+      { code:'131', bn:'তথ্য ও যোগাযোগ প্রযুক্তি', en:'ICT',                 cat:'sci'  },
+      { code:'134', bn:'কৃষিশিক্ষা',                en:'Agriculture',         cat:'sci'  }
+    ],
+    '8': [
+      { code:'101', bn:'বাংলা',                    en:'Bangla',              cat:'lang' },
+      { code:'107', bn:'ইংরেজি',                   en:'English',             cat:'lang' },
+      { code:'109', bn:'গণিত',                     en:'Mathematics',         cat:'lang' },
+      { code:'127', bn:'বিজ্ঞান',                   en:'Science',             cat:'sci'  },
+      { code:'110', bn:'বাংলাদেশ ও বিশ্বপরিচয়',   en:'BGS',                 cat:'lang' },
+      { code:'111', bn:'ইসলাম ও নৈতিক শিক্ষা',    en:'Islam & Moral',       cat:'rel'  },
+      { code:'112', bn:'হিন্দুধর্ম ও নৈতিক শিক্ষা', en:'Hindu Religion',      cat:'rel'  },
+      { code:'131', bn:'তথ্য ও যোগাযোগ প্রযুক্তি', en:'ICT',                 cat:'sci'  },
+      { code:'134', bn:'কৃষিশিক্ষা',                en:'Agriculture',         cat:'sci'  }
+    ]
+  };
+
+  /* ------------------------------------------------------------
+     Exam start dates per exam type
+     ------------------------------------------------------------ */
+  var EXAM_START = {
+    pretest: { day: 1,  month: 7,  year: 2026 },
+    half:    { day: 15, month: 6,  year: 2026 },
+    annual:  { day: 1,  month: 12, year: 2026 },
+    test:    { day: 1,  month: 11, year: 2026 }
+  };
+
+  /* ------------------------------------------------------------
+     State
+     ------------------------------------------------------------ */
+  var currentExam  = 'half';
+  var currentClass = '6';
+  var currentRoutine = null;   /* cached generated routine for active view */
+
+  /* ------------------------------------------------------------
+     DOM
+     ------------------------------------------------------------ */
+  var examTabsBox  = document.getElementById('examTabs');
+  var classTabsBox = document.getElementById('classTabs');
+  var infoBox      = document.getElementById('examInfo');
+  var tableBox     = document.getElementById('routineTable');
+  var printHead    = document.getElementById('erPrintHead');
+  var legendBox    = document.getElementById('legend');
+  var printBtn     = document.getElementById('printBtn');
+
+  if (!examTabsBox || !classTabsBox || !tableBox) return;
+
+  /* ------------------------------------------------------------
+     Helpers
+     ------------------------------------------------------------ */
+  function esc(s) { return window.KBUHS.esc(s); }
+  function L()    { return window.KBUHS.getLang(); }
+  function bnNum(n){ return window.KBUHS.bnNum(n); }
+  function num(n)  { return L() === 'bn' ? bnNum(n) : String(n); }
+  function classLabel(c, l) { return window.KBUHS.classLabel(c, l || L()); }
+
+  function examLabel(key, l) {
+    var i;
+    for (i = 0; i < EXAMS.length; i++) {
+      if (EXAMS[i].key === key) return (l || L()) === 'bn' ? EXAMS[i].bn : EXAMS[i].en;
+    }
+    return key;
+  }
+
+  /* Fisher-Yates shuffle */
+  function shuffle(arr) {
+    var a = arr.slice();
+    var i, j, t;
+    for (i = a.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  var MONTH_BN = ['জানু','ফেব','মার্চ','এপ্রি','মে','জুন','জুলা','আগ','সেপ','অক্টো','নভে','ডিসে'];
+  var WEEKDAY_BN = ['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
+  var WEEKDAY_EN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  /* Next exam date skipping Friday (5) and Saturday (6) */
+  function nextValidDate(startDate, offset) {
+    var d = new Date(startDate.year, startDate.month - 1, startDate.day);
+    var added = 0;
+    while (added < offset) {
+      d.setDate(d.getDate() + 1);
+      var dow = d.getDay();
+      if (dow !== 5 && dow !== 6) added++;
+    }
+    /* Skip weekends on the start too */
+    while (d.getDay() === 5 || d.getDay() === 6) {
+      d.setDate(d.getDate() + 1);
+    }
+    return {
+      day: d.getDate(),
+      month: d.getMonth() + 1,
+      year: d.getFullYear(),
+      weekday: d.getDay()
+    };
+  }
+
+  /* Format one date */
+  function fmtDate(d, lang) {
+    var monthBn = MONTH_BN[d.month - 1];
+    var day = (lang === 'bn') ? bnNum(d.day) : String(d.day);
+    var year = (lang === 'bn') ? bnNum(d.year) : String(d.year);
+    var month = (lang === 'bn') ? monthBn : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.month - 1];
+    return {
+      short: day,
+      monthShort: month,
+      full: day + ' ' + month + ', ' + year
+    };
+  }
+
+  function weekdayLabel(d, lang) {
+    return (lang === 'bn') ? WEEKDAY_BN[d.weekday] : WEEKDAY_EN[d.weekday];
+  }
+
+  /* ============================================================
+     ROUTINE GENERATORS
+     ============================================================ */
+
+  /* Classes 6-8: single column routine */
+  function generateJunior(cls, examKey) {
+    var start = EXAM_START[examKey] || EXAM_START.half;
+    var pool = shuffle(JUNIOR_POOL[cls] || JUNIOR_POOL['6']);
+    var rows = [];
+    var i;
+    for (i = 0; i < pool.length; i++) {
+      rows.push({
+        date: nextValidDate(start, i),
+        subject: pool[i]
+      });
+    }
+    return { type: 'junior', rows: rows, start: start };
+  }
+
+  /* Classes 9-10: three-column routine */
+  function generateSenior(cls, examKey) {
+    var start = EXAM_START[examKey] || EXAM_START.half;
+    var common     = shuffle(COMMON_910);
+    var science    = shuffle(SCIENCE_POOL);
+    var humanities = shuffle(HUMANITIES_POOL);
+    var business   = shuffle(BUSINESS_POOL);
+
+    var rows = [];
+    var offset = 0;
+    var i;
+
+    /* Common subjects — all three groups take the same subject same day */
+    for (i = 0; i < common.length; i++) {
+      rows.push({
+        date: nextValidDate(start, offset++),
+        science:    common[i],
+        humanities: common[i],
+        business:   common[i],
+        isCommon:   true
+      });
+    }
+
+    /* Group-specific — 4 days, different subject per group */
+    var maxLen = Math.max(science.length, humanities.length, business.length);
+    for (i = 0; i < maxLen; i++) {
+      rows.push({
+        date: nextValidDate(start, offset++),
+        science:    science[i]    || null,
+        humanities: humanities[i] || null,
+        business:   business[i]   || null,
+        isCommon:   false
+      });
+    }
+
+    return { type: 'senior', rows: rows, start: start };
+  }
+
+  /* ============================================================
+     RENDER
+     ============================================================ */
+  function renderExamTabs() {
+    var lang = L();
+    var parts = [];
+    var i;
+    for (i = 0; i < EXAMS.length; i++) {
+      var e = EXAMS[i];
+      var active = (e.key === currentExam) ? ' active' : '';
+      parts.push('<button type="button" data-exam="' + e.key + '" class="' + active.trim() + '"'
+        + ' data-bn="' + e.bn + '" data-en="' + e.en + '">'
+        + esc(lang === 'bn' ? e.bn : e.en) + '</button>');
+    }
+    examTabsBox.innerHTML = parts.join('');
+
+    Array.prototype.forEach.call(examTabsBox.querySelectorAll('button'), function (b) {
+      b.addEventListener('click', function () {
+        currentExam = b.getAttribute('data-exam');
+        if (currentExam === 'pretest' && currentClass !== '10') currentClass = '10';
+        regenerate();
+      });
+    });
+  }
+
+  function renderClassTabs() {
+    var lang = L();
+    var parts = [];
+    var i;
+    for (i = 0; i < CLASSES.length; i++) {
+      var c = CLASSES[i];
+      var active = (c === currentClass) ? ' active' : '';
+      parts.push('<button type="button" class="class-tab' + active + '" data-class="' + c + '"'
+        + ' data-bn="' + classLabel(c, 'bn') + '" data-en="' + classLabel(c, 'en') + '">'
+        + esc(classLabel(c, lang)) + '</button>');
+    }
+    classTabsBox.innerHTML = parts.join('');
+
+    Array.prototype.forEach.call(classTabsBox.querySelectorAll('.class-tab'), function (b) {
+      b.addEventListener('click', function () {
+        currentClass = b.getAttribute('data-class');
+        if (currentExam === 'pretest' && currentClass !== '10') currentExam = 'half';
+        regenerate();
+      });
+    });
+  }
+
+  function renderInfo(routine) {
+    var lang = L();
+    var start = routine.start;
+
+    function fmtSimple(d) {
+      var monthBn = MONTH_BN[d.month - 1];
+      var day = (lang === 'bn') ? bnNum(d.day) : String(d.day);
+      var year = (lang === 'bn') ? bnNum(d.year) : String(d.year);
+      var month = (lang === 'bn') ? monthBn : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.month - 1];
+      return day + ' ' + month + ', ' + year;
+    }
+
+    var lastDate = routine.rows.length
+      ? routine.rows[routine.rows.length - 1].date
+      : start;
+
+    var typeText = (routine.type === 'senior')
+      ? (lang === 'bn' ? 'বিভাগভিত্তিক (বিজ্ঞান/মানবিক/ব্যবসায়)' : 'Group-wise (Science /Humanities/Business)')
+      : (lang === 'bn' ? 'সকল শিক্ষার্থীর জন্য একই বিষয়' : 'Single subject for all students');
+
+    var parts = [];
+    parts.push('<div class="item"><span class="ico">');
+    parts.push('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>');
+    parts.push('</span><div><label>' + (lang === 'bn' ? 'পরীক্ষার ধরন' : 'Exam Type') + '</label>');
+    parts.push('<p>' + esc(examLabel(currentExam, lang)) + '</p></div></div>');
+
+    parts.push('<div class="item"><span class="ico">');
+    parts.push('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>');
+    parts.push('</span><div><label>' + (lang === 'bn' ? 'সময়' : 'Time') + '</label>');
+    parts.push('<p>10:00 – 13:00</p></div></div>');
+
+    parts.push('<div class="item"><span class="ico">');
+    parts.push('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>');
+    parts.push('</span><div><label>' + (lang === 'bn' ? 'শুরুর তারিখ' : 'Start Date') + '</label>');
+    parts.push('<p>' + esc(fmtSimple(start)) + '</p></div></div>');
+
+    parts.push('<div class="item"><span class="ico">');
+    parts.push('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>');
+    parts.push('</span><div><label>' + (lang === 'bn' ? 'শেষ তারিখ' : 'End Date') + '</label>');
+    parts.push('<p>' + esc(fmtSimple(lastDate)) + '</p></div></div>');
+
+    parts.push('<div class="item"><span class="ico">');
+    parts.push('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>');
+    parts.push('</span><div><label>' + (lang === 'bn' ? 'প্রযোজ্য' : 'Applies To') + '</label>');
+    parts.push('<p>' + esc(typeText) + '</p></div></div>');
+
+    infoBox.innerHTML = parts.join('');
+  }
+
+  /* Render junior (single-column) table */
+  function renderJuniorTable(routine) {
+    var lang = L();
+    var rows = routine.rows;
+    var parts = [];
+
+    parts.push('<thead><tr>');
+    parts.push('<th class="col-date">' + (lang === 'bn' ? 'তারিখ' : 'Date') + '</th>');
+    parts.push('<th class="col-day">' + (lang === 'bn' ? 'বার' : 'Day') + '</th>');
+    parts.push('<th>' + (lang === 'bn' ? 'বিষয়' : 'Subject') + '</th>');
+    parts.push('<th class="col-time">' + (lang === 'bn' ? 'সময়' : 'Time') + '</th>');
+    parts.push('</tr></thead><tbody>');
+
+    rows.forEach(function (r) {
+      var f = fmtDate(r.date, lang);
+      var subj = r.subject;
+      var subjName = (lang === 'bn') ? subj.bn : subj.en;
+      var wd = weekdayLabel(r.date, lang);
+
+      parts.push('<tr>');
+      parts.push('<td><span class="er-date">');
+      parts.push('<span class="box"><span class="d">' + esc(f.short) + '</span><span class="m">' + esc(f.monthShort) + '</span></span>');
+      parts.push('<span class="full">' + esc(f.full) + '<small>' + (lang === 'bn' ? 'সকাল ১০:০০' : '10:00 AM') + '</small></span>');
+      parts.push('</span></td>');
+      parts.push('<td><span class="er-day">' + esc(wd) + '</span></td>');
+      parts.push('<td><span class="er-subject" data-cat="' + subj.cat + '">');
+      parts.push('<span class="dot"></span>');
+      parts.push('<span class="name">' + esc(subjName) + '</span>');
+      parts.push('<span class="code">' + esc(subj.code) + '</span>');
+      parts.push('</span></td>');
+      parts.push('<td><span class="er-time">10:00 – 13:00</span></td>');
+      parts.push('</tr>');
+    });
+
+    parts.push('</tbody>');
+    tableBox.innerHTML = parts.join('');
+  }
+
+  /* Render senior (3-column) table */
+  function renderSeniorTable(routine) {
+    var lang = L();
+    var rows = routine.rows;
+    var parts = [];
+
+    parts.push('<thead><tr>');
+    parts.push('<th class="col-date">' + (lang === 'bn' ? 'তারিখ' : 'Date') + '</th>');
+    parts.push('<th class="col-day">' + (lang === 'bn' ? 'বার' : 'Day') + '</th>');
+    parts.push('<th class="group-head">' + (lang === 'bn' ? 'বিজ্ঞান' : 'Science') + '</th>');
+    parts.push('<th class="group-head er-group-col">' + (lang === 'bn' ? 'মানবিক' : 'Humanities') + '</th>');
+    parts.push('<th class="group-head er-group-col">' + (lang === 'bn' ? 'ব্যবসায় শিক্ষা' : 'Business') + '</th>');
+    parts.push('<th class="col-time">' + (lang === 'bn' ? 'সময়' : 'Time') + '</th>');
+    parts.push('</tr></thead><tbody>');
+
+    rows.forEach(function (r) {
+      var f = fmtDate(r.date, lang);
+      var wd = weekdayLabel(r.date, lang);
+
+      parts.push('<tr>');
+      parts.push('<td><span class="er-date">');
+      parts.push('<span class="box"><span class="d">' + esc(f.short) + '</span><span class="m">' + esc(f.monthShort) + '</span></span>');
+      parts.push('<span class="full">' + esc(f.full) + '<small>' + (lang === 'bn' ? 'সকাল ১০:০০' : '10:00 AM') + '</small></span>');
+      parts.push('</span></td>');
+      parts.push('<td><span class="er-day">' + esc(wd) + '</span></td>');
+
+      /* Three subject cells */
+      function subjCell(subj) {
+        if (!subj) return '<td class="center">—</td>';
+        var name = (lang === 'bn') ? subj.bn : subj.en;
+        return '<td>'
+          + '<span class="er-subject" data-cat="' + subj.cat + '">'
+          + '<span class="dot"></span>'
+          + '<span class="name">' + esc(name) + '</span>'
+          + '<span class="code">' + esc(subj.code) + '</span>'
+          + '</span></td>';
+      }
+
+      parts.push(subjCell(r.science));
+      parts.push(subjCell(r.humanities).replace('<td>', '<td class="er-group-col">'));
+      parts.push(subjCell(r.business).replace('<td>', '<td class="er-group-col">'));
+
+      parts.push('<td><span class="er-time">10:00 – 13:00</span></td>');
+      parts.push('</tr>');
+    });
+
+    parts.push('</tbody>');
+    tableBox.innerHTML = parts.join('');
+  }
+
+  function renderLegend(routine) {
+    var lang = L();
+    var isSenior = routine.type === 'senior';
+    var parts = [];
+    parts.push('<span class="item"><strong>' + (lang === 'bn' ? 'রঙের অর্থ:' : 'Color key:') + '</strong></span>');
+    parts.push('<span class="item"><span class="dot lang"></span>' + (lang === 'bn' ? 'ভাষা ও গণিত' : 'Language & Math') + '</span>');
+    parts.push('<span class="item"><span class="dot sci"></span>' + (lang === 'bn' ? 'বিজ্ঞান' : 'Science') + '</span>');
+    if (isSenior) {
+      parts.push('<span class="item"><span class="dot hum"></span>' + (lang === 'bn' ? 'মানবিক' : 'Humanities') + '</span>');
+      parts.push('<span class="item"><span class="dot bus"></span>' + (lang === 'bn' ? 'ব্যবসায় শিক্ষা' : 'Business') + '</span>');
+    }
+    parts.push('<span class="item"><span class="dot rel"></span>' + (lang === 'bn' ? 'ধর্ম' : 'Religion') + '</span>');
+    legendBox.innerHTML = parts.join('');
+  }
+
+  function renderPrintHead(routine) {
+    var lang = L();
+    var S = window.SITE || {};
+    var school = lang === 'bn' ? (S.nameBn || '') : (S.nameEn || '');
+    var cls = classLabel(currentClass, lang);
+    var exam = examLabel(currentExam, lang);
+    var parts = [];
+    parts.push('<h1>' + esc(school) + '</h1>');
+    parts.push('<div class="sub">' + esc(exam) + ' — ' + esc(cls) + '</div>');
+    parts.push('<div class="note">');
+    parts.push(lang === 'bn'
+      ? 'পরীক্ষা: সকাল ১০:০০ – দুপুর ১:০০ • সময়: ৩ ঘণ্টা'
+      : 'Exam: 10:00 AM – 1:00 PM • Duration: 3 hours');
+    parts.push('</div>');
+    printHead.innerHTML = parts.join('');
+  }
+
+  /* ============================================================
+     REGENERATE + RENDER PIPELINE
+     ============================================================ */
+  function regenerate() {
+    /* Generate fresh randomised routine */
+    if (GROUP_CLASSES.indexOf(currentClass) !== -1) {
+      currentRoutine = generateSenior(currentClass, currentExam);
+    } else {
+      currentRoutine = generateJunior(currentClass, currentExam);
+    }
+
+    /* Render everything */
+    renderExamTabs();
+    renderClassTabs();
+
+    if (currentRoutine.type === 'senior') {
+      renderSeniorTable(currentRoutine);
+    } else {
+      renderJuniorTable(currentRoutine);
+    }
+
+    renderInfo(currentRoutine);
+    renderLegend(currentRoutine);
+    renderPrintHead(currentRoutine);
+  }
+
+  /* ============================================================
+     EVENTS
+     ============================================================ */
+  if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
+
+  window.addEventListener('kbuhs:lang', regenerate);
+
+  /* ============================================================
+     GO
+     ============================================================ */
+  regenerate();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>শ্রেণি রুটিন | Class Routine — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="৬ষ্ঠ থেকে ১০ম শ্রেণির সাপ্তাহিক ক্লাস রুটিন — প্রিন্ট-বান্ধব।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/pages.css">
+
+<style>
+/* ============================================================
+   ROUTINE PAGE — page-specific styles
+   ============================================================ */
+
+/* Toolbar (tabs + print button) */
+.rt-toolbar{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+/* Info chips */
+.rt-info{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:26px;
+}
+.rt-info .chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:8px 16px;
+  font-size:13.5px;
+  font-weight:600;
+  color:#33405A;
+}
+.rt-info .chip svg{
+  width:15px;
+  height:15px;
+  color:var(--primary);
+  flex:none;
+}
+
+/* Table wrapper */
+.rt-table-wrap{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-sm);
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* Table */
+.rt-table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:720px;
+}
+.rt-table thead th{
+  background:linear-gradient(135deg,var(--primary),var(--primary-800));
+  color:#fff;
+  padding:14px 10px;
+  font-size:13.5px;
+  font-weight:700;
+  text-align:center;
+  border-right:1px solid rgba(255,255,255,.12);
+  white-space:nowrap;
+}
+.rt-table thead th:first-child{
+  width:130px;
+  text-align:left;
+  padding-left:20px;
+}
+.rt-table thead th:last-child{border-right:0}
+
+.rt-table tbody tr{
+  border-bottom:1px solid var(--border);
+  transition:background .15s var(--ease);
+}
+.rt-table tbody tr:last-child{border-bottom:0}
+.rt-table tbody tr:not(.rt-break):hover{background:var(--primary-50)}
+
+.rt-table td{
+  padding:14px 8px;
+  text-align:center;
+  border-right:1px solid var(--border);
+  vertical-align:middle;
+  font-size:14px;
+}
+.rt-table td:last-child{border-right:0}
+
+/* Period cell (left column) */
+.rt-table td.rt-period{
+  text-align:left;
+  padding-left:20px;
+  background:var(--bg);
+  width:130px;
+  font-weight:700;
+  color:var(--primary-800);
+  font-size:13.5px;
+  line-height:1.3;
+}
+.rt-table td.rt-period small{
+  display:block;
+  font-size:11.5px;
+  color:var(--muted);
+  font-weight:500;
+  margin-top:3px;
+  font-family:'Inter',monospace;
+}
+
+/* Break row */
+.rt-table tr.rt-break td{
+  background:var(--gold-50);
+  color:var(--gold-600);
+  font-weight:700;
+  text-align:center;
+  letter-spacing:.04em;
+  font-size:13px;
+  padding:10px;
+  font-style:italic;
+}
+
+/* Subject cell */
+.rt-subj{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  padding:2px 4px;
+  max-width:100%;
+}
+.rt-subj .dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  flex:none;
+}
+.rt-subj .name{
+  font-weight:600;
+  color:var(--text);
+  line-height:1.25;
+  font-size:13.5px;
+}
+
+/* Category colors */
+.rt-subj[data-cat="lang"]  .dot{background:var(--primary)}
+.rt-subj[data-cat="sci"]   .dot{background:#2E86DE}
+.rt-subj[data-cat="rel"]   .dot{background:var(--gold-600)}
+.rt-subj[data-cat="other"] .dot{background:#C24D4D}
+
+/* Legend */
+.rt-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  margin-top:22px;
+  padding:16px 22px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  font-size:13px;
+  color:var(--muted);
+}
+.rt-legend strong{
+  font-weight:700;
+  color:var(--text);
+  margin-right:4px;
+}
+.rt-legend .item{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.rt-legend .dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  flex:none;
+}
+.rt-legend .dot.lang{background:var(--primary)}
+.rt-legend .dot.sci{background:#2E86DE}
+.rt-legend .dot.rel{background:var(--gold-600)}
+.rt-legend .dot.other{background:#C24D4D}
+
+/* Print-only header */
+.rt-print-head{
+  display:none;
+  margin-bottom:22px;
+  text-align:center;
+}
+.rt-print-head h1{
+  font-size:20px;
+  color:var(--primary-800);
+  margin-bottom:6px;
+  letter-spacing:-.01em;
+}
+.rt-print-head .sub{
+  font-size:14px;
+  color:#33405A;
+  font-weight:600;
+  margin-bottom:4px;
+}
+.rt-print-head .note{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:6px;
+}
+
+/* ---------- Print ---------- */
+@media print{
+  @page{ size:A4 landscape; margin:12mm; }
+
+  body{background:#fff !important}
+
+  /* Hide everything that isn't the routine table */
+  .topbar,
+  .nav-bar,
+  .footer,
+  .to-top,
+  .skip-link,
+  .page-hero,
+  .rt-toolbar,
+  .rt-legend,
+  .rt-info{display:none !important}
+
+  /* Reset reveal animations */
+  .reveal{opacity:1 !important; transform:none !important}
+
+  /* Show print-only header */
+  .rt-print-head{display:block !important}
+
+  /* Container reset */
+  .container{max-width:100%; padding:0}
+  .section{padding:0}
+
+  /* Table */
+  .rt-table-wrap{
+    box-shadow:none !important;
+    border:1px solid #333 !important;
+    border-radius:0 !important;
+    overflow:visible !important;
+  }
+  .rt-table{min-width:0}
+
+  .rt-table thead th{
+    background:#0B5D3B !important;
+    color:#fff !important;
+    padding:8px 6px;
+    font-size:12px;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .rt-table thead th:first-child{width:110px; padding-left:12px}
+
+  .rt-table td{
+    padding:9px 6px;
+    font-size:12px;
+    color:#000;
+    border-color:#666 !important;
+  }
+  .rt-table td.rt-period{
+    background:#EFEFEF !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+    width:110px;
+    padding-left:12px;
+    font-size:12px;
+  }
+  .rt-table td.rt-period small{
+    font-size:10.5px;
+    color:#333;
+  }
+  .rt-table tbody tr.rt-break td{
+    background:#FFF6E0 !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+    font-size:11.5px;
+    padding:6px;
+  }
+  .rt-subj .name{font-size:11.5px}
+  .rt-subj .dot{width:5px; height:5px}
+}
+
+@media (max-width:760px){
+  .rt-toolbar{flex-direction:column; align-items:stretch}
+  .rt-toolbar .btn{width:100%}
+  .rt-info{gap:8px}
+  .rt-info .chip{font-size:12.5px; padding:6px 12px}
+}
+</style>
+</head>
+
+<body data-page="academics">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<!-- ================= PAGE HERO ================= -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <a href="academics.html" data-bn="একাডেমিক" data-en="Academics">একাডেমিক</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="শ্রেণি রুটিন" data-en="Class Routine">শ্রেণি রুটিন</span>
+    </nav>
+
+    <h1 data-bn="শ্রেণি রুটিন" data-en="Class Routine">শ্রেণি রুটিন</h1>
+    <p class="lead"
+       data-bn="৬ষ্ঠ থেকে ১০ম শ্রেণির সাপ্তাহিক ক্লাস রুটিন — প্রিন্ট-বান্ধব। নিচের ট্যাব থেকে আপনার শ্রেণি বেছে নিন।"
+       data-en="Weekly class routine for Classes VI – X — print-friendly. Choose your class from the tabs below.">
+      ৬ষ্ঠ থেকে ১০ম শ্রেণির সাপ্তাহিক ক্লাস রুটিন — প্রিন্ট-বান্ধব। নিচের ট্যাব থেকে আপনার শ্রেণি বেছে নিন।
+    </p>
+  </div>
+</section>
+
+<!-- ================= ROUTINE ================= -->
+<section class="section">
+  <div class="container">
+
+    <!-- Tabs + Print -->
+    <div class="rt-toolbar">
+      <div class="class-tabs" id="classTabs" role="tablist" aria-label="Class routine tabs"></div>
+      <button type="button" class="btn btn-primary btn-sm" id="printBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        <span data-bn="প্রিন্ট করুন" data-en="Print Routine">প্রিন্ট করুন</span>
+      </button>
+    </div>
+
+    <!-- Info chips -->
+    <div class="rt-info">
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+        </svg>
+        <span data-bn="সকাল ৯টা – দুপুর ১:৫০" data-en="9:00 AM – 1:50 PM">সকাল ৯টা – দুপুর ১:৫০</span>
+      </span>
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        <span data-bn="সপ্তাহে ৫ দিন (রবি – বৃহঃ)" data-en="5 days a week (Sun – Thu)">সপ্তাহে ৫ দিন (রবি – বৃহঃ)</span>
+      </span>
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-1.5Z"/>
+          <path d="M8 7h7"/>
+        </svg>
+        <span data-bn="দৈনিক ৬ পিরিয়ড" data-en="6 periods per day">দৈনিক ৬ পিরিয়ড</span>
+      </span>
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z"/>
+          <path d="M6 1v3M10 1v3M14 1v3"/>
+        </svg>
+        <span data-bn="বিরতি: ১১:১৫ – ১১:৩৫" data-en="Break: 11:15 – 11:35">বিরতি: ১১:১৫ – ১১:৩৫</span>
+      </span>
+    </div>
+
+    <!-- Print-only header -->
+    <div class="rt-print-head" id="rtPrintHead"></div>
+
+    <!-- Routine table -->
+    <div class="rt-table-wrap reveal">
+      <table class="rt-table" id="routineTable" aria-label="Class routine"></table>
+    </div>
+
+    <!-- Legend -->
+    <div class="rt-legend reveal">
+      <span class="item"><strong data-bn="বিষয় বিভাগ:" data-en="Subject groups:">বিষয় বিভাগ:</strong></span>
+      <span class="item"><span class="dot lang"></span><span data-bn="ভাষা ও গণিত" data-en="Language & Math">ভাষা ও গণিত</span></span>
+      <span class="item"><span class="dot sci"></span><span data-bn="বিজ্ঞান ও প্রযুক্তি" data-en="Science & Tech">বিজ্ঞান ও প্রযুক্তি</span></span>
+      <span class="item"><span class="dot rel"></span><span data-bn="ধর্ম" data-en="Religion">ধর্ম</span></span>
+      <span class="item"><span class="dot other"></span><span data-bn="অন্যান্য" data-en="Other">অন্যান্য</span></span>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="data/site-config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pages.js"></script>
+<script>
+/* ============================================================
+   ROUTINE PAGE — inline script
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ---------------- SUBJECTS ---------------- */
+  var SUBJECTS = {
+    bangla:    { bn:"বাংলা",                 en:"Bangla",              cat:"lang"  },
+    english:   { bn:"ইংরেজি",                en:"English",             cat:"lang"  },
+    math:      { bn:"গণিত",                  en:"Mathematics",         cat:"lang"  },
+    science:   { bn:"বিজ্ঞান",                en:"Science",             cat:"sci"   },
+    social:    { bn:"সমাজবিজ্ঞান",            en:"Social Science",      cat:"lang"  },
+    islamic:   { bn:"ইসলাম শিক্ষা",           en:"Islamic Studies",     cat:"rel"   },
+    hindu:     { bn:"হিন্দুধর্ম শিক্ষা",       en:"Hindu Religion",      cat:"rel"   },
+    ict:       { bn:"তথ্য ও যোগাযোগ প্রযুক্তি", en:"ICT",                 cat:"sci"   },
+    pe:        { bn:"শারীরিক শিক্ষা",          en:"Physical Education",  cat:"other" },
+    work:      { bn:"কর্ম ও জীবনমুখী",        en:"Work & Life",         cat:"other" },
+    agri:      { bn:"কৃষিশিক্ষা",              en:"Agriculture",         cat:"sci"   },
+    physics:   { bn:"পদার্থবিজ্ঞান",           en:"Physics",             cat:"sci"   },
+    chemistry: { bn:"রসায়ন",                 en:"Chemistry",           cat:"sci"   },
+    biology:   { bn:"জীববিজ্ঞান",              en:"Biology",             cat:"sci"   }
+  };
+
+  /* ---------------- PERIODS ---------------- */
+  var PERIODS = [
+    { time:"9:00",  timeEnd:"9:45",  bn:"১ম",    en:"1st" },
+    { time:"9:45",  timeEnd:"10:30", bn:"২য়",   en:"2nd" },
+    { time:"10:30", timeEnd:"11:15", bn:"৩য়",   en:"3rd" },
+    { break:true,   time:"11:15",    timeEnd:"11:35" },
+    { time:"11:35", timeEnd:"12:20", bn:"৪র্থ",  en:"4th" },
+    { time:"12:20", timeEnd:"13:05", bn:"৫ম",    en:"5th" },
+    { time:"13:05", timeEnd:"13:50", bn:"৬ষ্ঠ",  en:"6th" }
+  ];
+
+  /* ---------------- DAYS ---------------- */
+  var DAYS = ["sun","mon","tue","wed","thu"];
+  var DAY_LABELS = {
+    sun: { bn:"রবিবার",   en:"Sunday"    },
+    mon: { bn:"সোমবার",   en:"Monday"    },
+    tue: { bn:"মঙ্গলবার", en:"Tuesday"   },
+    wed: { bn:"বুধবার",   en:"Wednesday" },
+    thu: { bn:"বৃহস্পতিবার", en:"Thursday" }
+  };
+  var DAY_SHORT = {
+    sun: { bn:"রবি",  en:"Sun" },
+    mon: { bn:"সোম",  en:"Mon" },
+    tue: { bn:"মঙ্গল", en:"Tue" },
+    wed: { bn:"বুধ",  en:"Wed" },
+    thu: { bn:"বৃহঃ", en:"Thu" }
+  };
+
+  /* ---------------- ROUTINES ---------------- */
+  /* Each day is an array of 7 slots matching PERIODS.
+     Slot "__break__" corresponds to the break row. */
+  var ROUTINES = {
+    "6": {
+      sun:["bangla","english","math","__break__","science","social","islamic"],
+      mon:["english","math","bangla","__break__","ict","science","pe"],
+      tue:["math","bangla","english","__break__","social","islamic","work"],
+      wed:["bangla","science","math","__break__","english","agri","social"],
+      thu:["islamic","bangla","english","__break__","math","science","pe"]
+    },
+    "7": {
+      sun:["english","bangla","math","__break__","science","ict","islamic"],
+      mon:["bangla","english","science","__break__","math","social","pe"],
+      tue:["math","science","bangla","__break__","english","islamic","agri"],
+      wed:["english","math","social","__break__","science","bangla","work"],
+      thu:["bangla","english","math","__break__","science","pe","social"]
+    },
+    "8": {
+      sun:["bangla","math","english","__break__","science","social","ict"],
+      mon:["english","science","bangla","__break__","math","agri","islamic"],
+      tue:["math","bangla","english","__break__","social","science","pe"],
+      wed:["bangla","english","math","__break__","ict","science","work"],
+      thu:["science","bangla","english","__break__","math","islamic","social"]
+    },
+    "9": {
+      sun:["english","math","bangla","__break__","physics","chemistry","biology"],
+      mon:["bangla","english","math","__break__","chemistry","biology","physics"],
+      tue:["math","physics","english","__break__","bangla","chemistry","ict"],
+      wed:["english","bangla","chemistry","__break__","math","physics","biology"],
+      thu:["physics","math","english","__break__","bangla","biology","islamic"]
+    },
+    "10": {
+      sun:["bangla","english","math","__break__","physics","chemistry","biology"],
+      mon:["math","physics","bangla","__break__","english","chemistry","ict"],
+      tue:["english","math","chemistry","__break__","bangla","physics","biology"],
+      wed:["bangla","english","physics","__break__","math","biology","islamic"],
+      thu:["chemistry","bangla","english","__break__","math","physics","pe"]
+    }
+  };
+
+  /* ---------------- STATE ---------------- */
+  var CLASSES = ["6","7","8","9","10"];
+  var currentClass = "6";
+
+  /* ---------------- DOM ---------------- */
+  var tabsBox     = document.getElementById('classTabs');
+  var tableBox    = document.getElementById('routineTable');
+  var printHead   = document.getElementById('rtPrintHead');
+  var printBtn    = document.getElementById('printBtn');
+
+  /* ---------------- HELPERS ---------------- */
+  function esc(s) { return window.KBUHS.esc(s); }
+  function L()    { return window.KBUHS.getLang(); }
+  function classLabel(cls, lang) {
+    return window.KBUHS.classLabel(cls, lang || L());
+  }
+  function bnNum(n) { return window.KBUHS.bnNum(n); }
+
+  /* ============================================================
+     RENDER TABS
+     ============================================================ */
+  function renderTabs() {
+    var lang = L();
+    tabsBox.innerHTML = CLASSES.map(function (c) {
+      var active = c === currentClass ? ' active' : '';
+      return '<button type="button" class="class-tab' + active + '" '
+        + 'data-class="' + c + '" '
+        + 'data-bn="' + classLabel(c, 'bn') + '" '
+        + 'data-en="' + classLabel(c, 'en') + '">'
+        + esc(classLabel(c, lang))
+        + '</button>';
+    }).join('');
+
+    tabsBox.querySelectorAll('.class-tab').forEach(function (b) {
+      b.addEventListener('click', function () {
+        currentClass = b.getAttribute('data-class');
+        render();
+      });
+    });
+  }
+
+  /* ============================================================
+     RENDER TABLE
+     ============================================================ */
+  function renderTable() {
+    var lang = L();
+    var routine = ROUTINES[currentClass];
+
+    if (!routine) {
+      tableBox.innerHTML = '<tbody><tr><td>'
+        + (lang === 'bn' ? 'রুটিন পাওয়া যায়নি' : 'Routine not available')
+        + '</td></tr></tbody>';
+      return;
+    }
+
+    /* Header */
+    var head = '<thead><tr>'
+      + '<th data-bn="সময়" data-en="Time">' + (lang === 'bn' ? 'সময়' : 'Time') + '</th>';
+
+    DAYS.forEach(function (d) {
+      head += '<th data-bn="' + DAY_LABELS[d].bn + '" data-en="' + DAY_LABELS[d].en + '">'
+        + (lang === 'bn' ? DAY_LABELS[d].bn : DAY_LABELS[d].en)
+        + '</th>';
+    });
+    head += '</tr></thead>';
+
+    /* Body */
+    var body = '<tbody>';
+
+    PERIODS.forEach(function (p, idx) {
+      if (p.break) {
+        body += '<tr class="rt-break">'
+          + '<td colspan="6" data-bn="বিরতি — ' + bnNum(p.time) + ' : ' + bnNum(p.timeEnd) + '" '
+          + 'data-en="Break — ' + p.time + ' : ' + p.timeEnd + '">'
+          + (lang === 'bn'
+              ? 'বিরতি — ' + bnNum(p.time) + ' : ' + bnNum(p.timeEnd)
+              : 'Break — ' + p.time + ' : ' + p.timeEnd)
+          + '</td></tr>';
+        return;
+      }
+
+      body += '<tr>';
+
+      /* Period cell */
+      body += '<td class="rt-period">'
+        + '<span data-bn="' + p.bn + ' পিরিয়ড" data-en="' + p.en + ' Period">'
+        +   (lang === 'bn' ? p.bn + ' পিরিয়ড' : p.en + ' Period')
+        + '</span>'
+        + '<small>' + p.time + ' – ' + p.timeEnd + '</small>'
+        + '</td>';
+
+      /* Subject cells */
+      DAYS.forEach(function (d) {
+        var key = routine[d][idx];
+        if (!key || key === '__break__') {
+          body += '<td><span style="color:var(--muted);opacity:.5">—</span></td>';
+          return;
+        }
+        var subj = SUBJECTS[key];
+        if (!subj) {
+          body += '<td>' + esc(key) + '</td>';
+          return;
+        }
+        body += '<td>'
+          + '<span class="rt-subj" data-cat="' + subj.cat + '">'
+          +   '<span class="dot"></span>'
+          +   '<span class="name" data-bn="' + esc(subj.bn) + '" data-en="' + esc(subj.en) + '">'
+          +     (lang === 'bn' ? esc(subj.bn) : esc(subj.en))
+          +   '</span>'
+          + '</span>'
+          + '</td>';
+      });
+
+      body += '</tr>';
+    });
+
+    body += '</tbody>';
+
+    tableBox.innerHTML = head + body;
+  }
+
+  /* ============================================================
+     PRINT HEADER
+     ============================================================ */
+  function renderPrintHead() {
+    var lang = L();
+    var S = window.SITE || {};
+    var school = lang === 'bn' ? (S.nameBn || '') : (S.nameEn || '');
+    var cls = classLabel(currentClass, lang);
+
+    printHead.innerHTML = ''
+      + '<h1>' + esc(school) + '</h1>'
+      + '<div class="sub">'
+      +   (lang === 'bn' ? 'শ্রেণি রুটিন' : 'Class Routine')
+      +   ' — ' + esc(cls)
+      + '</div>'
+      + '<div class="note">'
+      +   (lang === 'bn'
+          ? 'সাপ্তাহিক ৫ দিন • দৈনিক ৬ পিরিয়ড • সকাল ৯:০০ – দুপুর ১:৫০'
+          : '5 days a week • 6 periods per day • 9:00 AM – 1:50 PM')
+      + '</div>';
+  }
+
+  /* ============================================================
+     RENDER
+     ============================================================ */
+  function render() {
+    renderTabs();
+    renderTable();
+    renderPrintHead();
+  }
+
+  /* ---------------- EVENTS ---------------- */
+  if (printBtn) printBtn.addEventListener('click', function () {
+    window.print();
+  });
+
+  window.addEventListener('kbuhs:lang', function () {
+    render();
+  });
+
+  /* ---------------- GO ---------------- */
+  render();
+})();
+</script>
+
+</body>
+</html>

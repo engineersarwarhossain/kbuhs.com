@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ডাউনলোড | Downloads — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="ভর্তি ফরম, প্রসপেক্টাস, সিলেবাস ও অন্যান্য প্রয়োজনীয় ডকুমেন্ট ডাউনলোড করুন।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/pages.css">
+
+<style>
+/* ============================================================
+   DOWNLOADS PAGE — page-specific styles
+   ============================================================ */
+
+/* Category chips */
+.dl-cats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:22px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:6px;
+  box-shadow:var(--shadow-sm);
+  width:fit-content;
+  max-width:100%;
+}
+.dl-cat{
+  padding:10px 22px;
+  border-radius:999px;
+  font-size:14.5px;
+  font-weight:600;
+  color:#33405A;
+  transition:.2s var(--ease);
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.dl-cat .count{
+  font-size:11.5px;
+  font-weight:700;
+  background:var(--primary-50);
+  color:var(--primary);
+  padding:2px 8px;
+  border-radius:999px;
+  min-width:22px;
+  text-align:center;
+  line-height:1.4;
+}
+.dl-cat:hover{background:var(--primary-50);color:var(--primary)}
+.dl-cat.active{background:var(--primary);color:#fff;box-shadow:0 4px 14px rgba(11,93,59,.25)}
+.dl-cat.active .count{background:rgba(255,255,255,.22);color:#fff}
+
+/* Search + toolbar */
+.dl-toolbar{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.dl-search{
+  position:relative;
+  flex:1 1 280px;
+  min-width:0;
+}
+.dl-search input{
+  width:100%;
+  padding:12px 15px 12px 42px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  font:inherit;
+  font-size:14.5px;
+  transition:.2s var(--ease);
+}
+.dl-search input:focus{
+  outline:none;
+  border-color:var(--primary);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(11,93,59,.1);
+}
+.dl-search svg{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:18px;
+  height:18px;
+  color:var(--muted);
+  pointer-events:none;
+}
+.dl-count{
+  font-size:14px;
+  color:var(--muted);
+  font-weight:600;
+  white-space:nowrap;
+}
+
+/* Extend .doc-item for downloads */
+.dl-list{display:grid;gap:12px}
+
+.dl-list .doc-item{
+  position:relative;
+}
+.dl-list .doc-item .ico{
+  position:relative;
+}
+.dl-list .doc-item .ico::after{
+  content:attr(data-ext);
+  position:absolute;
+  bottom:-4px;
+  right:-4px;
+  background:var(--primary);
+  color:#fff;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.04em;
+  padding:2px 5px;
+  border-radius:5px;
+  border:2px solid #fff;
+  font-family:'Inter',sans-serif;
+}
+.dl-list .doc-item[data-type="pdf"] .ico{background:#FEE2E2;color:#991B1B}
+.dl-list .doc-item[data-type="pdf"] .ico::after{background:#991B1B}
+.dl-list .doc-item[data-type="doc"] .ico{background:#DBEAFE;color:#1E40AF}
+.dl-list .doc-item[data-type="doc"] .ico::after{background:#1E40AF}
+.dl-list .doc-item[data-type="xls"] .ico{background:#DCFCE7;color:#166534}
+.dl-list .doc-item[data-type="xls"] .ico::after{background:#166534}
+
+.doc-meta h4{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.doc-meta h4 .new-tag{
+  font-size:10px;
+  font-weight:800;
+  background:var(--gold);
+  color:#3B2A00;
+  padding:2px 7px;
+  border-radius:5px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.doc-meta .size{
+  font-size:12.5px;
+  color:var(--muted);
+  margin-top:2px;
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.doc-meta .size span{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+}
+.doc-meta .size svg{width:12px;height:12px;opacity:.6}
+
+.doc-actions{
+  display:flex;
+  gap:8px;
+  flex:none;
+}
+.doc-actions .btn{
+  padding:8px 14px;
+  font-size:13px;
+}
+
+/* Empty */
+.dl-empty{
+  display:none;
+  text-align:center;
+  padding:60px 24px;
+  background:#fff;
+  border:1px dashed var(--border);
+  border-radius:var(--radius-lg);
+}
+.dl-empty.show{display:block}
+.dl-empty svg{
+  width:56px;
+  height:56px;
+  color:var(--muted);
+  opacity:.35;
+  margin:0 auto 16px;
+}
+.dl-empty h3{font-size:18px;margin-bottom:6px}
+.dl-empty p{color:var(--muted);font-size:14.5px}
+
+/* Print-only header */
+.dl-print-head{
+  display:none;
+  margin-bottom:20px;
+  text-align:center;
+}
+.dl-print-head h1{
+  font-size:20px;
+  color:var(--primary-800);
+  margin-bottom:6px;
+  letter-spacing:-.01em;
+}
+.dl-print-head .sub{
+  font-size:14px;
+  color:#33405A;
+  font-weight:600;
+}
+
+/* ---------- Print ---------- */
+@media print{
+  @page{ size:A4 portrait; margin:12mm; }
+
+  body{background:#fff !important}
+
+  .topbar,
+  .nav-bar,
+  .footer,
+  .to-top,
+  .skip-link,
+  .page-hero,
+  .dl-cats,
+  .dl-toolbar,
+  .doc-actions{display:none !important}
+
+  .reveal{opacity:1 !important; transform:none !important}
+  .dl-print-head{display:block !important}
+
+  .container{max-width:100%; padding:0}
+  .section{padding:0}
+  .section-alt{background:#fff !important}
+
+  .dl-list{gap:8px}
+
+  .dl-list .doc-item{
+    border:1px solid #666 !important;
+    padding:10px 14px !important;
+    border-radius:0 !important;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+  .dl-list .doc-item:hover{
+    transform:none !important;
+    box-shadow:none !important;
+  }
+  .dl-list .doc-item .ico{
+    width:38px !important;
+    height:38px !important;
+    border:1px solid #666;
+    background:#EFEFEF !important;
+    color:#0B5D3B !important;
+  }
+  .dl-list .doc-item .ico svg{width:18px;height:18px}
+  .dl-list .doc-item .ico::after{display:none}
+
+  .doc-meta h4{font-size:13px}
+  .doc-meta .size{font-size:11px}
+  .doc-meta span{font-size:11px !important}
+}
+
+@media (max-width:760px){
+  .dl-cats{width:100%;justify-content:center}
+  .dl-cat{padding:8px 16px;font-size:13.5px}
+  .dl-toolbar{flex-direction:column;align-items:stretch}
+  .dl-count{text-align:right}
+  .dl-list .doc-item{flex-wrap:wrap}
+  .doc-actions{width:100%}
+  .doc-actions .btn{flex:1}
+}
+</style>
+</head>
+
+<body data-page="academics">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<!-- ================= PAGE HERO ================= -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <a href="academics.html" data-bn="একাডেমিক" data-en="Academics">একাডেমিক</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="ডাউনলোড" data-en="Downloads">ডাউনলোড</span>
+    </nav>
+
+    <h1 data-bn="ডাউনলোড" data-en="Downloads">ডাউনলোড</h1>
+    <p class="lead"
+       data-bn="ভর্তি ফরম, প্রসপেক্টাস, সিলেবাস, রুটিন, ফলাফল ও অন্যান্য প্রয়োজনীয় ডকুমেন্ট — সব এক জায়গায়।"
+       data-en="Admission forms, prospectus, syllabus, routines, results and other essential documents — all in one place.">
+      ভর্তি ফরম, প্রসপেক্টাস, সিলেবাস, রুটিন, ফলাফল ও অন্যান্য প্রয়োজনীয় ডকুমেন্ট — সব এক জায়গায়।
+    </p>
+  </div>
+</section>
+
+<!-- ================= DOWNLOADS ================= -->
+<section class="section">
+  <div class="container">
+
+    <!-- Category chips -->
+    <div class="dl-cats" id="catTabs" role="tablist" aria-label="Download categories"></div>
+
+    <!-- Search + count -->
+    <div class="dl-toolbar">
+      <div class="dl-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <input type="search" id="searchInput"
+               data-bn-ph="ডকুমেন্ট খুঁজুন..."
+               data-en-ph="Search documents..."
+               placeholder="ডকুমেন্ট খুঁজুন..."
+               aria-label="Search documents">
+      </div>
+      <span class="dl-count" id="resultCount"></span>
+    </div>
+
+    <!-- Print header -->
+    <div class="dl-print-head" id="dlPrintHead"></div>
+
+    <!-- Document list -->
+    <div class="dl-list" id="docList"></div>
+
+    <!-- Empty state -->
+    <div class="dl-empty" id="emptyState">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+      </svg>
+      <h3 data-bn="কোনো ডকুমেন্ট পাওয়া যায়নি" data-en="No documents found">কোনো ডকুমেন্ট পাওয়া যায়নি</h3>
+      <p data-bn="অনুসন্ধানের শব্দ বা বিভাগ পরিবর্তন করে আবার চেষ্টা করুন।"
+         data-en="Try changing your search term or category.">
+        অনুসন্ধানের শব্দ বা বিভাগ পরিবর্তন করে আবার চেষ্টা করুন।
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= HELP ================= -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-bn="সহায়তা" data-en="Help">সহায়তা</span>
+      <h2 data-bn="ডাউনলোড সংক্রান্ত তথ্য" data-en="Download information">ডাউনলোড সংক্রান্ত তথ্য</h2>
+    </div>
+
+    <div class="card-grid">
+      <article class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/>
+            <path d="M14 2v6h6"/>
+          </svg>
+        </span>
+        <h3 data-bn="PDF ফাইল দেখতে" data-en="Viewing PDF files">PDF ফাইল দেখতে</h3>
+        <p data-bn="PDF ফাইল দেখতে Adobe Reader, Foxit Reader বা আধুনিক ব্রাউজার ব্যবহার করুন।"
+           data-en="Use Adobe Reader, Foxit Reader or a modern browser to view PDF files.">
+          PDF ফাইল দেখতে Adobe Reader, Foxit Reader বা আধুনিক ব্রাউজার ব্যবহার করুন।
+        </p>
+      </article>
+
+      <article class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>
+          </svg>
+        </span>
+        <h3 data-bn="ডাউনলোড হচ্ছে না?" data-en="Not downloading?">ডাউনলোড হচ্ছে না?</h3>
+        <p data-bn="ব্রাউজারের পপ-আপ ব্লকার বন্ধ করুন। সমস্যা থাকলে অফিসে যোগাযোগ করুন।"
+           data-en="Turn off your browser's pop-up blocker. Contact the office if the problem persists.">
+          ব্রাউজারের পপ-আপ ব্লকার বন্ধ করুন। সমস্যা থাকলে অফিসে যোগাযোগ করুন।
+        </p>
+      </article>
+
+      <article class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m22 7-10 6L2 7"/>
+          </svg>
+        </span>
+        <h3 data-bn="অনুরোধ জানান" data-en="Request a document">অনুরোধ জানান</h3>
+        <p data-bn="যে ডকুমেন্ট খুঁজে পাচ্ছেন না সেটি ইমেইলে জানান — আমরা যোগ করব।"
+           data-en="Email us about any document you can't find — we'll add it.">
+          যে ডকুমেন্ট খুঁজে পাচ্ছেন না সেটি ইমেইলে জানান — আমরা যোগ করব।
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="data/site-config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pages.js"></script>
+<script>
+/* ============================================================
+   DOWNLOADS PAGE — inline script
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ============================================================
+     DOCUMENT DATA
+     Structure:
+       DOCS = [
+         { id, cat, title:{bn,en}, desc:{bn,en}, type, size, date, isNew, href }
+       ]
+     Types: "pdf" | "doc" | "xls"
+     Cat:   "form" | "prospectus" | "syllabus" | "routine" | "result" | "notice"
+     ============================================================ */
+  var DOCS = [
+    /* ---------- Admission Forms ---------- */
+    {
+      id:"adm-form-2027",
+      cat:"form",
+      title:{ bn:"ভর্তি আবেদন ফরম (২০২৭)", en:"Admission Application Form (2027)" },
+      desc:{ bn:"৬ষ্ঠ – ৯ম শ্রেণির ভর্তির জন্য আবেদন ফরম", en:"Application form for Class VI – IX admission" },
+      type:"pdf", size:"480 KB", date:"১২ জানু ২০২৭", isNew:true,
+      href:"downloads/prospectus-2027.pdf"
+    },
+    {
+      id:"adm-inst-2027",
+      cat:"form",
+      title:{ bn:"ভর্তি নির্দেশিকা ২০২৭", en:"Admission Guidelines 2027" },
+      desc:{ bn:"যোগ্যতা, ফি, তারিখ ও প্রক্রিয়া সংক্রান্ত নির্দেশনা", en:"Eligibility, fees, dates and procedure" },
+      type:"pdf", size:"320 KB", date:"১২ জানু ২০২৭", isNew:true,
+      href:"downloads/prospectus-2027.pdf"
+    },
+    {
+      id:"adm-med",
+      cat:"form",
+      title:{ bn:"মেডিকেল ফরম", en:"Medical Form" },
+      desc:{ bn:"শিক্ষার্থীর স্বাস্থ্য তথ্য ফরম", en:"Student health information form" },
+      type:"pdf", size:"180 KB", date:"০৫ জানু ২০২৭", isNew:false,
+      href:"downloads/prospectus-2027.pdf"
+    },
+
+    /* ---------- Prospectus ---------- */
+    {
+      id:"prospectus-2027",
+      cat:"prospectus",
+      title:{ bn:"প্রসপেক্টাস ২০২৭", en:"Prospectus 2027" },
+      desc:{ bn:"বিদ্যালয়ের সম্পূর্ণ পরিচিতি, সুবিধা ও তথ্য", en:"Full school profile, facilities and information" },
+      type:"pdf", size:"2.4 MB", date:"১০ জানু ২০২৭", isNew:true,
+      href:"downloads/prospectus-2027.pdf"
+    },
+    {
+      id:"prospectus-short",
+      cat:"prospectus",
+      title:{ bn:"সংক্ষিপ্ত পরিচিতি", en:"School Summary" },
+      desc:{ bn:"এক পাতার সংক্ষিপ্ত পরিচিতি পত্র", en:"One-page school overview leaflet" },
+      type:"pdf", size:"640 KB", date:"১০ জানু ২০২৭", isNew:false,
+      href:"downloads/prospectus-2027.pdf"
+    },
+
+    /* ---------- Syllabus ---------- */
+    {
+      id:"syllabus-6",
+      cat:"syllabus",
+      title:{ bn:"সিলেবাস — ৬ষ্ঠ শ্রেণি", en:"Syllabus — Class VI" },
+      desc:{ bn:"৬ষ্ঠ শ্রেণির সব বিষয়ের সম্পূর্ণ সিলেবাস", en:"Complete syllabus of all Class VI subjects" },
+      type:"pdf", size:"1.2 MB", date:"০৫ জানু ২০২৭", isNew:false,
+      href:"downloads/syllabus-class-6.pdf"
+    },
+    {
+      id:"syllabus-7",
+      cat:"syllabus",
+      title:{ bn:"সিলেবাস — ৭ম শ্রেণি", en:"Syllabus — Class VII" },
+      desc:{ bn:"৭ম শ্রেণির সব বিষয়ের সম্পূর্ণ সিলেবাস", en:"Complete syllabus of all Class VII subjects" },
+      type:"pdf", size:"1.1 MB", date:"০৫ জানু ২০২৭", isNew:false,
+      href:"downloads/syllabus-class-7.pdf"
+    },
+    {
+      id:"syllabus-8",
+      cat:"syllabus",
+      title:{ bn:"সিলেবাস — ৮ম শ্রেণি", en:"Syllabus — Class VIII" },
+      desc:{ bn:"৮ম শ্রেণির সব বিষয়ের সম্পূর্ণ সিলেবাস", en:"Complete syllabus of all Class VIII subjects" },
+      type:"pdf", size:"1.3 MB", date:"০৫ জানু ২০২৭", isNew:false,
+      href:"downloads/syllabus-class-8.pdf"
+    },
+    {
+      id:"syllabus-9",
+      cat:"syllabus",
+      title:{ bn:"সিলেবাস — ৯ম শ্রেণি", en:"Syllabus — Class IX" },
+      desc:{ bn:"৯ম শ্রেণি (বিজ্ঞান শাখা) সিলেবাস", en:"Class IX syllabus (Science stream)" },
+      type:"pdf", size:"1.6 MB", date:"০৫ জানু ২০২৭", isNew:true,
+      href:"downloads/syllabus-class-9.pdf"
+    },
+    {
+      id:"syllabus-10",
+      cat:"syllabus",
+      title:{ bn:"সিলেবাস — ১০ম শ্রেণি", en:"Syllabus — Class X" },
+      desc:{ bn:"এসএসসি প্রস্তুতির জন্য ১০ম শ্রেণির সিলেবাস", en:"Class X syllabus for SSC preparation" },
+      type:"pdf", size:"1.8 MB", date:"০৫ জানু ২০২৭", isNew:true,
+      href:"downloads/syllabus-class-10.pdf"
+    },
+
+    /* ---------- Routine ---------- */
+    {
+      id:"routine-all",
+      cat:"routine",
+      title:{ bn:"শ্রেণি রুটিন (সব শ্রেণি)", en:"Class Routine (All Classes)" },
+      desc:{ bn:"৬ষ্ঠ – ১০ম শ্রেণির সাপ্তাহিক রুটিন", en:"Weekly routine for Classes VI – X" },
+      type:"pdf", size:"560 KB", date:"০২ জানু ২০২৭", isNew:false,
+      href:"downloads/routine-all.pdf"
+    },
+    {
+      id:"exam-routine-half",
+      cat:"routine",
+      title:{ bn:"অর্ধ-বার্ষিক পরীক্ষার রুটিন", en:"Half-Yearly Exam Routine" },
+      desc:{ bn:"সব শ্রেণির অর্ধ-বার্ষিক পরীক্ষার সময়সূচি", en:"Half-yearly exam schedule for all classes" },
+      type:"pdf", size:"420 KB", date:"১০ জানু ২০২৭", isNew:true,
+      href:"downloads/exam-routine-half.pdf"
+    },
+    {
+      id:"exam-routine-annual",
+      cat:"routine",
+      title:{ bn:"বার্ষিক পরীক্ষার রুটিন", en:"Annual Exam Routine" },
+      desc:{ bn:"সব শ্রেণির বার্ষিক পরীক্ষার সময়সূচি", en:"Annual exam schedule for all classes" },
+      type:"pdf", size:"430 KB", date:"১০ জানু ২০২৭", isNew:false,
+      href:"downloads/exam-routine-annual.pdf"
+    },
+
+    /* ---------- Results ---------- */
+    {
+      id:"result-annual-2026",
+      cat:"result",
+      title:{ bn:"বার্ষিক ফলাফল ২০২৬", en:"Annual Results 2026" },
+      desc:{ bn:"সব শ্রেণির বার্ষিক পরীক্ষার সম্পূর্ণ ফলাফল", en:"Complete annual exam results for all classes" },
+      type:"pdf", size:"1.9 MB", date:"২২ ডিসে ২০২৬", isNew:false,
+      href:"downloads/results-annual-2026.pdf"
+    },
+    {
+      id:"result-half-2026",
+      cat:"result",
+      title:{ bn:"অর্ধ-বার্ষিক ফলাফল ২০২৬", en:"Half-Yearly Results 2026" },
+      desc:{ bn:"সব শ্রেণির অর্ধ-বার্ষিক পরীক্ষার ফলাফল", en:"Half-yearly results for all classes" },
+      type:"pdf", size:"1.7 MB", date:"২৮ জুলা ২০২৬", isNew:false,
+      href:"downloads/results-half-2026.pdf"
+    },
+    {
+      id:"result-ssc-2026",
+      cat:"result",
+      title:{ bn:"এসএসসি ফলাফল ২০২৬", en:"SSC Results 2026" },
+      desc:{ bn:"২০২৬ সালের এসএসসি পরীক্ষার ফলাফল", en:"SSC 2026 exam results" },
+      type:"pdf", size:"820 KB", date:"১৫ আগ ২০২৬", isNew:false,
+      href:"downloads/results-ssc-2026.pdf"
+    },
+
+    /* ---------- Notices ---------- */
+    {
+      id:"notice-annual-prize",
+      cat:"notice",
+      title:{ bn:"পুরস্কার বিতরণী অনুষ্ঠানের বিজ্ঞপ্তি", en:"Prize-giving Ceremony Notice" },
+      desc:{ bn:"বার্ষিক পুরস্কার বিতরণী অনুষ্ঠানের ঘোষণা", en:"Annual prize-giving ceremony announcement" },
+      type:"pdf", size:"240 KB", date:"১৮ ডিসে ২০২৬", isNew:false,
+      href:"downloads/notice-prize-giving.pdf"
+    },
+    {
+      id:"notice-guardian-meeting",
+      cat:"notice",
+      title:{ bn:"অভিভাবক সমাবেশের বিজ্ঞপ্তি", en:"Guardian Meeting Notice" },
+      desc:{ bn:"আসন্ন অভিভাবক সমাবেশের বিস্তারিত তথ্য", en:"Details of the upcoming guardian meeting" },
+      type:"pdf", size:"210 KB", date:"২০ ডিসে ২০২৬", isNew:true,
+      href:"downloads/notice-guardian-meeting.pdf"
+    },
+    {
+      id:"notice-sports",
+      cat:"notice",
+      title:{ bn:"বার্ষিক ক্রীড়া প্রতিযোগিতার বিজ্ঞপ্তি", en:"Annual Sports Notice" },
+      desc:{ bn:"বার্ষিক ক্রীড়া প্রতিযোগিতা সংক্রান্ত তথ্য", en:"Annual sports competition details" },
+      type:"pdf", size:"230 KB", date:"০৫ জানু ২০২৭", isNew:true,
+      href:"downloads/notice-sports.pdf"
+    },
+
+    /* ---------- XLS examples ---------- */
+    {
+      id:"student-list-xls",
+      cat:"form",
+      title:{ bn:"শিক্ষার্থী তালিকা (এক্সেল)", en:"Student List (Excel)" },
+      desc:{ bn:"সব শ্রেণির শিক্ষার্থীদের তালিকা — Excel ফরম্যাটে", en:"All-class student list in Excel format" },
+      type:"xls", size:"180 KB", date:"১০ জানু ২০২৭", isNew:false,
+      href:"downloads/student-list.xlsx"
+    }
+  ];
+
+  /* ---------------- CATEGORIES ---------------- */
+  var CATS = [
+    { key:"all",        bn:"সকল",         en:"All"          },
+    { key:"form",       bn:"ফরম",          en:"Forms"        },
+    { key:"prospectus", bn:"প্রসপেক্টাস",  en:"Prospectus"   },
+    { key:"syllabus",   bn:"সিলেবাস",      en:"Syllabus"     },
+    { key:"routine",    bn:"রুটিন",         en:"Routines"     },
+    { key:"result",     bn:"ফলাফল",        en:"Results"      },
+    { key:"notice",     bn:"নোটিশ",         en:"Notices"      }
+  ];
+
+  /* ---------------- STATE ---------------- */
+  var currentCat = 'all';
+  var query = '';
+
+  /* ---------------- DOM ---------------- */
+  var catsBox     = document.getElementById('catTabs');
+  var searchInput = document.getElementById('searchInput');
+  var listBox     = document.getElementById('docList');
+  var emptyState  = document.getElementById('emptyState');
+  var countEl     = document.getElementById('resultCount');
+  var printHead   = document.getElementById('dlPrintHead');
+
+  /* ---------------- HELPERS ---------------- */
+  function esc(s) { return window.KBUHS.esc(s); }
+  function L()    { return window.KBUHS.getLang(); }
+  function bnNum(n) { return window.KBUHS.bnNum(n); }
+  function num(n)   { return L() === 'bn' ? bnNum(n) : String(n); }
+
+  function iconFor(type) {
+    if (type === "pdf") {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        + '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/>'
+        + '<path d="M14 2v6h6M9 15h6M9 18h4"/>'
+        + '</svg>';
+    }
+    if (type === "xls") {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        + '<rect x="3" y="3" width="18" height="18" rx="2"/>'
+        + '<path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>'
+        + '</svg>';
+    }
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+      + '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/>'
+      + '<path d="M14 2v6h6M8 13h8M8 17h5"/>'
+      + '</svg>';
+  }
+
+  /* ============================================================
+     FILTER
+     ============================================================ */
+  function filtered() {
+    var q = query.toLowerCase();
+    return DOCS.filter(function (d) {
+      if (currentCat !== 'all' && d.cat !== currentCat) return false;
+      if (q) {
+        var hay = [d.title.bn, d.title.en, d.desc.bn, d.desc.en].join(' ').toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+  }
+
+  /* ============================================================
+     RENDER CATEGORY CHIPS
+     ============================================================ */
+  function renderCats() {
+    var lang = L();
+    var allCount = DOCS.length;
+
+    catsBox.innerHTML = CATS.map(function (c) {
+      var count = c.key === 'all'
+        ? allCount
+        : DOCS.filter(function (d) { return d.cat === c.key; }).length;
+      var active = c.key === currentCat ? ' active' : '';
+      return '<button type="button" class="dl-cat' + active + '" '
+        + 'data-cat="' + c.key + '" '
+        + 'data-bn="' + c.bn + '" data-en="' + c.en + '">'
+        + '<span>' + esc(lang === 'bn' ? c.bn : c.en) + '</span>'
+        + '<span class="count">' + esc(num(count)) + '</span>'
+        + '</button>';
+    }).join('');
+
+    catsBox.querySelectorAll('.dl-cat').forEach(function (b) {
+      b.addEventListener('click', function () {
+        currentCat = b.getAttribute('data-cat');
+        render();
+      });
+    });
+  }
+
+  /* ============================================================
+     RENDER LIST
+     ============================================================ */
+  function renderList() {
+    var lang = L();
+    var rows = filtered();
+
+    if (rows.length === 0) {
+      listBox.innerHTML = '';
+      listBox.style.display = 'none';
+      emptyState.classList.add('show');
+    } else {
+      listBox.style.display = '';
+      emptyState.classList.remove('show');
+
+      listBox.innerHTML = rows.map(function (d) {
+        var title = lang === 'bn' ? d.title.bn : d.title.en;
+        var desc  = lang === 'bn' ? d.desc.bn : d.desc.en;
+
+        var newTag = d.isNew
+          ? '<span class="new-tag" data-bn="নতুন" data-en="New">'
+            + (lang === 'bn' ? 'নতুন' : 'New')
+            + '</span>'
+          : '';
+
+        return '<article class="doc-item" data-type="' + d.type + '">'
+          +   '<span class="ico" data-ext="' + d.type.toUpperCase() + '">'
+          +     iconFor(d.type)
+          +   '</span>'
+          +   '<div class="doc-meta">'
+          +     '<h4 data-bn="' + esc(d.title.bn) + '" data-en="' + esc(d.title.en) + '">'
+          +       esc(title) + newTag
+          +     '</h4>'
+          +     '<span data-bn="' + esc(d.desc.bn) + '" data-en="' + esc(d.desc.en) + '">'
+          +       esc(desc)
+          +     '</span>'
+          +     '<div class="size">'
+          +       '<span>'
+          +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>'
+          +         esc(d.size)
+          +       '</span>'
+          +       '<span>'
+          +         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>'
+          +         esc(d.date)
+          +       '</span>'
+          +     '</div>'
+          +   '</div>'
+          +   '<div class="doc-actions">'
+          +     '<a href="' + esc(d.href) + '" class="btn btn-primary" download>'
+          +       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
+          +         '<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>'
+          +       '</svg>'
+          +       '<span data-bn="ডাউনলোড" data-en="Download">' + (lang === 'bn' ? 'ডাউনলোড' : 'Download') + '</span>'
+          +     '</a>'
+          +   '</div>'
+          + '</article>';
+      }).join('');
+    }
+
+    if (countEl) {
+      countEl.textContent = lang === 'bn'
+        ? bnNum(rows.length) + ' টি ডকুমেন্ট'
+        : rows.length + (rows.length === 1 ? ' document' : ' documents');
+    }
+  }
+
+  /* ============================================================
+     PRINT HEADER
+     ============================================================ */
+  function renderPrintHead() {
+    var lang = L();
+    var S = window.SITE || {};
+    var school = lang === 'bn' ? (S.nameBn || '') : (S.nameEn || '');
+    var rows = filtered();
+
+    printHead.innerHTML = ''
+      + '<h1>' + esc(school) + '</h1>'
+      + '<div class="sub">'
+      +   (lang === 'bn' ? 'ডাউনলোডযোগ্য ডকুমেন্ট তালিকা' : 'List of Downloadable Documents')
+      + '</div>'
+      + '<div style="font-size:12px;color:var(--muted);margin-top:6px">'
+      +   (lang === 'bn'
+          ? 'শিক্ষাবর্ষ ২০২৭ • মোট: ' + bnNum(rows.length) + ' টি ডকুমেন্ট'
+          : 'Academic Year 2027 • Total: ' + rows.length + ' documents')
+      + '</div>';
+  }
+
+  /* ============================================================
+     RENDER
+     ============================================================ */
+  function render() {
+    renderCats();
+    renderList();
+    renderPrintHead();
+  }
+
+  /* ---------------- EVENTS ---------------- */
+  searchInput.addEventListener('input', function () {
+    query = searchInput.value || '';
+    render();
+  });
+
+  window.addEventListener('kbuhs:lang', render);
+
+  /* ---------------- GO ---------------- */
+  render();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>শিক্ষকমণ্ডলী | Faculty — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়ের শিক্ষকমণ্ডলী ও কর্মী — বিভাগ অনুযায়ী সাজানো।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/pages.css">
+
+<style>
+/* ============================================================
+   FACULTY PAGE — department-grouped view
+   ============================================================ */
+
+/* Group section */
+.fc-group{
+  margin-bottom:52px;
+}
+.fc-group:last-child{margin-bottom:0}
+
+.fc-group-head{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:0 0 18px;
+  margin-bottom:26px;
+  border-bottom:2px solid var(--primary-50);
+  position:relative;
+}
+.fc-group-head::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  width:80px;
+  height:2px;
+  background:var(--gold);
+}
+
+.fc-group-icon{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  background:linear-gradient(140deg,var(--primary),var(--primary-800));
+  color:var(--gold);
+  display:grid;
+  place-items:center;
+  flex:none;
+  box-shadow:0 6px 16px rgba(11,93,59,.22);
+}
+.fc-group-icon svg{width:24px;height:24px}
+
+.fc-group-title{flex:1;min-width:0}
+.fc-group-title h2{
+  font-size:clamp(19px,2.2vw,24px);
+  color:var(--text);
+  margin-bottom:3px;
+  line-height:1.25;
+}
+.fc-group-title p{
+  font-size:13.5px;
+  color:var(--muted);
+}
+
+.fc-group-count{
+  font-size:13px;
+  font-weight:700;
+  padding:6px 14px;
+  border-radius:999px;
+  background:var(--primary-50);
+  color:var(--primary);
+  white-space:nowrap;
+}
+
+/* Faculty grid */
+.fc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));
+  gap:20px;
+}
+
+/* Faculty card */
+.fc-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:26px 22px 22px;
+  text-align:center;
+  transition:.28s var(--ease);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.fc-card::before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  height:5px;
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .35s var(--ease);
+}
+.fc-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow);
+  border-color:var(--primary-100);
+}
+.fc-card:hover::before{transform:scaleX(1)}
+
+.fc-avatar{
+  position:relative;
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  margin-bottom:16px;
+  display:grid;
+  place-items:center;
+  font-size:28px;
+  font-weight:800;
+  color:#fff;
+  letter-spacing:-.02em;
+  background:linear-gradient(140deg,var(--primary),var(--primary-800));
+  box-shadow:0 0 0 5px var(--primary-50);
+  overflow:hidden;
+  flex:none;
+}
+.fc-avatar img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:50%;
+  z-index:2;
+  background:var(--primary-50);
+}
+.fc-avatar span{position:relative;z-index:1;line-height:1}
+
+.fc-card:nth-child(2n) .fc-avatar{
+  background:linear-gradient(140deg,var(--gold),var(--gold-600));
+  color:#3B2A00;
+  box-shadow:0 0 0 5px var(--gold-50);
+}
+
+/* Leadership gets a special ring */
+.fc-card.leader .fc-avatar{
+  box-shadow:0 0 0 5px var(--gold-50), 0 0 0 8px rgba(244,185,66,.15);
+}
+
+.fc-name{
+  font-size:17px;
+  font-weight:700;
+  line-height:1.3;
+  margin-bottom:6px;
+  color:var(--text);
+}
+.fc-desig{
+  font-size:13.5px;
+  font-weight:600;
+  color:var(--primary);
+  margin-bottom:10px;
+  line-height:1.4;
+}
+.fc-subject{
+  display:inline-block;
+  font-size:12px;
+  font-weight:700;
+  padding:4px 12px;
+  border-radius:999px;
+  background:#EEF2FF;
+  color:#3B4CCA;
+  letter-spacing:.02em;
+  margin-bottom:14px;
+}
+.fc-id{
+  font-size:11.5px;
+  color:var(--muted);
+  font-family:'Inter',monospace;
+  padding-top:14px;
+  border-top:1px solid var(--border);
+  width:100%;
+  margin-top:auto;
+}
+
+.fc-contact{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  width:100%;
+  margin-bottom:12px;
+  padding-top:12px;
+  border-top:1px solid var(--border);
+}
+.fc-contact a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-size:12.5px;
+  color:var(--muted);
+  transition:.2s;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+.fc-contact a:hover{color:var(--primary)}
+.fc-contact svg{
+  width:13px;
+  height:13px;
+  flex:none;
+  opacity:.7;
+}
+.fc-contact a:hover svg{opacity:1}
+
+/* Empty group */
+.fc-empty{
+  text-align:center;
+  padding:36px 20px;
+  background:#fff;
+  border:1px dashed var(--border);
+  border-radius:var(--radius);
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* Search */
+.fc-toolbar{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:18px 22px;
+  box-shadow:var(--shadow-sm);
+  margin-bottom:36px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.fc-toolbar .search{
+  position:relative;
+  flex:1 1 280px;
+  min-width:0;
+}
+.fc-toolbar .search input{
+  width:100%;
+  padding:12px 15px 12px 42px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  font:inherit;
+  font-size:14.5px;
+  transition:.2s var(--ease);
+}
+.fc-toolbar .search input:focus{
+  outline:none;
+  border-color:var(--primary);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(11,93,59,.1);
+}
+.fc-toolbar .search svg{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:18px;
+  height:18px;
+  color:var(--muted);
+  pointer-events:none;
+}
+.fc-toolbar .count{
+  font-size:14px;
+  color:var(--muted);
+  font-weight:600;
+  margin-left:auto;
+  white-space:nowrap;
+  padding-inline:6px;
+}
+.fc-toolbar .print-btn{
+  padding:9px 18px;
+  font-size:13.5px;
+  flex:none;
+}
+
+/* Print header */
+.fc-print-head{
+  display:none;
+  margin-bottom:22px;
+  text-align:center;
+}
+.fc-print-head h1{
+  font-size:20px;
+  color:var(--primary-800);
+  margin-bottom:6px;
+}
+.fc-print-head .sub{
+  font-size:14px;
+  color:#33405A;
+  font-weight:600;
+}
+
+/* Print CSS */
+@media print{
+  @page{ size:A4 portrait; margin:12mm; }
+
+  body{background:#fff !important}
+
+  .topbar,
+  .nav-bar,
+  .footer,
+  .to-top,
+  .skip-link,
+  .page-hero,
+  .fc-toolbar{display:none !important}
+
+  .reveal{opacity:1 !important; transform:none !important}
+  .fc-print-head{display:block !important}
+
+  .container{max-width:100%; padding:0}
+  .section{padding:0}
+  .section-alt{background:#fff !important}
+
+  .fc-group{
+    margin-bottom:20px;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+  .fc-group-head{
+    padding-bottom:10px;
+    margin-bottom:14px;
+    border-bottom:1px solid #666 !important;
+  }
+  .fc-group-head::after{display:none}
+  .fc-group-icon{
+    width:36px; height:36px;
+    background:#EFEFEF !important;
+    color:#0B5D3B !important;
+    box-shadow:none !important;
+  }
+  .fc-group-icon svg{width:18px; height:18px}
+  .fc-group-title h2{font-size:14px}
+  .fc-group-title p{font-size:10.5px}
+  .fc-group-count{
+    background:#EFEFEF !important;
+    color:#000 !important;
+    font-size:11px;
+    padding:3px 10px;
+  }
+
+  .fc-grid{
+    grid-template-columns:repeat(4,1fr) !important;
+    gap:8px !important;
+  }
+  .fc-card{
+    padding:12px 8px !important;
+    border:1px solid #666 !important;
+    border-radius:0 !important;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+  .fc-card::before{display:none}
+  .fc-card:hover{
+    transform:none !important;
+    box-shadow:none !important;
+  }
+  .fc-avatar{
+    width:44px !important;
+    height:44px !important;
+    font-size:14px !important;
+    box-shadow:none !important;
+    margin-bottom:8px;
+  }
+  .fc-name{font-size:11px; margin-bottom:2px}
+  .fc-desig{font-size:10px; margin-bottom:4px}
+  .fc-subject{font-size:9px; padding:2px 6px; margin-bottom:6px}
+  .fc-id{font-size:9px; padding-top:6px}
+  .fc-contact{display:none}
+}
+
+@media (max-width:760px){
+  .fc-toolbar{flex-direction:column; align-items:stretch}
+  .fc-toolbar .count{text-align:right; margin-left:0}
+  .fc-toolbar .print-btn{width:100%}
+  .fc-group-head{flex-wrap:wrap}
+  .fc-group-count{margin-left:auto}
+}
+@media (max-width:480px){
+  .fc-avatar{width:80px; height:80px; font-size:24px}
+  .fc-name{font-size:15.5px}
+  .fc-desig{font-size:12.5px}
+}
+</style>
+</head>
+
+<body data-page="teachers">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<!-- ================= PAGE HERO ================= -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <a href="teachers.html" data-bn="শিক্ষকবৃন্দ" data-en="Teachers">শিক্ষকবৃন্দ</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="শিক্ষকমণ্ডলী" data-en="Faculty">শিক্ষকমণ্ডলী</span>
+    </nav>
+
+    <h1 data-bn="শিক্ষকমণ্ডলী ও কর্মী" data-en="Faculty & Staff">শিক্ষকমণ্ডলী ও কর্মী</h1>
+    <p class="lead"
+       data-bn="আমাদের শিক্ষকমণ্ডলী ও সহায়ক কর্মীদের বিভাগ অনুযায়ী সাজানো তালিকা। প্রতিটি বিভাগে কে কী দায়িত্ব পালন করছেন তা জানুন।"
+       data-en="Our faculty and support staff grouped by department — see who serves in which role.">
+      আমাদের শিক্ষকমণ্ডলী ও সহায়ক কর্মীদের বিভাগ অনুযায়ী সাজানো তালিকা। প্রতিটি বিভাগে কে কী দায়িত্ব পালন করছেন তা জানুন।
+    </p>
+
+    <div class="hero-stats">
+      <div>
+        <strong id="statTotal">০</strong>
+        <span data-bn="মোট সদস্য" data-en="Total Members">মোট সদস্য</span>
+      </div>
+      <div>
+        <strong id="statGroups">০</strong>
+        <span data-bn="বিভাগ" data-en="Departments">বিভাগ</span>
+      </div>
+      <div>
+        <strong id="statSubjects">০</strong>
+        <span data-bn="বিষয়" data-en="Subjects">বিষয়</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FACULTY ================= -->
+<section class="section">
+  <div class="container">
+
+    <!-- Search + print -->
+    <div class="fc-toolbar reveal" role="search">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <input type="search" id="searchInput"
+               data-bn-ph="নাম, আইডি বা বিষয় দিয়ে খুঁজুন..."
+               data-en-ph="Search by name, ID or subject..."
+               placeholder="নাম, আইডি বা বিষয় দিয়ে খুঁজুন..."
+               aria-label="Search faculty">
+      </div>
+      <span class="count" id="resultCount"></span>
+      <button type="button" class="btn btn-ghost print-btn" id="printBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px">
+          <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        <span data-bn="প্রিন্ট করুন" data-en="Print">প্রিন্ট করুন</span>
+      </button>
+    </div>
+
+    <!-- Print header -->
+    <div class="fc-print-head" id="fcPrintHead"></div>
+
+    <!-- Groups rendered here -->
+    <div id="facultyContainer"></div>
+
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="callout reveal" style="max-width:820px;margin-inline:auto;text-align:center;justify-content:center">
+      <div>
+        <h4 data-bn="সকল শিক্ষকের যোগাযোগ তথ্য" data-en="Contact details for all teachers">সকল শিক্ষকের যোগাযোগ তথ্য</h4>
+        <p data-bn="পদবি ও যোগাযোগ তথ্যসহ সম্পূর্ণ তালিকা দেখতে 'শিক্ষকবৃন্দ' পেজে যান।"
+           data-en="Visit the Teachers page for the complete list with designations and contact details.">
+          পদবি ও যোগাযোগ তথ্যসহ সম্পূর্ণ তালিকা দেখতে 'শিক্ষকবৃন্দ' পেজে যান।
+        </p>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+          <a href="teachers.html" class="btn btn-primary btn-sm">
+            <span data-bn="সম্পূর্ণ তালিকা" data-en="Full Directory">সম্পূর্ণ তালিকা</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+          <a href="contact.html" class="btn btn-ghost btn-sm" data-bn="যোগাযোগ করুন" data-en="Contact Us">যোগাযোগ করুন</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="data/site-config.js"></script>
+<script src="data/teachers-data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pages.js"></script>
+<script>
+/* ============================================================
+   FACULTY PAGE — inline script
+   Groups teachers from window.TEACHERS by designation category.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var TEACHERS = window.TEACHERS || [];
+  if (!TEACHERS.length) return;
+
+  /* ============================================================
+     GROUP DEFINITIONS
+     Each group has:
+       key, title{bn,en}, desc{bn,en}, icon, matcher(t)
+     ============================================================ */
+  var GROUPS = [
+    {
+      key:"leadership",
+      title:{ bn:"নেতৃত্ব ও প্রশাসন", en:"Leadership & Administration" },
+      desc:{ bn:"বিদ্যালয়ের প্রধান শিক্ষক ও সহকারী প্রধান শিক্ষক।", en:"The Headmaster and Assistant Head Teacher." },
+      icon:"crown",
+      matcher: function (t) {
+        return t.desig.en === "Headmaster" || t.desig.en === "Assistant Head Teacher";
+      },
+      leader: true
+    },
+    {
+      key:"languages",
+      title:{ bn:"ভাষা ও গণিত বিভাগ", en:"Language & Mathematics" },
+      desc:{ bn:"বাংলা, ইংরেজি, গণিত ও সংশ্লিষ্ট বিষয়ের শিক্ষকগণ।", en:"Teachers of Bangla, English, Mathematics and related subjects." },
+      icon:"book",
+      matcher: function (t) {
+        return t.desig.en === "Assistant Teacher" &&
+          (t.subject.en === "Mathematics" || t.subject.en === "Bangla" || t.subject.en === "English");
+      }
+    },
+    {
+      key:"sciences",
+      title:{ bn:"বিজ্ঞান ও প্রযুক্তি বিভাগ", en:"Science & Technology" },
+      desc:{ bn:"কম্পিউটার, তথ্য ও যোগাযোগ প্রযুক্তি এবং বিজ্ঞান সংশ্লিষ্ট শিক্ষক।", en:"Teachers of Computer, ICT and related science subjects." },
+      icon:"flask",
+      matcher: function (t) {
+        return t.desig.en === "Assistant Teacher" &&
+          (t.subject.en === "Computer" || t.subject.en === "Information & Communications" ||
+           t.subject.en === "Physics" || t.subject.en === "Chemistry" || t.subject.en === "Biology");
+      }
+    },
+    {
+      key:"social",
+      title:{ bn:"সমাজবিজ্ঞান ও ব্যবসায় শিক্ষা", en:"Social Science & Business" },
+      desc:{ bn:"সমাজবিজ্ঞান, ব্যবসায় শিক্ষা ও অর্থনীতি বিষয়ের শিক্ষকগণ।", en:"Teachers of Social Science, Business Studies and Economics." },
+      icon:"globe",
+      matcher: function (t) {
+        return t.desig.en === "Assistant Teacher" &&
+          (t.subject.en === "Social Science" || t.subject.en === "Business Studies" ||
+           t.subject.en === "Economics");
+      }
+    },
+    {
+      key:"general",
+      title:{ bn:"সাধারণ শিক্ষকমণ্ডলী", en:"General Faculty" },
+      desc:{ bn:"সহকারী শিক্ষকগণ — পাঠদান ও ক্লাস পরিচালনায় নিয়োজিত।", en:"Assistant teachers engaged in teaching and class management." },
+      icon:"users",
+      matcher: function (t) {
+        return t.desig.en === "Assistant Teacher" && !t.subject.en;
+      }
+    },
+    {
+      key:"support",
+      title:{ bn:"সহায়ক কর্মী", en:"Support Staff" },
+      desc:{ bn:"গ্রন্থাগারিক, অফিস সহকারী, ক্রীড়া শিক্ষক ও টেকনিক্যাল স্টাফ।", en:"Librarian, Office Assistant, Sports Teacher and technical staff." },
+      icon:"wrench",
+      matcher: function (t) {
+        return t.desig.en === "Librarian" ||
+               t.desig.en === "Office Assistant" ||
+               t.desig.en === "Sports Teacher" ||
+               t.desig.en === "Computer Lab Operator";
+      }
+    }
+  ];
+
+  /* ---------------- DOM ---------------- */
+  var container  = document.getElementById('facultyContainer');
+  var searchInput= document.getElementById('searchInput');
+  var countEl    = document.getElementById('resultCount');
+  var printHead  = document.getElementById('fcPrintHead');
+  var printBtn   = document.getElementById('printBtn');
+
+  /* ---------------- STATE ---------------- */
+  var query = '';
+
+  /* ---------------- HELPERS ---------------- */
+  function esc(s) { return window.KBUHS.esc(s); }
+  function L()    { return window.KBUHS.getLang(); }
+  function bnNum(n){ return window.KBUHS.bnNum(n); }
+  function num(n)  { return L() === 'bn' ? bnNum(n) : String(n); }
+
+  /* ============================================================
+     ICONS
+     ============================================================ */
+  function iconSvg(name) {
+    var s = 'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+    if (name === 'crown')
+      return '<svg viewBox="0 0 24 24" fill="none" ' + s + '><path d="M3 18h18M5 18V8l4 4 3-8 3 8 4-4v10"/></svg>';
+    if (name === 'book')
+      return '<svg viewBox="0 0 24 24" fill="none" ' + s + '><path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-1.5Z"/><path d="M8 7h7M8 11h5"/></svg>';
+    if (name === 'flask')
+      return '<svg viewBox="0 0 24 24" fill="none" ' + s + '><path d="M9 3h6M10 3v6.5L5.2 17A2.5 2.5 0 0 0 7.4 21h9.2a2.5 2.5 0 0 0 2.2-4L14 9.5V3"/><path d="M7 15h10"/></svg>';
+    if (name === 'globe')
+      return '<svg viewBox="0 0 24 24" fill="none" ' + s + '><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>';
+    if (name === 'users')
+      return '<svg viewBox="0 0 24 24" fill="none" ' + s + '><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>';
+    if (name === 'wrench')
+      return '<svg viewBox="0 0 24 24" fill="none" ' + s + '><path d="M14.7 6.3a4 4 0 0 0 5 5l-9.4 9.4a2.1 2.1 0 0 1-3-3l9.4-9.4Z"/><path d="m6.3 14.7 3 3"/></svg>';
+    return '<svg viewBox="0 0 24 24" fill="none" ' + s + '><circle cx="12" cy="12" r="9"/></svg>';
+  }
+
+  /* ============================================================
+     FILTER
+     ============================================================ */
+  function matchesQuery(t) {
+    if (!query) return true;
+    var q = query.toLowerCase();
+    var hay = [t.name, t.id, t.desig.bn, t.desig.en, t.subject.bn, t.subject.en]
+      .join(' ').toLowerCase();
+    return hay.indexOf(q) !== -1;
+  }
+
+  /* ============================================================
+     RENDER
+     ============================================================ */
+  function render() {
+    var lang = L();
+    var total = 0;
+    var totalSubjects = [];
+
+    TEACHERS.forEach(function (t) {
+      if (t.subject.en && totalSubjects.indexOf(t.subject.en) === -1) {
+        totalSubjects.push(t.subject.en);
+      }
+    });
+
+    var html = GROUPS.map(function (g) {
+      var members = TEACHERS.filter(function (t) {
+        return g.matcher(t) && matchesQuery(t);
+      });
+
+      total += members.length;
+
+      if (members.length === 0 && query) return '';
+
+      var groupHeader = ''
+        + '<div class="fc-group-head">'
+        +   '<span class="fc-group-icon">' + iconSvg(g.icon) + '</span>'
+        +   '<div class="fc-group-title">'
+        +     '<h2 data-bn="' + esc(g.title.bn) + '" data-en="' + esc(g.title.en) + '">'
+        +       esc(lang === 'bn' ? g.title.bn : g.title.en)
+        +     '</h2>'
+        +     '<p data-bn="' + esc(g.desc.bn) + '" data-en="' + esc(g.desc.en) + '">'
+        +       esc(lang === 'bn' ? g.desc.bn : g.desc.en)
+        +     '</p>'
+        +   '</div>'
+        +   '<span class="fc-group-count">'
+        +     esc(num(members.length))
+        +     ' ' + (lang === 'bn' ? 'জন' : (members.length === 1 ? 'member' : 'members'))
+        +   '</span>'
+        + '</div>';
+
+      var cards = members.length
+        ? '<div class="fc-grid">' + members.map(function (t) { return cardHtml(t, g, lang); }).join('') + '</div>'
+        : '<div class="fc-empty">'
+          + (lang === 'bn' ? 'এই বিভাগে কোনো সদস্য পাওয়া যায়নি।' : 'No members found in this department.')
+          + '</div>';
+
+      return '<section class="fc-group reveal">' + groupHeader + cards + '</section>';
+    }).join('');
+
+    container.innerHTML = html || '<div class="fc-empty">'
+      + (lang === 'bn' ? 'কোনো সদস্য পাওয়া যায়নি।' : 'No members found.')
+      + '</div>';
+
+    /* Stats */
+    document.getElementById('statTotal').textContent = num(total);
+    document.getElementById('statGroups').textContent = num(GROUPS.length);
+    document.getElementById('statSubjects').textContent = num(totalSubjects.length);
+
+    /* Count line */
+    countEl.textContent = lang === 'bn'
+      ? bnNum(total) + ' জন সদস্য'
+      : total + (total === 1 ? ' member' : ' members');
+
+    /* Reveal */
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries, o) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); o.unobserve(e.target); }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      container.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+    } else {
+      container.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+  }
+
+  function cardHtml(t, group, lang) {
+    var desig = lang === 'bn' ? t.desig.bn : t.desig.en;
+    var subj  = lang === 'bn' ? t.subject.bn : t.subject.en;
+    var ini   = window.KBUHS.initials(t.name);
+    var photo = 'images/teachers/' + t.id + '.jpg';
+
+    var contact = '';
+    if (t.mobile || t.email) {
+      contact = '<div class="fc-contact">';
+      if (t.mobile) {
+        contact += '<a href="tel:' + esc(t.mobile) + '">'
+          + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+          +   '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/>'
+          + '</svg>'
+          + '<span>' + esc(t.mobile) + '</span>'
+          + '</a>';
+      }
+      if (t.email) {
+        contact += '<a href="mailto:' + esc(t.email) + '">'
+          + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+          +   '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>'
+          + '</svg>'
+          + '<span>' + esc(t.email) + '</span>'
+          + '</a>';
+      }
+      contact += '</div>';
+    }
+
+    return '<article class="fc-card' + (group.leader ? ' leader' : '') + '">'
+      +   '<div class="fc-avatar">'
+      +     '<img src="' + photo + '" alt="' + esc(t.name) + '" loading="lazy" onerror="this.remove()">'
+      +     '<span>' + ini + '</span>'
+      +   '</div>'
+      +   '<h3 class="fc-name">' + esc(t.name) + '</h3>'
+      +   '<p class="fc-desig" data-bn="' + esc(t.desig.bn) + '" data-en="' + esc(t.desig.en) + '">' + esc(desig) + '</p>'
+      +   (subj ? '<span class="fc-subject" data-bn="' + esc(t.subject.bn) + '" data-en="' + esc(t.subject.en) + '">' + esc(subj) + '</span>' : '')
+      +   contact
+      +   '<p class="fc-id">ID ' + esc(t.id) + '</p>'
+      + '</article>';
+  }
+
+  /* ============================================================
+     PRINT HEADER
+     ============================================================ */
+  function renderPrintHead() {
+    var lang = L();
+    var S = window.SITE || {};
+    var school = lang === 'bn' ? (S.nameBn || '') : (S.nameEn || '');
+    printHead.innerHTML = ''
+      + '<h1>' + esc(school) + '</h1>'
+      + '<div class="sub">'
+      +   (lang === 'bn' ? 'শিক্ষকমণ্ডলী ও কর্মী — বিভাগ অনুযায়ী' : 'Faculty & Staff — by Department')
+      + '</div>'
+      + '<div style="font-size:12px;color:var(--muted);margin-top:6px">'
+      +   (lang === 'bn' ? 'মোট সদস্য: ' + bnNum(TEACHERS.length) : 'Total members: ' + TEACHERS.length)
+      + '</div>';
+  }
+
+  /* ============================================================
+     EVENTS
+     ============================================================ */
+  searchInput.addEventListener('input', function () {
+    query = searchInput.value || '';
+    render();
+  });
+
+  printBtn.addEventListener('click', function () { window.print(); });
+
+  window.addEventListener('kbuhs:lang', function () {
+    render();
+    renderPrintHead();
+  });
+
+  /* ============================================================
+     GO
+     ============================================================ */
+  render();
+  renderPrintHead();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>নোটিশ বোর্ড | Notices — কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়</title>
+<meta name="description" content="কোলা বাজার ইউনাইটেড উচ্চ বিদ্যালয়ের সর্বশেষ নোটিশ, ঘোষণা ও তথ্য।">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/pages.css">
+</head>
+
+<body data-page="notices">
+
+<a class="skip-link" href="#main" data-bn="মূল কনটেন্টে যান" data-en="Skip to main content">মূল কনটেন্টে যান</a>
+
+<div id="site-header"></div>
+
+<main id="main">
+
+<!-- ================= PAGE HERO ================= -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-bn="হোম" data-en="Home">হোম</a>
+      <span class="slash">/</span>
+      <span class="current" data-bn="নোটিশ বোর্ড" data-en="Notices">নোটিশ বোর্ড</span>
+    </nav>
+
+    <h1 data-bn="নোটিশ বোর্ড" data-en="Notice Board">নোটিশ বোর্ড</h1>
+    <p class="lead"
+       data-bn="বিদ্যালয়ের সর্বশেষ ঘোষণা, পরীক্ষার তথ্য, ভর্তি বিজ্ঞপ্তি ও অন্যান্য নোটিশ — সব এক জায়গায়।"
+       data-en="All the latest announcements, exam info, admission notices and more — in one place.">
+      বিদ্যালয়ের সর্বশেষ ঘোষণা, পরীক্ষার তথ্য, ভর্তি বিজ্ঞপ্তি ও অন্যান্য নোটিশ — সব এক জায়গায়।
+    </p>
+
+    <div class="hero-stats">
+      <div>
+        <strong id="statTotal">০</strong>
+        <span data-bn="মোট নোটিশ" data-en="Total Notices">মোট নোটিশ</span>
+      </div>
+      <div>
+        <strong id="statLatest">—</strong>
+        <span data-bn="সর্বশেষ প্রকাশ" data-en="Latest Published">সর্বশেষ প্রকাশ</span>
+      </div>
+      <div>
+        <strong id="statCategories">০</strong>
+        <span data-bn="বিভাগ" data-en="Categories">বিভাগ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FILTERS + LIST ================= -->
+<section class="section">
+  <div class="container">
+
+    <!-- Category tabs -->
+    <div class="class-tabs" id="catTabs" role="tablist" aria-label="Notice categories"></div>
+
+    <!-- Search + meta -->
+    <div class="toolbar reveal" role="search">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <input type="search" id="searchInput"
+               data-bn-ph="নোটিশ খুঁজুন..."
+               data-en-ph="Search notices..."
+               placeholder="নোটিশ খুঁজুন..."
+               aria-label="Search notices">
+      </div>
+      <span class="count" id="resultCount"></span>
+    </div>
+
+    <!-- Notice list -->
+    <div class="notice-page-list" id="noticeList"></div>
+
+    <!-- Empty state -->
+    <div class="empty-state" id="emptyState">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+      </svg>
+      <h3 data-bn="কোনো নোটিশ পাওয়া যায়নি" data-en="No notices found">কোনো নোটিশ পাওয়া যায়নি</h3>
+      <p data-bn="অনুসন্ধানের শব্দ বা বিভাগ পরিবর্তন করে আবার চেষ্টা করুন।"
+         data-en="Try changing your search term or category.">
+        অনুসন্ধানের শব্দ বা বিভাগ পরিবর্তন করে আবার চেষ্টা করুন।
+      </p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination" role="navigation" aria-label="Notice pages"></div>
+
+  </div>
+</section>
+
+<!-- ================= SUBSCRIBE / HOW TO GET UPDATES ================= -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-bn="আপডেট পেতে" data-en="Stay Updated">আপডেট পেতে</span>
+      <h2 data-bn="নোটিশ সরাসরি পেতে চান?" data-en="Want notices delivered to you?">নোটিশ সরাসরি পেতে চান?</h2>
+      <p data-bn="বিদ্যালয়ের সব ঘোষণা ও নোটিশ পাওয়ার সহজ উপায়।"
+         data-en="Easy ways to keep up with all school announcements.">
+        বিদ্যালয়ের সব ঘোষণা ও নোটিশ পাওয়ার সহজ উপায়।
+      </p>
+    </div>
+
+    <div class="card-grid">
+      <div class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-1.5Z"/>
+            <path d="M8 7h7M8 11h5"/>
+          </svg>
+        </span>
+        <h3 data-bn="নোটিশ বোর্ড" data-en="Notice Board">নোটিশ বোর্ড</h3>
+        <p data-bn="বিদ্যালয় ক্যাম্পাসে স্থাপিত নোটিশ বোর্ডে সব ঘোষণা পোস্ট করা হয় — সরাসরি এসে দেখুন।"
+           data-en="All announcements are posted on the notice board on campus — feel free to visit and read.">
+          বিদ্যালয় ক্যাম্পাসে স্থাপিত নোটিশ বোর্ডে সব ঘোষণা পোস্ট করা হয় — সরাসরি এসে দেখুন।
+        </p>
+      </div>
+
+      <div class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m22 7-10 6L2 7"/>
+          </svg>
+        </span>
+        <h3 data-bn="ইমেইল আপডেট" data-en="Email Updates">ইমেইল আপডেট</h3>
+        <p data-bn="গুরুত্বপূর্ণ নোটিশের কপি অফিস থেকে ইমেইলে পাঠানো হয়। অফিসে যোগাযোগ করে তালিকায় নাম লেখান।"
+           data-en="Copies of important notices are emailed by the office. Contact them to be added to the list.">
+          গুরুত্বপূর্ণ নোটিশের কপি অফিস থেকে ইমেইলে পাঠানো হয়। অফিসে যোগাযোগ করে তালিকায় নাম লেখান।
+        </p>
+      </div>
+
+      <div class="info-card reveal">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/>
+          </svg>
+        </span>
+        <h3 data-bn="ফোনে জিজ্ঞাসা" data-en="Call for Enquiry">ফোনে জিজ্ঞাসা</h3>
+        <p data-bn="যেকোনো নোটিশ বা তথ্যের জন্য সরাসরি অফিসে ফোন করুন — অফিস চলাকালীন সময়ে।"
+           data-en="Call the office directly during office hours for any notice or information.">
+          যেকোনো নোটিশ বা তথ্যের জন্য সরাসরি অফিসে ফোন করুন — অফিস চলাকালীন সময়ে।
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="data/site-config.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pages.js"></script>
+
+<script src="assets/notices.js"></script>
+
+</body>
+</html>
